@@ -11,7 +11,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<MovieDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("MovieConnection")));
+    options.UseSqlite("Data Source=Movies.sqlite")
+        .EnableSensitiveDataLogging()
+        .LogTo(Console.WriteLine, LogLevel.Information));
 
 builder.Services.AddCors(options =>
     options.AddPolicy("AllowFrontend",
@@ -25,17 +27,17 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseCors("AllowFrontend");
-
-
 app.UseHttpsRedirection();
+
+app.UseRouting(); // ✅ Required for proper middleware flow
+
+app.UseCors("AllowFrontend"); // ✅ Must come after UseRouting and before UseAuth
 
 app.UseAuthorization();
 
