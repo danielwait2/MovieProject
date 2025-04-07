@@ -1,58 +1,53 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
 namespace MovieProject.API.Data
 {
-    [Table("movies_titles")] //physical table is named 'movies_titles'
     public class Movie
     {
-        [Key]
-        [Column("show_id")]
-        public string? ShowId { get; set; }
-
-        [Column("type")]
-        public string? Type { get; set; }
-
-        [Column("title")]
-        public string? Title { get; set; }
-
-        [Column("director")]
+        // Basic movie info
+        public string ShowId { get; set; }  // Primary key
+        public string Type { get; set; }
+        public string Title { get; set; }
         public string? Director { get; set; }
-
-        [Column("cast")]
         public string? Cast { get; set; }
-
-        [Column("country")]
         public string? Country { get; set; }
-
-        [Column("date_added")]
         public string? DateAdded { get; set; }
-
-        [Column("release_year")]
         public int? ReleaseYear { get; set; }
-
-        [Column("rating")]
         public string? Rating { get; set; }
-
-        [Column("duration")]
         public string? Duration { get; set; }
-
-        [Column("listed_in")]
         public string? ListedIn { get; set; }
-
-        [Column("description")]
         public string? Description { get; set; }
 
-        // EXAMPLE for columns with spaces or special chars:
-        //  [Column("TV Action")]
-        //  public int? TvAction { get; set; }
-
-        //  [Column("TV Dramas")]
-        //  public int? TvDramas { get; set; }
-
-        //  [Column("Anime Series International TV Shows")]
-        //  public int? AnimeSeriesInternationalTvShows { get; set; }
-
-        // ...Add the rest of your columns the same way.
+        // Genre/category columns
+        public int? Action { get; set; }
+        public int? Adventure { get; set; }
+        public int? AnimeSeriesInternationalTvShows { get; set; }
+        public int? BritishTvShowsDocuseriesInternationalTvShows { get; set; }
+        public int? Children { get; set; }
+        public int? Comedies { get; set; }
+        public int? ComediesDramasInternationalMovies { get; set; }
+        public int? ComediesInternationalMovies { get; set; }
+        public int? ComediesRomanticMovies { get; set; }
+        public int? CrimeTvShowsDocuseries { get; set; }
+        public int? Documentaries { get; set; }
+        public int? DocumentariesInternationalMovies { get; set; }
+        public int? Docuseries { get; set; }
+        public int? Dramas { get; set; }
+        public int? DramasInternationalMovies { get; set; }
+        public int? DramasRomanticMovies { get; set; }
+        public int? FamilyMovies { get; set; }
+        public int? Fantasy { get; set; }
+        public int? HorrorMovies { get; set; }
+        public int? InternationalMoviesThrillers { get; set; }
+        public int? InternationalTvShowsRomanticTvShows { get; set; }
+        public int? KidsTV { get; set; }
+        public int? LanguageTvShows { get; set; }
+        public int? Musicals { get; set; }
+        public int? NatureTv { get; set; }
+        public int? RealityTv { get; set; }
+        public int? Spirituality { get; set; }
+        public int? TvAction { get; set; }
+        public int? TvComedies { get; set; }
+        public int? TvDramas { get; set; }
+        public int? TalkShowsTvComedies { get; set; }
+        public int? Thrillers { get; set; }
     }
 }
