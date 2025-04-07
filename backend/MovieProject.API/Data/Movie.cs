@@ -1,21 +1,21 @@
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MovieProject.API.Data
 {
+
     public class Movie
     {
         // Basic movie info
-        public string ShowId { get; set; }  // Primary key
+        public string show_id { get; set; }  // Primary key
         public string Type { get; set; }
         public string Title { get; set; }
         public string? Director { get; set; }
         public string? Cast { get; set; }
         public string? Country { get; set; }
-        public string? DateAdded { get; set; }
-        public int? ReleaseYear { get; set; }
+        public int? release_year { get; set; }
         public string? Rating { get; set; }
         public string? Duration { get; set; }
-        public string? ListedIn { get; set; }
         public string? Description { get; set; }
 
         // Genre/category columns
@@ -39,7 +39,7 @@ namespace MovieProject.API.Data
         public int? Fantasy { get; set; }
         public int? HorrorMovies { get; set; }
         public int? InternationalMoviesThrillers { get; set; }
-        public int? InternationalTvShowsRomanticTvShows { get; set; }
+        public int? InternationalTvShowsRomanticTvShowsTvDramas { get; set; }
         public int? KidsTV { get; set; }
         public int? LanguageTvShows { get; set; }
         public int? Musicals { get; set; }
@@ -79,7 +79,7 @@ public List<string> Genres
         if (Fantasy == 1) genres.Add("Fantasy");
         if (HorrorMovies == 1) genres.Add("Horror Movies");
         if (InternationalMoviesThrillers == 1) genres.Add("International Movies Thrillers");
-        if (InternationalTvShowsRomanticTvShows == 1) genres.Add("International TV Shows Romantic TV Shows");
+        if (InternationalTvShowsRomanticTvShowsTvDramas == 1) genres.Add("International TV Shows Romantic TV Shows");
         if (KidsTV == 1) genres.Add("Kids' TV");
         if (LanguageTvShows == 1) genres.Add("Language TV Shows");
         if (Musicals == 1) genres.Add("Musicals");
