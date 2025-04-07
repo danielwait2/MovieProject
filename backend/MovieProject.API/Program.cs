@@ -33,6 +33,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// https redirection
 app.UseHttpsRedirection();
 
 app.UseRouting(); // ✅ Required for proper middleware flow
