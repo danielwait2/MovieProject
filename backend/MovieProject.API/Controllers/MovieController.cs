@@ -19,7 +19,7 @@ namespace MovieProject.API.Controllers
 
             if (projectTypes != null && projectTypes.Any())
             {
-                query = query.Where(p => projectTypes.Contains(p.ProjectType));
+                query = query.Where(p => projectTypes.Contains(p.Title));
             }
 
             var totalNumProjects = query.Count();
@@ -38,11 +38,11 @@ namespace MovieProject.API.Controllers
             return Ok(someObject);
         }
 
-        [HttpGet("GetProjectTypes")]
+        [HttpGet("GetMovieTypes")]
         public IActionResult GetProjectTypes ()
         {
             var projectTypes = _movieContext.Movies
-                .Select(p => p.ProjectType)
+                .Select(p => p.Genres)
                 .Distinct()
                 .ToList();
 
@@ -62,12 +62,12 @@ namespace MovieProject.API.Controllers
         {
             var existingMovie = _movieContext.Movies.Find(projectId);
 
-            existingMovie.ProjectName = updatedMovie.ProjectName;
-            existingMovie.ProjectType = updatedMovie.ProjectType;
-            existingMovie.ProjectRegionalProgram = updatedMovie.ProjectRegionalProgram;
-            existingMovie.ProjectImpact = updatedMovie.ProjectImpact;
-            existingMovie.ProjectPhase = updatedMovie.ProjectPhase;
-            existingMovie.ProjectFunctionalityStatus = updatedMovie.ProjectFunctionalityStatus;
+            // existingMovie.ProjectName = updatedMovie.ProjectName;
+            // existingMovie.ProjectType = updatedMovie.ProjectType;
+            // existingMovie.ProjectRegionalProgram = updatedMovie.ProjectRegionalProgram;
+            // existingMovie.ProjectImpact = updatedMovie.ProjectImpact;
+            // existingMovie.ProjectPhase = updatedMovie.ProjectPhase;
+            // existingMovie.ProjectFunctionalityStatus = updatedMovie.ProjectFunctionalityStatus;
 
             _movieContext.Movies.Update(existingMovie);
             _movieContext.SaveChanges();
