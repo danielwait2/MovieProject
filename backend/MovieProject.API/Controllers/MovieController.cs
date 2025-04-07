@@ -12,6 +12,19 @@ namespace MovieProject.API.Controllers
 
         public MovieController(MovieDbContext temp) => _movieContext = temp;
 
+        [HttpGet("RecMoviesTemp")]
+        public IActionResult GetProjects()
+        {
+            var query = _movieContext.Movies.AsQueryable();
+
+            var books = query
+                .Take(10)
+                .ToList();
+
+            return Ok(books);
+        }
+
+
         [HttpGet("AllMovies")]
         public IActionResult GetProjects(int pageSize = 10, int pageNum = 1, string searchQuery ="", [FromQuery] List<string>? projectTypes = null)
         {
@@ -30,7 +43,7 @@ namespace MovieProject.API.Controllers
             var totalNumProjects = query.Count();
             // apply Pagination
             var something = query
-                .Skip((pageNum-1) * pageSize)
+                .Skip((pageNum - 1) * pageSize)
                 .Take(pageSize)
                 .ToList();
 
