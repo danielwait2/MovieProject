@@ -17,7 +17,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ showId, title, year }) => {
     }, [title]);
 
     return (
-        <Link to={`/movies/${showId}`}>
+        <Link to={`/movies/${showId}`} style={{ textDecoration: 'none' }}>
             <div className="movie-card">
                 <div className="movie-image-placeholder">
                     <img
