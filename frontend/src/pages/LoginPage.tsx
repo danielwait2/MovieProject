@@ -1,5 +1,3 @@
-
-
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../css/Identity.css';
@@ -105,9 +103,9 @@ function LoginPage() {
                                 <label htmlFor="password">Password</label>
                             </div>
 
-                            <div className="form-check mb-3">
+                            <div className="form-check mb-3 d-flex align-items-center justify-content-center">
                                 <input
-                                    className="form-check-input"
+                                    className="form-check-input me-2"
                                     type="checkbox"
                                     value=""
                                     id="rememberme"
@@ -172,4 +170,3 @@ function LoginPage() {
 }
 
 export default LoginPage;
-
