@@ -1,7 +1,5 @@
 
-import { useState, useEffect } from 'react';
-import { Movie } from './types/Movie';
-import MovieCarousel from './components/MovieCarousel'; 
+
 
 import './App.css';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
