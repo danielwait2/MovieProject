@@ -39,33 +39,38 @@ function GenreFilter({
     return (
         <>
             <h2 className="carousel-title">Filter By Genre:</h2>
-            <div className="container">
-                <div className="genre-filter">
-                    <div className="genre-list">
-                        {genres.map((c) => (
-                            <div key={c} className="genre-item">
-                                <input
-                                    type="checkbox"
-                                    id={c}
-                                    value={c}
-                                    className="btn-check btn-filter"
-                                    onChange={handleCheckboxChange}
-                                />
-                                <label
-                                    className="btn"
-                                    style={{ margin: '3pt', width: '120px' }}
-                                    htmlFor={c}
-                                >
-                                    {c.substring(
-                                        0,
-                                        c.indexOf(' ', 10) > 0
-                                            ? c.indexOf(' ', 10)
-                                            : c.length
-                                    )}
-                                </label>
-                            </div>
-                        ))}
-                    </div>
+            <div className="genre-filter">
+                <div className="genre-list">
+                    {genres.map((c) => (
+                        <div key={c} className="genre-item">
+                            <input
+                                type="checkbox"
+                                id={c}
+                                value={c}
+                                className="btn-check"
+                                onChange={(e) => {
+                                    e.stopPropagation(); // Stop event bubbling
+                                    handleCheckboxChange(e); // Your existing handler
+                                }}
+                            />
+                            <label
+                                className="btn btn-filter"
+                                htmlFor={c}
+                                onClick={(e) => {
+                                    e.preventDefault(); // This prevents the default behavior
+                                    e.stopPropagation(); // This stops the event from bubbling up
+                                    // The click will still trigger the checkbox change due to the htmlFor attribute
+                                }}
+                            >
+                                {c.substring(
+                                    0,
+                                    c.indexOf(' ', 10) > 0
+                                        ? c.indexOf(' ', 10)
+                                        : c.length
+                                )}
+                            </label>
+                        </div>
+                    ))}
                 </div>
             </div>
         </>
