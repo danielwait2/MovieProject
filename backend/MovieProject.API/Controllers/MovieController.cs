@@ -119,34 +119,37 @@ namespace MovieProject.API.Controllers
             return Ok(genres);
         }
 
-        [HttpGet("AllMovies")]
-        public IActionResult GetProjects(int pageSize = 10, int pageNum = 1, string searchQuery = "", [FromQuery] List<string>? projectTypes = null)
-        {
-            var query = _movieContext.Movies.AsQueryable();
+[HttpGet("AllMovies")]
+public IActionResult GetProjects(int pageSize = 10, int pageNum = 1, string searchQuery = "", [FromQuery] List<string>? projectTypes = null)
+{
+    var query = _movieContext.Movies.AsQueryable();
 
-            if (projectTypes != null && projectTypes.Any())
-            {
-                query = query.Where(p => p.Genres.Any(g => projectTypes.Contains(g)));
-            }
-            if (!string.IsNullOrWhiteSpace(searchQuery))
-            {
-                query = query.Where(m => m.Title.ToLower().Contains(searchQuery.ToLower()));
-            }
+    if (projectTypes != null && projectTypes.Any())
+    {
+        query = query.Where(p => p.Genres.Any(g => projectTypes.Contains(g)));
+    }
 
-            var totalNumProjects = query.Count();
-            var movies = query
-                .Skip((pageNum - 1) * pageSize)
-                .Take(pageSize)
-                .ToList();
+    if (!string.IsNullOrWhiteSpace(searchQuery))
+    {
+        query = query.Where(m => m.Title.ToLower().Contains(searchQuery.ToLower()));
+    }
 
-            var result = new
-            {
-                Projects = movies,
-                TotalNumProjects = totalNumProjects
-            };
+    var totalNumMovies = query.Count();
 
-            return Ok(result);
-        }
+    var movies = query
+        .Skip((pageNum - 1) * pageSize)
+        .Take(pageSize)
+        .ToList();
+
+    var result = new
+    {
+        Movies = movies,
+        TotalNumMovies = totalNumMovies
+    };
+
+    return Ok(result);
+}
+
 
         [HttpGet("GetMovieTypes")]
         public IActionResult GetProjectTypes()
