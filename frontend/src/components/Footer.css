@@ -1,5 +1,9 @@
 .footer {
-    border-top: 1px solid #ddd;
+    color: #272727;
+    background-color: #272727;
+    padding: 20px;
+    text-align: center;
+    font-size: .7rem;
 }
 
 .privacy-link {
@@ -11,5 +15,5 @@
     text-decoration: underline;
 }
 .copyright {
-    color: black;
+    color: white;
 }

@@ -4,11 +4,10 @@ import './Footer.css';
 
 const Footer: React.FC = () => {
     return (
-        <footer className="footer py-3 bg-light">
+        <footer className="footer py-3">
             <div className="container text-center">
                 <p className="copyright mb-0">
-                    © {new Date().getFullYear()} Your Company Name. All rights
-                    reserved.
+                    © {new Date().getFullYear()} CineNiche All rights reserved.
                 </p>
                 <p className="mb-0">
                     <a href="/privacyPolicy" className="privacy-link">
