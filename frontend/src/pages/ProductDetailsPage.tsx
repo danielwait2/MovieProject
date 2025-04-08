@@ -61,10 +61,10 @@ const ProductDetailsPage: React.FC = () => {
         ? `https://localhost:5000/api/MovieImages/${movie.title}.jpg`
         : unknownImage;
 
-    // Retrieve genres from the movie object. (Checks both "genre" and "Genres".)
+    // Retrieve genres from the movie object. (Your API may have either "genre" or "Genres")
     const genres = (movie as any).genre || (movie as any).Genres || [];
 
-    // Process the cast string and only show the first three actors.
+    // Process the cast string: only show the first three actors.
     const firstThreeCast =
         movie.cast && movie.cast.indexOf(',') > -1
             ? movie.cast
@@ -72,7 +72,7 @@ const ProductDetailsPage: React.FC = () => {
                   .slice(0, 3)
                   .map((actor) => actor.trim())
                   .join(', ')
-            : movie.cast; // If not comma-delimited, display as is
+            : movie.cast;
 
     return (
         <div className="container my-5 product-details">
@@ -121,9 +121,9 @@ const ProductDetailsPage: React.FC = () => {
                         </p>
                     )}
 
-                    {/* Movie Description */}
+                    {/* Movie Description (with increased size) */}
                     {movie.description && (
-                        <p className="meta-description">{movie.description}</p>
+                        <p className="description-text">{movie.description}</p>
                     )}
 
                     {/* Action Buttons and Five-Star Rating */}
