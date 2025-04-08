@@ -1,4 +1,5 @@
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,8 @@ namespace MovieProject.API.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [Authorize]
+
     public class MovieController : ControllerBase
     {
         private MovieDbContext _movieContext;
