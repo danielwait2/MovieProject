@@ -10,6 +10,7 @@ function Register() {
 
     // state variable for error messages
     const [error, setError] = useState('');
+    const [info, setInfo] = useState('');
 
     const handleLoginClick = () => {
         navigate('/login');
@@ -29,13 +30,20 @@ function Register() {
         // validate email and passwords
         if (!email || !password || !confirmPassword) {
             setError('Please fill in all fields.');
+            setInfo('');
         } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
             setError('Please enter a valid email address.');
-        } else if (password !== confirmPassword) {
-            setError('Passwords do not match.');
-        } else {
-            // clear error message
+            setInfo('');
+        } else if (password.length < 14) {
+            setInfo('Password must be at least 14 characters long.');
             setError('');
+        } else if (password !== confirmPassword) {
+            setInfo('Passwords do not match.');
+            setError('');
+        } else {
+            // clear messages
+            setError('');
+            setInfo('');
             // post data to the /register api
             fetch('https://localhost:5000/register', {
                 method: 'POST',
@@ -92,7 +100,7 @@ function Register() {
                                     value={password}
                                     onChange={handleChange}
                                 />
-                                <label htmlFor="password">Password</label>
+                                <label htmlFor="password">Password (at least 14 Characters)</label>
                             </div>
                             <div className="form-floating mb-3">
                                 <input
@@ -127,6 +135,7 @@ function Register() {
                         </form>
                         <strong>
                             {error && <p className="error">{error}</p>}
+                            {info && <p className="info">{info}</p>}
                         </strong>
                     </div>
                 </div>
