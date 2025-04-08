@@ -82,9 +82,15 @@ app.MapIdentityApi<IdentityUser>();
 app.MapPost("/logout", async (HttpContext context, SignInManager<IdentityUser> signInManager) =>
 {
     await signInManager.SignOutAsync();
-    
-    // Ensure authentication cookie is removed
-    context.Response.Cookies.Delete(".AspNetCore.Identity.Application");
+
+    // Remove the authentication cookie with the matching options
+    context.Response.Cookies.Delete(".AspNetCore.Identity.Application", new CookieOptions
+    {
+        HttpOnly = true,
+        SameSite = SameSiteMode.None,
+        Secure = true,
+        Path = "/"
+    });
 
     return Results.Ok(new { message = "Logout successful" });
 }).RequireAuthorization();
