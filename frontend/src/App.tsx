@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Movie } from './types/Movie';
-import MovieCarousel from './components/MovieCarousel';
+import MovieCarousel from './components/MovieCarousel'; 
 import './App.css';
 
 import './App.css';
@@ -16,6 +16,7 @@ function App() {
                 <MovieCarousel />
             </main>
             <PrivacyPolicy />
+
         </div>
     );
 }

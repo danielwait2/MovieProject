@@ -18,7 +18,7 @@ namespace MovieProject.API.Controllers
             var query = _movieContext.Movies.AsQueryable();
 
             var books = query
-                .Take(10)
+                .Take(30)
                 .ToList();
 
             return Ok(books);
