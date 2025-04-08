@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Navbar from '../components/Navbar';
 
 function Register() {
+    
     // state variables for email and passwords
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -72,7 +74,7 @@ function Register() {
     };
 
     return (
-        <div className="container">
+        <><Navbar /><div className="container">
             <div className="row">
                 <div className="card border-0 shadow rounded-3 ">
                     <div className="card-body p-4 p-sm-5">
@@ -87,8 +89,7 @@ function Register() {
                                     id="email"
                                     name="email"
                                     value={email}
-                                    onChange={handleChange}
-                                />
+                                    onChange={handleChange} />
                                 <label htmlFor="email">Email address</label>
                             </div>
                             <div className="form-floating mb-3">
@@ -98,8 +99,7 @@ function Register() {
                                     id="password"
                                     name="password"
                                     value={password}
-                                    onChange={handleChange}
-                                />
+                                    onChange={handleChange} />
                                 <label htmlFor="password">Password (at least 14 Characters)</label>
                             </div>
                             <div className="form-floating mb-3">
@@ -109,8 +109,7 @@ function Register() {
                                     id="confirmPassword"
                                     name="confirmPassword"
                                     value={confirmPassword}
-                                    onChange={handleChange}
-                                />
+                                    onChange={handleChange} />
                                 <label htmlFor="confirmPassword">
                                     Confirm Password
                                 </label>
@@ -140,7 +139,7 @@ function Register() {
                     </div>
                 </div>
             </div>
-        </div>
+        </div></>
     );
 }
 

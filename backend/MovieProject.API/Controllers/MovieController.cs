@@ -111,34 +111,35 @@ namespace MovieProject.API.Controllers
         }
 
         [HttpGet("AllMovies")]
-        public IActionResult GetProjects(int pageSize = 10, int pageNum = 1, string searchQuery ="", [FromQuery] List<string>? projectTypes = null)
+        [AllowAnonymous] // ✅ add this for now if you're not logged in
+        public IActionResult GetProjects(int pageSize = 10, int pageNum = 1, string searchQuery = "", [FromQuery] List<string>? projectTypes = null)
         {
             var query = _movieContext.Movies.AsQueryable();
-// Filter by Genres of movies
+
             if (projectTypes != null && projectTypes.Any())
             {
                 query = query.Where(p => p.Genres.Any(g => projectTypes.Contains(g)));
             }
-            // filter by title on search function
+
             if (!string.IsNullOrWhiteSpace(searchQuery))
             {
-                query = query.Where(book => book.Title.ToLower().Contains(searchQuery.ToLower()));
+                query = query.Where(movie => movie.Title.ToLower().Contains(searchQuery.ToLower()));
             }
-            // get total count of books after filtering
-            var totalNumProjects = query.Count();
-            // apply Pagination
-            var something = query
+
+            var totalNumMovies = query.Count();
+
+            var movies = query
                 .Skip((pageNum - 1) * pageSize)
                 .Take(pageSize)
                 .ToList();
 
-            var someObject = new
+            var response = new
             {
-                Projects = something,
-                TotalNumProjects = totalNumProjects
+                Movies = movies,
+                TotalNumMovies = totalNumMovies
             };
 
-            return Ok(someObject);
+            return Ok(response);
         }
 
         [HttpGet("GetMovieTypes")]

@@ -4,7 +4,7 @@ import { deleteMovie, fetchMovies } from '../api/MoviesAPI';
 import Pagination from '../components/Pagination';
 import EditMovieForm from '../components/EditMovieForm';
 import NewMovieForm from '../components/NewMovieForm';
-
+import Navbar from '../components/Navbar';
 const genreFields = [
     'action',
     'adventure',
@@ -101,133 +101,137 @@ const AdminMoviePage = () => {
     if (error) return <p className="text-red-500">Error: {error}</p>;
 
     return (
-        <div>
-            <h1 className="color white">Admin - Movies</h1>
+        <>
+            <Navbar />
+            <div>
+                <h1 className="color white">Admin - Movies</h1>
 
-            {!showForm && (
-                <button
-                    className="btn btn-success mb-3"
-                    onClick={() => setShowForm(true)}
-                >
-                    Add Movie
-                </button>
-            )}
+                {!showForm && (
+                    <button
+                        className="btn btn-success mb-3"
+                        onClick={() => setShowForm(true)}
+                    >
+                        Add Movie
+                    </button>
+                )}
 
-            {showForm && (
-                <NewMovieForm
-                    onSuccess={() => {
-                        setShowForm(false);
-                        fetchMovies(pageSize, pageNum, []).then((data) =>
-                            setMovies(data.movies)
-                        );
-                    }}
-                    onCancel={() => setShowForm(false)}
-                />
-            )}
+                {showForm && (
+                    <NewMovieForm
+                        onSuccess={() => {
+                            setShowForm(false);
+                            fetchMovies(pageSize, pageNum, []).then((data) =>
+                                setMovies(data.movies)
+                            );
+                        }}
+                        onCancel={() => setShowForm(false)}
+                    />
+                )}
 
-            {editingMovie && (
-                <EditMovieForm
-                    movie={editingMovie}
-                    onSuccess={() => {
-                        setEditingMovie(null);
-                        fetchMovies(pageSize, pageNum, []).then((data) =>
-                            setMovies(data.movies)
-                        );
-                    }}
-                    onCancel={() => setEditingMovie(null)}
-                />
-            )}
+                {editingMovie && (
+                    <EditMovieForm
+                        movie={editingMovie}
+                        onSuccess={() => {
+                            setEditingMovie(null);
+                            fetchMovies(pageSize, pageNum, []).then((data) =>
+                                setMovies(data.movies)
+                            );
+                        }}
+                        onCancel={() => setEditingMovie(null)}
+                    />
+                )}
 
-            <div className="row g-4">
-                {movies.map((m) => (
-                    <div key={m.showId} className="col-12 col-md-4">
-                        <div className="card h-100 text-white bg-dark d-flex flex-column align-items-center text-center">
-                            <div className="card-header w-100 d-flex justify-content-between align-items-center">
-                                <h5 className="card-title text-danger fw-bold mb-0">
-                                    {m.title}
-                                </h5>
-                                <span className="badge bg-secondary">
-                                    {m.type}
-                                </span>
-                            </div>
+                <div className="row g-4">
+                    {movies.map((m) => (
+                        <div key={m.showId} className="col-12 col-md-4">
+                            <div className="card h-100 text-white bg-dark d-flex flex-column align-items-center text-center">
+                                <div className="card-header w-100 d-flex justify-content-between align-items-center">
+                                    <h5 className="card-title text-danger fw-bold mb-0">
+                                        {m.title}
+                                    </h5>
+                                    <span className="badge bg-secondary">
+                                        {m.type}
+                                    </span>
+                                </div>
 
-                            <img
-                                src={`https://localhost:5000/api/MovieImages/${m.title}.jpg`}
-                                alt={m.title}
-                                className="card-img-top object-fit-cover"
-                                style={{
-                                    height: '100%',
-                                    width: '100%',
-                                    objectFit: 'cover',
-                                }}
-                                onError={(e) => {
-                                    e.currentTarget.src = '/assets/unknown.jpg';
-                                }}
-                            />
+                                <img
+                                    src={`https://localhost:5000/api/MovieImages/${m.title}.jpg`}
+                                    alt={m.title}
+                                    className="card-img-top object-fit-cover"
+                                    style={{
+                                        height: '100%',
+                                        width: '100%',
+                                        objectFit: 'cover',
+                                    }}
+                                    onError={(e) => {
+                                        e.currentTarget.src =
+                                            '/assets/unknown.jpg';
+                                    }}
+                                />
 
-                            <div className="card-body px-3">
-                                <p>
-                                    <strong>Director:</strong>{' '}
-                                    {m.director || 'N/A'}
-                                </p>
-                                <p>
-                                    <strong>Cast:</strong> {m.cast || 'N/A'}
-                                </p>
-                                <p>
-                                    <strong>Country:</strong>{' '}
-                                    {m.country || 'N/A'}
-                                </p>
-                                <p>
-                                    <strong>Year:</strong> {m.release_year}
-                                </p>
-                                <p>
-                                    <strong>Rating:</strong> {m.rating}
-                                </p>
-                                <p>
-                                    <strong>Duration:</strong> {m.duration}
-                                </p>
-                                <p>
-                                    <strong>Description:</strong>{' '}
-                                    {m.description}
-                                </p>
-                                <p>
-                                    <strong>Genres:</strong>{' '}
-                                    {getGenresForMovie(m)
-                                        .map(formatGenreLabel)
-                                        .join(', ')}
-                                </p>
-                            </div>
+                                <div className="card-body px-3">
+                                    <p>
+                                        <strong>Director:</strong>{' '}
+                                        {m.director || 'N/A'}
+                                    </p>
+                                    <p>
+                                        <strong>Cast:</strong> {m.cast || 'N/A'}
+                                    </p>
+                                    <p>
+                                        <strong>Country:</strong>{' '}
+                                        {m.country || 'N/A'}
+                                    </p>
+                                    <p>
+                                        <strong>Year:</strong> {m.release_year}
+                                    </p>
+                                    <p>
+                                        <strong>Rating:</strong> {m.rating}
+                                    </p>
+                                    <p>
+                                        <strong>Duration:</strong> {m.duration}
+                                    </p>
+                                    <p>
+                                        <strong>Description:</strong>{' '}
+                                        {m.description}
+                                    </p>
+                                    <p>
+                                        <strong>Genres:</strong>{' '}
+                                        {getGenresForMovie(m)
+                                            .map(formatGenreLabel)
+                                            .join(', ')}
+                                    </p>
+                                </div>
 
-                            <div className="card-footer w-100 d-grid gap-2">
-                                <button
-                                    className="btn btn-primary"
-                                    onClick={() => setEditingMovie(m)}
-                                >
-                                    Edit
-                                </button>
-                                <button
-                                    className="btn btn-danger"
-                                    onClick={() => handleDelete(m.showId)}
-                                >
-                                    Delete
-                                </button>
+                                <div className="card-footer w-100 d-grid gap-2">
+                                    <button
+                                        className="btn btn-primary"
+                                        onClick={() => setEditingMovie(m)}
+                                    >
+                                        Edit
+                                    </button>
+                                    <button
+                                        className="btn btn-danger"
+                                        onClick={() => handleDelete(m.showId)}
+                                    >
+                                        Delete
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                ))}
-            </div>
+                    ))}
+                </div>
 
-            <Pagination
-                currentPage={pageNum}
-                totalPages={totalPages}
-                pageSize={pageSize}
-                onPageChange={setPageNum}
-                onPageSizeChange={(newSize) => {
-                    setPageSize(newSize);
-                    setPageNum(1);
-                }}
-            />
-        </div>
+                <Pagination
+                    currentPage={pageNum}
+                    totalPages={totalPages}
+                    pageSize={pageSize}
+                    onPageChange={setPageNum}
+                    onPageSizeChange={(newSize) => {
+                        setPageSize(newSize);
+                        setPageNum(1);
+                    }}
+                />
+            </div>
+        </>
     );
 };
 

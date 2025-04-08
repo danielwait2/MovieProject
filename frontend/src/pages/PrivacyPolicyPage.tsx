@@ -1,6 +1,9 @@
+import Navbar from '../components/Navbar';
+
 const PrivacyPolicyPage = () => {
+   
     return (
-        <div style={{ padding: '2rem' }}>
+        <><Navbar /><div style={{ padding: '2rem' }}>
             <h1>Privacy Policy</h1>
             <p>Last updated: April 7, 2025</p>
 
@@ -121,7 +124,7 @@ const PrivacyPolicyPage = () => {
             <p>Email: support@example.com</p>
             <p>Phone: (123) 456-7890</p>
             <p>Address: 123 Main Street, Anytown, USA</p>
-        </div>
+        </div></>
     );
 };
 

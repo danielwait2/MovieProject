@@ -1,6 +1,8 @@
+import Navbar from '../components/Navbar';
 const ProductDetailPage = () => {
+
   return (
-    <h2>Movie Info</h2>
+    <><Navbar /><h2>Movie Info</h2></>
   )
 };
 
