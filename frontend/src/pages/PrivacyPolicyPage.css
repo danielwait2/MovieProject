@@ -1,0 +1,26 @@
+.privacy-container {
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 2rem;
+    line-height: 1.6;
+    font-family: sans-serif;
+}
+
+.privacy-container h1 {
+    margin-bottom: 1rem;
+}
+
+.privacy-container section {
+    margin-bottom: 2rem;
+}
+
+.privacy-container ul {
+    list-style-type: disc;
+    margin-left: 1.5rem;
+}
+
+.privacy-policy-page {
+    color: #dedede; /* Light grey text; adjust the color value if necessary */
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}

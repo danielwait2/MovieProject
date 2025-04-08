@@ -6,6 +6,8 @@ import { useState } from 'react';
 import AuthorizeView, { AuthorizedUser } from '../components/AuthorizeView';
 import Logout from '../components/Logout';
 import MoviesByGenre from '../components/MoviesByGenre';
+import Footer from '../components/Footer';
+
 const MoviePage = () => {
     const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
 
@@ -39,6 +41,35 @@ const MoviePage = () => {
                         </div>
                     </main>
                 </div>
+            </AuthorizeView>
+            <AuthorizeView>
+                <span>
+                    <Logout>
+                        Logout <AuthorizedUser value="email" />
+                    </Logout>
+                </span>
+                <div className="min-h-screen bg-[#121212] text-white">
+                    <header className="p-6 border-b border-gray-800">
+                        <h1 className="text-3xl font-bold">Movies</h1>
+                    </header>
+                    <main>
+                        <div className="row mb-5">
+                            <MovieCarousel
+                                selectedGenres={[]}
+                                title="Recommended for you:"
+                            />
+                        </div>
+                        <div className="row">
+                            <GenreFilter
+                                selectedGenres={selectedGenres}
+                                setSelectedGenres={setSelectedGenres}
+                            />
+                        </div>
+                    </main>
+                </div>
+                <br />
+                <br />
+                <Footer />
             </AuthorizeView>
         </>
     );

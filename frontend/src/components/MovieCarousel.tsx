@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Movie } from '../types/Movie';
 import MovieCard from './MovieCard';
+import './MovieCarousel.css';
 import './MovieCarousel.css'; // Make sure this file is loading correctly
 import LazyLoad from './LazyLoad';
 
@@ -25,8 +26,6 @@ function MovieCarousel({
                     }
                 );
                 const data = await response.json();
-
-                // Check the structure of your API response
                 setMovies(data);
             } catch (error) {
                 console.error('Error fetching movies:', error);
@@ -55,6 +54,7 @@ function MovieCarousel({
                                     movies.map((m) => (
                                         <MovieCard
                                             key={m.showId}
+                                            showId={m.showId}
                                             title={m.title}
                                             year={parseInt(
                                                 String(m.release_year ?? '0')

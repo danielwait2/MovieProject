@@ -33,20 +33,11 @@
     opacity: 1;
 }
 
-.movie-image-placeholder {
-    height: 300px;
-    background-color: white;
-}
-
 .movie-image {
     height: 300px;
     width: 100%;
     object-fit: cover;
     transition: transform 0.3s ease;
-}
-.movie-info {
-    padding: 12px;
-    background-color: rgba(0, 0, 0, 0.4); /* 40% opacity black background */
 }
 
 .movie-title {

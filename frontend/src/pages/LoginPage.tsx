@@ -1,9 +1,8 @@
-
-
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../css/Identity.css';
 import CookieConsent from "react-cookie-consent";
+import Footer from '../components/Footer';
 
 
 function LoginPage() {
@@ -65,7 +64,7 @@ function LoginPage() {
                 throw new Error(data?.message || 'Invalid email or password.');
             }
 
-            navigate('/');
+            navigate('/movies');
         } catch (error: any) {
             setError(error.message || 'Error logging in.');
             console.error('Fetch attempt failed:', error);
@@ -104,9 +103,9 @@ function LoginPage() {
                                 <label htmlFor="password">Password</label>
                             </div>
 
-                            <div className="form-check mb-3">
+                            <div className="form-check mb-3 d-flex align-items-center justify-content-center">
                                 <input
-                                    className="form-check-input"
+                                    className="form-check-input me-2"
                                     type="checkbox"
                                     value=""
                                     id="rememberme"
@@ -159,12 +158,15 @@ function LoginPage() {
                         </form>
                         {error && <p className="error">{error}</p>}
                     </div>
+                    <br />
+                    <Footer />
                 </div>
             </div>
-            <CookieConsent>This website uses cookies to enhance the user experience.</CookieConsent>
+            <CookieConsent>
+                This website uses cookies to enhance the user experience.
+            </CookieConsent>
         </div>
     );
 }
 
 export default LoginPage;
-

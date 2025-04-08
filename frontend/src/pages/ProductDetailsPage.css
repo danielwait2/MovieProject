@@ -1,0 +1,88 @@
+.product-details {
+    color: #fff;
+    background-color: #121212;
+    padding: 2rem;
+    border-radius: 8px;
+    position: relative; /* Needed for positioning the back button */
+}
+
+.details-wrapper {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.image-container {
+    flex: 1;
+    max-width: 300px;
+}
+
+.movie-detail-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.info-container {
+    flex: 2;
+    font-size: 1.1rem;
+    text-align: left;
+}
+
+/* ----- Back Button ----- */
+.back-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    z-index: 10;
+    transition: transform 0.2s ease;
+}
+
+.back-button:hover {
+    transform: scale(1.1);
+}
+
+/* ----- Action Buttons ----- */
+.action-buttons {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.action-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.btn-danger.action-button:hover {
+    background-color: #f40612;
+}
+
+.btn.btn-danger.action-button {
+    padding: 0.75rem 1.5rem; /* increases vertical and horizontal padding */
+    font-size: 1.25rem; /* enlarges the text */
+}
+
+/* ----- Rating Scale (Five Stars) ----- */
+.rating-scale {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.star {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.star:hover {
+    transform: scale(1.1);
+}
