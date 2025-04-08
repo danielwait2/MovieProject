@@ -6,10 +6,13 @@ import ProductDetailPage from './pages/ProductDetailPage';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
 import AdminMoviePage from './pages/AdminMoviesPage';
+import BoldToggle from './components/BoldToggle';
+
 
 function App() {
     return (
         <Router>
+
             <Routes>
                 <Route path="/" element={<MoviePage />} />
                 <Route path="/movies" element={<MoviePage />} />
@@ -19,6 +22,7 @@ function App() {
                 <Route path="/productDetails" element={<ProductDetailPage />} />
                 <Route path="/admin" element={<AdminMoviePage />} />
             </Routes>
+            <BoldToggle />
         </Router>
     );
 }
