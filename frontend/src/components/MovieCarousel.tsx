@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Movie } from '../types/Movie';
 import MovieCard from './MovieCard';
-import './MovieCarousel.css'; // We'll create this CSS file
+import './MovieCarousel.css';
 
 function MovieCarousel() {
     const [movies, setMovies] = useState<Movie[]>([]);
@@ -12,13 +12,12 @@ function MovieCarousel() {
             try {
                 setLoading(true);
                 const response = await fetch(
-                    `https://localhost:5000/Movie/RecMoviesTemp`,{
-                        credentials: 'include'
-                      }
+                    `https://localhost:5000/Movie/RecMoviesTemp`,
+                    {
+                        credentials: 'include',
+                    }
                 );
                 const data = await response.json();
-
-                // Check the structure of your API response
                 setMovies(data);
             } catch (error) {
                 console.error('Error fetching movies:', error);
@@ -44,6 +43,7 @@ function MovieCarousel() {
                         movies.map((m) => (
                             <MovieCard
                                 key={m.showId}
+                                showId={m.showId}
                                 title={m.title}
                                 year={parseInt(String(m.release_year ?? '0'))}
                             />

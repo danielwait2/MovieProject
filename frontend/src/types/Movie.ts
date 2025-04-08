@@ -12,6 +12,7 @@ export interface Movie {
     duration?: string;
     listedIn?: string;
     description?: string;
+    genre?: string[];
 
     // Updated genre/category columns (all optional integers)
     action?: number;
