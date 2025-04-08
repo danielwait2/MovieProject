@@ -2,7 +2,7 @@ import './App.css';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import MoviePage from './pages/MoviePage';
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
-import  CreateAccountPage  from './pages/CreateAccountPage';
+import CreateAccountPage from './pages/CreateAccountPage';
 import ProductDetailPage from './pages/ProductDetailPage';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';

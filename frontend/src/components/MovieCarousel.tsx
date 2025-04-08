@@ -43,7 +43,7 @@ function MovieCarousel() {
                             <MovieCard
                                 key={m.showId}
                                 title={m.title}
-                                year={parseInt(String(m.releaseYear ?? '0'))}
+                                year={parseInt(String(m.release_year ?? '0'))}
                             />
                         ))
                     ) : (

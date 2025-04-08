@@ -1,9 +1,14 @@
+import GenreFilter from '../components/GenreFilter';
 import MovieCarousel from '../components/MovieCarousel';
+import { useState } from 'react';
+
 
 // add this for login logout and authorize view
 import AuthorizeView, { AuthorizedUser } from '../components/AuthorizeView';
 import Logout from '../components/Logout';
 const MoviePage = () => {
+    const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
+
     return (
         <>
         <AuthorizeView>
@@ -17,8 +22,14 @@ const MoviePage = () => {
                     <h1 className="text-3xl font-bold">Movies</h1>
                 </header>
                 <main>
+                <div className="row mb-5">
                     <MovieCarousel />
-                </main>
+                </div>
+                <div className="row">
+                    <GenreFilter selectedGenres={selectedGenres}
+                            setSelectedGenres={setSelectedGenres}/>
+                </div>
+            </main>
             </div>
         </AuthorizeView>
         </>

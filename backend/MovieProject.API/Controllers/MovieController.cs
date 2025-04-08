@@ -1,5 +1,7 @@
+using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MovieProject.API.Data;
 
 namespace MovieProject.API.Controllers
@@ -13,18 +15,35 @@ namespace MovieProject.API.Controllers
         public MovieController(MovieDbContext temp) => _movieContext = temp;
 
         [HttpGet("RecMoviesTemp")]
-        public IActionResult GetProjects()
+        public IActionResult GetMovies([FromQuery] List<string>? genres = null)
         {
             var query = _movieContext.Movies.AsQueryable();
 
-            var books = query
-                .Skip(2)
+            if (genres != null && genres.Any())
+            {
+                query = query.Where(m => m.MovieGenres.Any(mg => genres.Contains(mg.GenreCode)));
+            }
+
+            var movies = query
+                .Include(m => m.MovieGenres)
+                .ThenInclude(mg => mg.Genre)
                 .Take(10)
                 .ToList();
 
-            return Ok(books);
+
+            return Ok(movies);
         }
 
+
+        // get all categories
+        [HttpGet("Genres")]
+        public IActionResult GetGenres()
+        {
+            var genres = _movieContext.Genres
+                .Select(m => m.Name)
+                .ToList();
+            return Ok(genres);
+        }
 
         [HttpGet("AllMovies")]
         public IActionResult GetProjects(int pageSize = 10, int pageNum = 1, string searchQuery ="", [FromQuery] List<string>? projectTypes = null)
