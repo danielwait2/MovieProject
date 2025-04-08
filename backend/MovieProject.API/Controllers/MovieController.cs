@@ -22,7 +22,7 @@ namespace MovieProject.API.Controllers
 
             if (genres != null && genres.Any())
             {
-                query = query.Where(m => m.MovieGenres.Any(mg => genres.Contains(mg.GenreCode)));
+                query = query.Where(m => m.MovieGenres.Any(mg => genres.Contains(mg.Genre.Name)));
             }
 
             var movies = query

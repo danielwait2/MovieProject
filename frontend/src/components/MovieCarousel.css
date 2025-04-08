@@ -32,3 +32,12 @@
     text-align: left;
     padding-left: 20px;
 }
+
+.carousel-placeholder {
+    min-height: 300px; /* Reserve sufficient vertical space */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: none; /* Light gray background, adjust as needed */
+    border: none; /* Optional: add a border for visual separation */
+}
