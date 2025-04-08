@@ -2,6 +2,7 @@ import { Movie } from '../types/Movie';
 
 interface FetchMoviesResponse {
     movies: Movie[];
+    totalNumMovies: number;
 }
 
 const API_URL = `https://localhost:5000/Movie`;
@@ -60,7 +61,7 @@ export const addMovie = async (newMovie: Movie): Promise<Movie> => {
 };
 
 export const updateMovie = async (
-    show_id: number,
+    show_id: string,
     updatedMovie: Movie
 ): Promise<Movie> => {
     try {
@@ -80,7 +81,7 @@ export const updateMovie = async (
     }
 };
 
-export const deleteMovie = async (show_id: number): Promise<void> => {
+export const deleteMovie = async (show_id: string): Promise<void> => {
     try {
         const response = await fetch(`${API_URL}/DeleteMovie/${show_id}`, {
             method: 'DELETE', // Use DELETE for removing a resource
