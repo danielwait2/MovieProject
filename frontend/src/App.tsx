@@ -7,10 +7,15 @@ import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
 import AdminMoviePage from './pages/AdminMoviesPage';
 import HomeLandingPage from './pages/HomeLandingPage';
+import BoldToggle from './components/BoldToggle';
+import SessionTimeout from './components/SessionTimeout';
+
+
 
 function App() {
     return (
         <Router>
+            <SessionTimeout onLogout={() => window.location.href = '/login'} /> {/* 👈 add this */}
             <Routes>
                 <Route path="/" element={<HomeLandingPage />} />
                 <Route path="/movies" element={<MoviePage />} />
@@ -20,6 +25,7 @@ function App() {
                 <Route path="/productDetails" element={<ProductDetailPage />} />
                 <Route path="/admin" element={<AdminMoviePage />} />
             </Routes>
+            <BoldToggle />
         </Router>
     );
 }

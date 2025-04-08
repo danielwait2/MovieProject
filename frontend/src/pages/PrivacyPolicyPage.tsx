@@ -1,126 +1,48 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './PrivacyPolicyPage.css';
+import Footer from '../components/Footer';
+
 const PrivacyPolicyPage = () => {
     return (
-        <div style={{ padding: '2rem' }}>
-            <h1>Privacy Policy</h1>
-            <p>Last updated: April 7, 2025</p>
+        <div className="container my-5 privacy-policy-page">
+            <h1 className="mb-4">Privacy Policy</h1>
+            <p className="text-muted">Last updated: April 7, 2025</p>
 
             <p>
-                Welcome to our Privacy Policy. Your privacy is critically
-                important to us. This Privacy Policy explains how our
-                organization collects, uses, and discloses information about you
-                when you access or use our services.
+                Welcome to our Privacy Policy. Your privacy is important to us.
+                We collect the information you provide directly (such as your
+                name, email, and phone number), as well as data automatically
+                gathered from your device (including your IP address, browser
+                type, and browsing behavior). We use cookies and tracking
+                technologies to enhance your experience, analyze usage, and
+                personalize content. This information helps us operate and
+                improve our website and services, respond to customer inquiries,
+                and comply with legal obligations. We do not sell or rent your
+                data; however, it may be shared with trusted service providers,
+                legal authorities when required, or as part of business
+                transfers.
             </p>
 
-            <h2>1. Information We Collect</h2>
-            <h3>1.1 Information You Provide to Us</h3>
             <p>
-                We collect personal information that you provide to us directly,
-                such as your name, email address, phone number, and any other
-                information you choose to provide.
+                We implement strong security measures to safeguard your personal
+                information and retain it only as long as necessary. Depending
+                on your location, you may have rights to access, update, or
+                delete your data. To exercise these rights, please contact us at{' '}
+                <a href="mailto:cineniche@movies.com">cineniche@movies.com</a>.
+                Our services are not directed to children under 13, and any
+                inadvertently collected data will be promptly removed. We may
+                update this Privacy Policy periodically, with significant
+                changes posted on this page.
             </p>
 
-            <h3>1.2 Automatically Collected Information</h3>
             <p>
-                When you visit our website, we automatically collect certain
-                information, including your IP address, browser type, operating
-                system, referring URLs, device information, and browsing
-                behavior.
+                For further assistance, please reach out via email{' '}
+                <a href="mailto:cineniche@movies.com">cineniche@movies.com</a>,
+                <br />
+                phone at (123) 456-7890,
+                <br /> or visit us at 123 Main Street, Anytown, USA.
             </p>
-
-            <h3>1.3 Cookies and Tracking Technologies</h3>
-            <p>
-                We use cookies and similar tracking technologies to enhance your
-                experience, analyze usage, and deliver personalized content. You
-                can manage cookie preferences through your browser settings.
-            </p>
-
-            <h2>2. How We Use Your Information</h2>
-            <ul>
-                <li>
-                    To provide, operate, and maintain our website and services
-                </li>
-                <li>To improve, personalize, and expand our services</li>
-                <li>To understand and analyze how you use our website</li>
-                <li>
-                    To communicate with you, including for customer service and
-                    marketing
-                </li>
-                <li>
-                    To detect and prevent fraudulent or unauthorized activity
-                </li>
-                <li>To comply with legal obligations</li>
-            </ul>
-
-            <h2>3. Sharing of Your Information</h2>
-            <p>
-                We do not sell or rent your personal information. We may share
-                your information with:
-            </p>
-            <ul>
-                <li>Service providers that perform services on our behalf</li>
-                <li>
-                    Legal authorities when required by law or to protect our
-                    rights
-                </li>
-                <li>
-                    In connection with a business transfer, such as a merger or
-                    sale
-                </li>
-            </ul>
-
-            <h2>4. Data Security</h2>
-            <p>
-                We implement appropriate technical and organizational measures
-                to safeguard your personal data against unauthorized access,
-                disclosure, alteration, and destruction.
-            </p>
-
-            <h2>5. Data Retention</h2>
-            <p>
-                We retain personal information only as long as necessary to
-                fulfill the purposes for which it was collected or as required
-                by law.
-            </p>
-
-            <h2>6. Your Rights and Choices</h2>
-            <p>
-                Depending on your location, you may have certain rights
-                regarding your personal information, including:
-            </p>
-            <ul>
-                <li>The right to access and update your information</li>
-                <li>The right to delete your information</li>
-                <li>The right to object to or restrict processing</li>
-                <li>The right to data portability</li>
-            </ul>
-            <p>
-                To exercise these rights, please contact us at
-                support@example.com.
-            </p>
-
-            <h2>7. Children's Privacy</h2>
-            <p>
-                Our services are not directed to children under the age of 13.
-                We do not knowingly collect personal information from children
-                under 13. If we become aware that we have inadvertently
-                collected such information, we will delete it promptly.
-            </p>
-
-            <h2>8. Changes to This Privacy Policy</h2>
-            <p>
-                We may update this Privacy Policy from time to time. We will
-                notify you of any significant changes by posting the new policy
-                on this page and updating the "Last updated" date.
-            </p>
-
-            <h2>9. Contact Us</h2>
-            <p>
-                If you have any questions or concerns about this Privacy Policy
-                or our data practices, please contact us at:
-            </p>
-            <p>Email: support@example.com</p>
-            <p>Phone: (123) 456-7890</p>
-            <p>Address: 123 Main Street, Anytown, USA</p>
+            <Footer />
         </div>
     );
 };

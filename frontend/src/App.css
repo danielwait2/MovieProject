@@ -5,6 +5,11 @@
     text-align: center;
 }
 
+/* In your App.css or a global stylesheet */
+.bold-text * {
+    font-weight: bold !important;
+}
+
 .logo {
     height: 6em;
     padding: 1.5em;
