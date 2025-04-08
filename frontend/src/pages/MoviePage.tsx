@@ -6,13 +6,12 @@ import { useState } from 'react';
 import AuthorizeView, { AuthorizedUser } from '../components/AuthorizeView';
 import Logout from '../components/Logout';
 import Footer from '../components/Footer';
-import Navbar from '../components/Navbar';
+
 const MoviePage = () => {
     const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
 
     return (
         <>
-            <Navbar />
             <AuthorizeView>
                 <span>
                     <Logout>

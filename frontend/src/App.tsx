@@ -9,10 +9,12 @@ import AdminMoviePage from './pages/AdminMoviesPage';
 import BoldToggle from './components/BoldToggle';
 import SessionTimeout from './components/SessionTimeout';
 import HomePage from './pages/HomePage';
+import Navbar from './components/Navbar';
 
 function App() {
     return (
         <Router>
+            <Navbar />
             <SessionTimeout
                 onLogout={() => (window.location.href = '/login')}
             />{' '}

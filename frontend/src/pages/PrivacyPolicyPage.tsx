@@ -1,12 +1,11 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './PrivacyPolicyPage.css';
 import Footer from '../components/Footer';
-import Navbar from '../components/Navbar';
 
 const PrivacyPolicyPage = () => {
     return (
         <>
-            <Navbar />
+            
             <div className="container my-5 privacy-policy-page">
                 <h1 className="mb-4">Privacy Policy</h1>
                 <p className="text-muted">Last updated: April 7, 2025</p>

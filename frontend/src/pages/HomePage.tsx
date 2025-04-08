@@ -1,10 +1,8 @@
-import Navbar from '../components/Navbar';
+
 
 const HomePage = () => {
     return (
         <div className="homepage">
-            <Navbar /> {/* ✅ Reusable Navbar here */}
-            {/* Hero Section */}
             <header className="hero-section d-flex align-items-center justify-content-center text-center">
                 <div className="hero-text text-white">
                     <h1 className="display-3 fw-bold">

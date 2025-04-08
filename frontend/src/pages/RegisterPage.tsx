@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../components/Navbar';
+
 
 function Register() {
     // state variables for email and passwords
@@ -74,7 +74,6 @@ function Register() {
 
     return (
         <>
-            <Navbar />
             <div className="container">
                 <div className="row">
                     <div className="card border-0 shadow rounded-3 ">

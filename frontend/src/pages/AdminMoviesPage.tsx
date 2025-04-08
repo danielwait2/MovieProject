@@ -5,7 +5,6 @@ import EditMovieForm from '../components/EditMovieForm';
 import NewMovieForm from '../components/NewMovieForm';
 import Pagination from '../components/Pagination';
 
-
 const genreFields = [
     'action',
     'adventure',
@@ -84,7 +83,6 @@ const AdminMoviePage = () => {
         loadMovies();
     }, [pageSize, pageNum, selectedCategories]);
 
-
     const handleDelete = async (showId: string) => {
         const confirmDelete = window.confirm(
             'Are you sure you want to delete this movie?'
@@ -140,7 +138,7 @@ const AdminMoviePage = () => {
                 />
             )}
 
-<div className="row g-4">
+            <div className="row g-4">
                 {movies.map((m) => (
                     <div key={m.showId} className="col-12 col-md-4">
                         <div className="card h-100 text-white bg-dark d-flex flex-column align-items-center text-center">
@@ -213,7 +211,6 @@ const AdminMoviePage = () => {
                                 >
                                     Delete
                                 </button>
-                              
                             </div>
                         </div>
                     </div>

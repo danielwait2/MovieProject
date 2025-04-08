@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import '../css/Identity.css';
 import CookieConsent from 'react-cookie-consent';
 import Footer from '../components/Footer';
-import Navbar from '../components/Navbar';
 
 function LoginPage() {
     // state variables for email and passwords
@@ -73,9 +72,6 @@ function LoginPage() {
 
     return (
         <>
-            <>
-                <Navbar />
-            </>
             <div className="container">
                 <div className="row">
                     <div className="card border-0 shadow rounded-3 ">
