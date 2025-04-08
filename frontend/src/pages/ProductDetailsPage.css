@@ -70,6 +70,10 @@
     margin-bottom: 1rem;
 }
 
+.cast-text {
+  opacity: 0.6;
+}
+
 /* ----- New Description Text (Bigger) ----- */
 .description-text {
     font-size: 1.4rem; /* Increased font size for description */
