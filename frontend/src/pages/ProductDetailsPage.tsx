@@ -41,7 +41,7 @@ const ProductDetailsPage: React.FC = () => {
     }, [showId]);
 
     const handleBack = () => {
-        navigate('/movies');
+        navigate('/');
     };
 
     if (loading) {
@@ -61,12 +61,22 @@ const ProductDetailsPage: React.FC = () => {
         ? `https://localhost:5000/api/MovieImages/${movie.title}.jpg`
         : unknownImage;
 
-    // For genres, check for the property "genre"
+    // Retrieve genres from the movie object. (Your API may have either "genre" or "Genres")
     const genres = (movie as any).genre || (movie as any).Genres || [];
+
+    // Process the cast string: only show the first three actors.
+    const firstThreeCast =
+        movie.cast && movie.cast.indexOf(',') > -1
+            ? movie.cast
+                  .split(',')
+                  .slice(0, 3)
+                  .map((actor) => actor.trim())
+                  .join(', ')
+            : movie.cast;
 
     return (
         <div className="container my-5 product-details">
-            {/* Back Button (X) at the top right */}
+            {/* Back Button (X) */}
             <button className="back-button" onClick={handleBack}>
                 <FaTimes size={24} />
             </button>
@@ -86,48 +96,41 @@ const ProductDetailsPage: React.FC = () => {
                 {/* Right side: Movie Info */}
                 <div className="info-container col-md-8">
                     <h1 className="text-start mb-3">{movie.title}</h1>
-                    {movie.release_year && (
-                        <p>
-                            <strong>Year:</strong> {movie.release_year}
-                        </p>
-                    )}
-                    {Array.isArray(genres) && genres.length > 0 && (
-                        <p>
-                            <strong>Genre:</strong> {genres.join(', ')}
-                        </p>
-                    )}
-                    {movie.director && (
-                        <p>
-                            <strong>Director:</strong> {movie.director}
-                        </p>
-                    )}
+
+                    {/* Meta Row with Year, Rating, Genre */}
+                    <div className="meta-row">
+                        {movie.release_year && (
+                            <span className="meta-label">
+                                {movie.release_year}
+                            </span>
+                        )}
+                        {movie.rating && (
+                            <span className="meta-label">{movie.rating}</span>
+                        )}
+                        {Array.isArray(genres) && genres.length > 0 && (
+                            <span className="meta-label">
+                                {genres.join(', ')}
+                            </span>
+                        )}
+                    </div>
+
+                    {/* Cast (only first three actors) */}
                     {movie.cast && (
-                        <p>
-                            <strong>Cast:</strong> {movie.cast}
-                        </p>
-                    )}
-                    {movie.rating && (
-                        <p>
-                            <strong>Rating:</strong> {movie.rating}
-                        </p>
-                    )}
-                    {movie.duration && (
-                        <p>
-                            <strong>Duration:</strong> {movie.duration}
-                        </p>
-                    )}
-                    {movie.description && (
-                        <p>
-                            <strong>Description:</strong> {movie.description}
+                        <p className="meta-description">
+                            <strong>Cast:</strong> {firstThreeCast}
                         </p>
                     )}
 
-                    {/* Action Buttons */}
+                    {/* Movie Description (with increased size) */}
+                    {movie.description && (
+                        <p className="description-text">{movie.description}</p>
+                    )}
+
+                    {/* Action Buttons and Five-Star Rating */}
                     <div className="action-buttons">
                         <button className="btn btn-danger action-button">
                             <FaPlay /> <span>Watch Now</span>
                         </button>
-                        {/* Five-star Rating Scale */}
                         <div className="rating-scale">
                             {Array.from({ length: 5 }, (_, index) => {
                                 const ratingValue = index + 1;
