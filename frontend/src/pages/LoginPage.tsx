@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../css/Identity.css';
+import CookieConsent from "react-cookie-consent";
+
 
 function LoginPage() {
     // state variables for email and passwords
@@ -159,6 +161,7 @@ function LoginPage() {
                     </div>
                 </div>
             </div>
+            <CookieConsent>This website uses cookies to enhance the user experience.</CookieConsent>
         </div>
     );
 }
