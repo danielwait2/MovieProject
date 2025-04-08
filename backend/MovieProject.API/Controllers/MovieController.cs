@@ -18,6 +18,7 @@ namespace MovieProject.API.Controllers
             var query = _movieContext.Movies.AsQueryable();
 
             var books = query
+                .Skip(2)
                 .Take(10)
                 .ToList();
 
@@ -67,7 +68,7 @@ namespace MovieProject.API.Controllers
             return Ok(projectTypes);
         }
 
-        [HttpPost("AddProject")]
+        [HttpPost("AddMovie")]
         public IActionResult AddMovie([FromBody] Movie newMovie)
         {
             _movieContext.Movies.Add(newMovie);
@@ -75,10 +76,10 @@ namespace MovieProject.API.Controllers
             return Ok(newMovie);
         }
 
-        [HttpPut("UpdateProject/{showId}")]
-public IActionResult UpdateProject(string showId, [FromBody] MovieUpdateDTO updatedMovie)
+        [HttpPut("UpdateMovie/{show_id}")]
+public IActionResult UpdateProject(string show_id, [FromBody] MovieUpdateDTO updatedMovie)
 {
-    var existingMovie = _movieContext.Movies.Find(showId);
+    var existingMovie = _movieContext.Movies.Find(show_id);
 
     if (existingMovie == null)
     {
@@ -174,17 +175,17 @@ public IActionResult UpdateProject(string showId, [FromBody] MovieUpdateDTO upda
     return Ok(existingMovie);
 }
 
-        [HttpDelete("DeleteProject/{showId}")]
-        public IActionResult DeleteProject(int showId)
+        [HttpDelete("DeleteMovie/{show_id}")]
+        public IActionResult DeleteMovie(int show_id)
         {
-            var project = _movieContext.Movies.Find(showId);
+            var movie = _movieContext.Movies.Find(show_id);
 
-            if (project == null)
+            if (movie == null)
             {
-                return NotFound(new {message = "Project not found"});
+                return NotFound(new {message = "Movie not found"});
             }
 
-            _movieContext.Movies.Remove(project);
+            _movieContext.Movies.Remove(movie);
             _movieContext.SaveChanges();
 
             return NoContent();
