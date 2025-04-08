@@ -37,6 +37,68 @@ namespace MovieProject.API.Controllers
             return Ok(movies);
         }
 
+        [HttpGet("ContentRecommendations")]
+        public IActionResult GetContentRecomendation(string movieName)
+        {
+            // Retrieve the record for the given movieName from the database
+            var record = _movieContext.MovieRecomendation
+                            .FirstOrDefault(c => c.movieName.Equals(movieName, StringComparison.OrdinalIgnoreCase));
+
+            if (record == null)
+            {
+                return NotFound(new { message = $"No recommendations found for movie: {movieName}" });
+            }
+
+            // Combine all recommendations into a list, filtering out null or empty entries
+            var recommendations = new List<string> {
+                record.Recommendation1,
+                record.Recommendation2,
+                record.Recommendation3,
+                record.Recommendation4,
+                record.Recommendation5
+            };
+
+            recommendations = recommendations.Where(r => !string.IsNullOrEmpty(r)).ToList();
+
+            if (recommendations.Count == 0)
+            {
+                return NotFound(new { message = $"No recommendations found for movie: {movieName}" });
+            }
+
+            return Ok(recommendations);
+        }
+
+        [HttpGet("CollaborativeRecommendations")]
+        public IActionResult GetCollaborativeRecommendations(string movieName)
+        {
+            // Retrieve the record for the given movieName from the database
+            var record = _movieContext.MovieRecomendation
+                            .FirstOrDefault(c => c.movieName.Equals(movieName, StringComparison.OrdinalIgnoreCase));
+
+            if (record == null)
+            {
+                return NotFound(new { message = $"No recommendations found for movie: {movieName}" });
+            }
+
+            // Combine all recommendations into a list, filtering out null or empty entries
+            var recommendations = new List<string> {
+                record.Recommendation1,
+                record.Recommendation2,
+                record.Recommendation3,
+                record.Recommendation4,
+                record.Recommendation5
+            };
+
+            recommendations = recommendations.Where(r => !string.IsNullOrEmpty(r)).ToList();
+
+            if (recommendations.Count == 0)
+            {
+                return NotFound(new { message = $"No recommendations found for movie: {movieName}" });
+            }
+
+            return Ok(recommendations);
+        }
+
 
         // get all categories
         [HttpGet("Genres")]
