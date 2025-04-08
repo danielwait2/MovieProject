@@ -65,15 +65,28 @@ const ProductDetailsPage: React.FC = () => {
     const genres = (movie as any).genre || (movie as any).Genres || [];
 
     // Process the cast string: only show the first three actors.
-    const firstThreeCast =
-        movie.cast && movie.cast.indexOf(',') > -1
+    // Process the cast string to show only the first three actors
+    const firstThreeCast = movie.cast
+        ? movie.cast.indexOf(',') > -1
             ? movie.cast
                   .split(',')
                   .slice(0, 3)
                   .map((actor) => actor.trim())
                   .join(', ')
-            : movie.cast;
-
+            : (() => {
+                  // If there are no commas, assume each actor's name is composed of two words.
+                  const words = movie.cast.trim().split(/\s+/);
+                  const actorNames: string[] = [];
+                  for (let i = 0; i < words.length; i += 2) {
+                      // Combine two words for one actor's name (if available)
+                      const name =
+                          words[i] + (words[i + 1] ? ` ${words[i + 1]}` : '');
+                      actorNames.push(name);
+                      if (actorNames.length === 4) break;
+                  }
+                  return actorNames.join(', ');
+              })()
+        : '';
     return (
         <div className="container my-5 product-details">
             {/* Back Button (X) */}
@@ -116,7 +129,7 @@ const ProductDetailsPage: React.FC = () => {
 
                     {/* Cast (only first three actors) */}
                     {movie.cast && (
-                        <p className="meta-description">
+                        <p className="meta-description cast-text">
                             <strong>Cast:</strong> {firstThreeCast}
                         </p>
                     )}
