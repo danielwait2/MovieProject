@@ -1,23 +1,30 @@
+
 import { useState, useEffect } from 'react';
 import { Movie } from './types/Movie';
 import MovieCarousel from './components/MovieCarousel'; 
-import './App.css';
 
 import './App.css';
-import PrivacyPolicy from './components/PrivacyPolicy';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import MoviePage from './pages/MoviePage';
+import LoginPage from './pages/LoginPage';
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
+import  CreateAccountPage  from './pages/CreateAccountPage';
+import ProductDetailPage from './pages/ProductDetailPage';
+
 
 function App() {
     return (
-        <div className="min-h-screen bg-[#121212] text-white">
-            <header className="p-6 border-b border-gray-800">
-                <h1 className="text-3xl font-bold">Movies</h1>
-            </header>
-            <main>
-                <MovieCarousel />
-            </main>
-            <PrivacyPolicy />
 
-        </div>
+        <Router>
+            <Routes>
+                <Route path='/' element={<MoviePage/>} />
+                <Route path='/login' element={<LoginPage/>} />
+                <Route path='/createAccount' element={<CreateAccountPage/>} />
+                <Route path='/privacyPolicy' element={<PrivacyPolicyPage/>} />
+                <Route path='/productDetails' element={<ProductDetailPage/>} />
+            </Routes>
+        </Router>
+
     );
 }
 
