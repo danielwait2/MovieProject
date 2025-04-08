@@ -15,7 +15,9 @@ function GenreFilter({
         const fetchGenres = async () => {
             try {
                 const response = await fetch(
-                    `https://localhost:5000/Movie/Genres?${selectedGenres}`
+                    `https://localhost:5000/Movie/Genres?${selectedGenres}`,{
+                        credentials: 'include'
+                }
                 );
                 const data = await response.json();
                 // set categories to equal the categories fetched from the database

@@ -12,7 +12,9 @@ function MovieCarousel() {
             try {
                 setLoading(true);
                 const response = await fetch(
-                    `https://localhost:5000/Movie/RecMoviesTemp`
+                    `https://localhost:5000/Movie/RecMoviesTemp`,{
+                        credentials: 'include'
+                      }
                 );
                 const data = await response.json();
 
