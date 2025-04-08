@@ -70,6 +70,14 @@
     margin-bottom: 1rem;
 }
 
+/* ----- New Description Text (Bigger) ----- */
+.description-text {
+    font-size: 1.4rem; /* Increased font size for description */
+    line-height: 1.6; /* Adjusted line height for readability */
+    color: #ddd;
+    margin-bottom: 1rem;
+}
+
 /* ----- Action Buttons ----- */
 .action-buttons {
     margin-top: 1rem;
@@ -111,7 +119,7 @@
     transform: scale(1.1);
 }
 
-/* ----- Heading size ----- */
+/* ----- Heading Size ----- */
 h1 {
     font-size: 3rem;
     font-weight: bold;
