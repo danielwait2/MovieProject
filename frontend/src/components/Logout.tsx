@@ -1,11 +1,11 @@
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function Logout(props: { children: React.ReactNode }) {
+const Logout: React.FC = () => {
     const navigate = useNavigate();
 
-    const handleLogout = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const handleLogout = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-
         try {
             const response = await fetch('https://localhost:5000/logout', {
                 method: 'POST',
@@ -26,10 +26,14 @@ function Logout(props: { children: React.ReactNode }) {
     };
 
     return (
-        <a className="logout" href="#" onClick={handleLogout}>
-            {props.children}
-        </a>
+        <button
+            type="button"
+            className="btn btn-outline-light logout-button"
+            onClick={handleLogout}
+        >
+            Logout
+        </button>
     );
-}
+};
 
 export default Logout;
