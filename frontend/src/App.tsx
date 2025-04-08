@@ -6,12 +6,13 @@ import ProductDetailPage from './pages/ProductDetailPage';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
 import AdminMoviePage from './pages/AdminMoviesPage';
+import HomeLandingPage from './pages/HomeLandingPage';
 
 function App() {
     return (
         <Router>
             <Routes>
-                <Route path="/" element={<MoviePage />} />
+                <Route path="/" element={<HomeLandingPage />} />
                 <Route path="/movies" element={<MoviePage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />

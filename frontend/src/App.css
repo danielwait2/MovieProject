@@ -3,7 +3,6 @@
     margin: 0 auto;
     padding: 2rem;
     text-align: center;
-    background-color: #272727;
 }
 
 .logo {
@@ -40,4 +39,49 @@
 
 .read-the-docs {
     color: #888;
+}
+
+.movie-card-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.5rem;
+    padding: 1rem;
+    justify-items: center; /* ✅ centers cards horizontally */
+    align-items: stretch; /* optional, makes all card heights match */
+}
+
+.movie-card {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    color: white;
+    padding: 1rem;
+    border-radius: 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.movie-image {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.movie-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.movie-year {
+    font-size: 0.9rem;
+    color: #bbbbbb;
+}
+
+.movie-info {
+    width: 100%;
 }
