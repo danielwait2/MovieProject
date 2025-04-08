@@ -1,0 +1,63 @@
+.genre-filter {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-family: Arial, sans-serif;
+}
+
+.genre-list {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 10px;
+    width: 100%;
+    padding: 15px; /* Additional padding inside the list container */
+}
+
+.genre-item {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    gap: 8px;
+    height: 40px; /* Fixed height instead of min-height */
+    padding: 5px;
+    box-sizing: border-box;
+    overflow: hidden; /* Prevent content from overflowing */
+}
+
+.genre-checkbox {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+}
+
+.genre-item label {
+    font-size: clamp(0.75rem, 1vw, 0.9rem); /* Responsive text sizing */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.container {
+    background-color: rgba(0, 0, 0, 0.4); /* Black with 40% opacity */
+    /* Other styling properties */
+    width: 100%;
+    padding-left: 20px; /* Match the padding-left from carousel-title */
+    box-sizing: border-box; /* Ensure padding is included in width calculation */
+    border-radius: 10px;
+}
+
+.carousel-title {
+    color: #d9d9d9;
+    font-size: 35px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-align: left;
+    padding-left: 20px;
+}
+
+/* You can also change the unchecked state */
+.btn-filter {
+    background-color: (0, 0, 0) !important; /* Black with 40% opacity */
+    border: 1px solid #d9d9d9 !important;
+}
