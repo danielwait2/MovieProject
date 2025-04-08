@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace MovieProject.API.Data
 {
@@ -7,7 +8,9 @@ namespace MovieProject.API.Data
     public class Movie
     {
         // Basic movie info
-        public string show_id { get; set; }  // Primary key
+        [Key]
+        [Column("show_id")]
+        public string ShowId { get; set; }
         public string Type { get; set; }
         public string Title { get; set; }
         public string? Director { get; set; }
@@ -17,6 +20,9 @@ namespace MovieProject.API.Data
         public string? Rating { get; set; }
         public string? Duration { get; set; }
         public string? Description { get; set; }
+        // Navigation property to the linking table
+        [JsonIgnore]
+        public ICollection<MovieGenre> MovieGenres { get; set; }
 
         // Genre/category columns
         public int? Action { get; set; }
