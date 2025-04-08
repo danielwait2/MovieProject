@@ -54,6 +54,10 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
     options.LoginPath = "/login";
     options.Cookie.Name = ".AspNetCore.Identity.Application";
+
+    // Set the expiration and sliding expiration
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(15); // or whatever timeout you want
+    options.SlidingExpiration = true; // resets timeout on user activity
 });
 
 builder.Services.AddCors(options =>
