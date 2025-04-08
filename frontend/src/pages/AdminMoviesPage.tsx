@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Movie } from '../types/Movie';
 import { deleteMovie, fetchMovies } from '../api/MoviesAPI';
-import Pagination from '../components/Pagination';
 import EditMovieForm from '../components/EditMovieForm';
 import NewMovieForm from '../components/NewMovieForm';
+import Pagination from '../components/Pagination';
+
 
 const genreFields = [
     'action',
@@ -56,16 +57,21 @@ const AdminMoviePage = () => {
     const [totalPages, setTotalPages] = useState<number>(0);
     const [showForm, setShowForm] = useState(false);
     const [editingMovie, setEditingMovie] = useState<Movie | null>(null);
+    const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
     useEffect(() => {
         const loadMovies = async () => {
             try {
-                const data = await fetchMovies(pageSize, pageNum, []);
+                const data = await fetchMovies(
+                    pageSize,
+                    pageNum,
+                    selectedCategories
+                );
                 if (data && Array.isArray(data.movies)) {
                     setMovies(data.movies);
                     setTotalPages(Math.ceil(data.totalNumMovies / pageSize));
                 } else {
-                    setMovies([]); // fallback to empty array
+                    setMovies([]);
                     setError('Failed to load movie data');
                 }
             } catch (err) {
@@ -74,8 +80,10 @@ const AdminMoviePage = () => {
                 setLoading(false);
             }
         };
+
         loadMovies();
-    }, [pageSize, pageNum]);
+    }, [pageSize, pageNum, selectedCategories]);
+
 
     const handleDelete = async (showId: string) => {
         const confirmDelete = window.confirm(
@@ -132,61 +140,86 @@ const AdminMoviePage = () => {
                 />
             )}
 
-            <table className="table table-bordered table-striped">
-                <thead className="table-dark">
-                    <tr>
-                        <th>ID</th>
-                        <th>Title</th>
-                        <th>Type</th>
-                        <th>Director</th>
-                        <th>Cast</th>
-                        <th>Country</th>
-                        <th>Release Year</th>
-                        <th>Rating</th>
-                        <th>Duration</th>
-                        <th>Description</th>
-                        <th>Genre</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {movies.map((m) => (
-                        <tr key={m.showId}>
-                            <td>{m.showId}</td>
-                            <td>{m.title}</td>
-                            <td>{m.type}</td>
-                            <td>{m.director}</td>
-                            <td>{m.cast}</td>
-                            <td>{m.country}</td>
-                            <td>{m.release_year}</td>
-                            <td>{m.rating}</td>
-                            <td>{m.duration}</td>
-                            <td>{m.description}</td>
-                            <td>{m.type}</td>
-                            <td>
-                                {getGenresForMovie(m)
-                                    .map(formatGenreLabel)
-                                    .join(', ')}
-                            </td>
-                            <td>
+<div className="row g-4">
+                {movies.map((m) => (
+                    <div key={m.showId} className="col-12 col-md-4">
+                        <div className="card h-100 text-white bg-dark d-flex flex-column align-items-center text-center">
+                            <div className="card-header w-100 d-flex justify-content-between align-items-center">
+                                <h5 className="card-title text-danger fw-bold mb-0">
+                                    {m.title}
+                                </h5>
+                                <span className="badge bg-secondary">
+                                    {m.type}
+                                </span>
+                            </div>
+
+                            <img
+                                src={`https://localhost:5000/api/MovieImages/${m.title}.jpg`}
+                                alt={m.title}
+                                className="card-img-top object-fit-cover"
+                                style={{
+                                    height: '100%',
+                                    width: '100%',
+                                    objectFit: 'cover',
+                                }}
+                                onError={(e) => {
+                                    e.currentTarget.src = '/assets/unknown.jpg';
+                                }}
+                            />
+
+                            <div className="card-body px-3">
+                                <p>
+                                    <strong>Director:</strong>{' '}
+                                    {m.director || 'N/A'}
+                                </p>
+                                <p>
+                                    <strong>Cast:</strong> {m.cast || 'N/A'}
+                                </p>
+                                <p>
+                                    <strong>Country:</strong>{' '}
+                                    {m.country || 'N/A'}
+                                </p>
+                                <p>
+                                    <strong>Year:</strong> {m.release_year}
+                                </p>
+                                <p>
+                                    <strong>Rating:</strong> {m.rating}
+                                </p>
+                                <p>
+                                    <strong>Duration:</strong> {m.duration}
+                                </p>
+                                <p>
+                                    <strong>Description:</strong>{' '}
+                                    {m.description}
+                                </p>
+                                <p>
+                                    <strong>Genres:</strong>{' '}
+                                    {getGenresForMovie(m)
+                                        .map(formatGenreLabel)
+                                        .join(', ')}
+                                </p>
+                            </div>
+
+                            <div className="card-footer w-100 d-grid gap-2">
                                 <button
-                                    className="btn btn-primary btn-sm w-100 mb-1"
+                                    className="btn btn-primary"
                                     onClick={() => setEditingMovie(m)}
                                 >
                                     Edit
                                 </button>
                                 <button
-                                    className="btn btn-danger btn-sm w-100 mb-1"
+                                    className="btn btn-danger"
                                     onClick={() => handleDelete(m.showId)}
                                 >
                                     Delete
                                 </button>
-                                A
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+                              
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
             <Pagination
                 currentPage={pageNum}
                 totalPages={totalPages}
