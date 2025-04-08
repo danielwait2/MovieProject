@@ -18,6 +18,7 @@ namespace MovieProject.API.Controllers
             var query = _movieContext.Movies.AsQueryable();
 
             var books = query
+                .Skip(2)
                 .Take(10)
                 .ToList();
 
