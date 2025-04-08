@@ -7,12 +7,13 @@ import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
 import AdminMoviePage from './pages/AdminMoviesPage';
 import BoldToggle from './components/BoldToggle';
+import SessionTimeout from './components/SessionTimeout';
 
 
 function App() {
     return (
         <Router>
-
+            <SessionTimeout onLogout={() => window.location.href = '/login'} /> {/* 👈 add this */}
             <Routes>
                 <Route path="/" element={<MoviePage />} />
                 <Route path="/movies" element={<MoviePage />} />
