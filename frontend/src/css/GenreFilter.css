@@ -1,92 +1,62 @@
-/* GenreFilter.css */
-
-/* Container for the entire filter */
 .genre-filter {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    font-family: Arial, sans-serif;
     position: relative;
-    
+    width: auto;
+    font-family: Arial, sans-serif;
 }
 
-/* Center the carousel container */
+.carousel-title {
+    margin-left: 60px;
+    color: #d9d9d9;
+}
+
 .genre-carousel {
-    margin: 0 auto;
-    padding: 2rem;
+    position: relative;
+    height: 60px;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
-/* --- Overrides for react-slick --- */
-
-/* 
-  Make sure the slick list shows content that overflows (such as a scaled element)
-  to prevent reflow of other slides when an element scales.
-*/
+/* react-slick overrides */
 .slick-list {
+    margin: 0 -10px;
+    overflow: visible;
+}
+
+.slick-slide {
+    display: inline-block;
     margin: 0 10px;
     overflow: visible;
 }
 
-/* 
-  Each slick slide should be inline-block with extra horizontal margin for spacing.
-  Also, set overflow: visible so any scaling inside won't alter layout.
-*/
-.slick-slide {
-    display: inline-block;
-    margin: 0 10px; /* Increase this value for more spacing between slides */
-    overflow: visible;
-}
-
-/* --- Genre Item Styles --- */
-
+/* Genre items */
 .genre-item label {
-    display: block;
-    min-width: 150px; /* Set this to the desired minimum width */
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+
     font-size: 1rem;
     color: #d9d9d9;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin: 0 !important;
-    padding: 10px;
+    padding: 0 10px;
+
     border-radius: 8px;
     transition: transform 0.2s ease;
     transform-origin: center center;
 }
 
-/*
-  Using display: block on the label to ensure it occupies its own space.
-  Set a transform-origin so that scaling occurs from the center.
-  The transition ensures a smooth scaling effect.
-*/
-.genre-item label {
-    display: block;
-    font-size: 1rem;
-    color: #d9d9d9;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin: 0 !important;
-    padding: 10px;
-    border-radius: 8px;
-    transition: transform 0.2s ease;
-    transform-origin: center center;
-}
-
-/*
-  On hover, the label scales up slightly.
-  Because its container (and the slick slide container) allow visible overflow,
-  the scaled element overlays its neighbors instead of pushing them.
-*/
 .genre-item:hover label {
     transform: scale(1.05);
 }
 
-/* --- Button Visual Styles --- */
-
+/* Filter button styles */
 .btn-filter {
     background-color: rgba(217, 217, 217, 0.1) !important;
-    color: #d9d9d9;
+    color: #d9d9d9 !important;
 }
 
 .btn-check:checked + .btn-filter {
@@ -100,50 +70,72 @@
     color: #d9d9d9 !important;
 }
 
-/* --- Navigation Button Styles (Optional) --- */
+/* Hide Slick’s default arrows when using custom arrows */
+.slick-prev,
+.slick-next {
+    display: none !important;
+}
 
-.carousel-nav-button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
+/* ------------------------------------
+   Custom Netflix‑style arrows (SVG)
+   ------------------------------------ */
+.custom-arrow {
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 60px;
+
     cursor: pointer;
+    transition: background 0.3s ease;
     z-index: 10;
+    /* border-radius: 8px; */
+    overflow: visible;
 }
 
-.carousel-prev {
-    left: 0;
-}
-
-.carousel-next {
+/* Right (next) arrow: gradient from transparent to a semi-transparent black */
+.custom-next-arrow {
     right: 0;
+    background: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.4) 100%
+    );
+}
+.custom-next-arrow:hover {
+    background: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.6) 100%
+    );
 }
 
-/* --- Legacy .genre-list Styles (if used outside slick) --- */
-
-.genre-list {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto; /* Carousel scrolls horizontally */
-    width: 100%;
-    max-width: 100%; /* Does not exceed the viewport width */
-    scroll-behavior: smooth;
-    gap: 15px; /* Keeps consistent spacing between items */
-    padding: 15px 0;
-    scrollbar-width: none;
-    overscroll-behavior-x: contain; /* Or try auto/none if needed */
-    -webkit-overflow-scrolling: touch;
+/* Left (prev) arrow: gradient from transparent to a semi-transparent black */
+.custom-prev-arrow {
+    left: 0;
+    background: linear-gradient(
+        to left,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.4) 100%
+    );
+}
+.custom-prev-arrow:hover {
+    background: linear-gradient(
+        to left,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.6) 100%
+    );
 }
 
-/* Hide scrollbar for Chrome, Safari and Opera */
-.genre-list::-webkit-scrollbar {
-    display: none;
+/* The SVG icon inside the arrow: white stroke and sized as you like */
+.custom-arrow svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: #fff;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
