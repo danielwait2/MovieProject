@@ -121,7 +121,6 @@ const AdminMoviePage = () => {
         <>
             <AuthorizeView>
             <h1>Admin - Movies</h1>
-             <div>
             <div className="text-center mb-3">
                 <h1 className="mb-0">Admin - Movies</h1>
             </div>
