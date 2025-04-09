@@ -17,8 +17,7 @@ function App() {
             <Navbar />
             <SessionTimeout
                 onLogout={() => (window.location.href = '/login')}
-            />{' '}
-            {/* 👈 add this */}
+            />
             <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/movies" element={<MoviePage />} />
