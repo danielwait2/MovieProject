@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Slider from 'react-slick';
-import './GenreFilter.css'; // Ensure this file includes your relevant styles
+import '../css/GenreFilter.css'; // Ensure this file includes your relevant styles
 
 function GenreFilter({
     selectedGenres,

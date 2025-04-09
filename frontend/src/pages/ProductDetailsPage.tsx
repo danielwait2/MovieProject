@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FaPlay, FaStar, FaTimes } from 'react-icons/fa';
-import './ProductDetailsPage.css';
+import '../css/ProductDetailsPage.css';
 import unknownImage from '../assets/unknown.jpg';
 import { Movie } from '../types/Movie';
 

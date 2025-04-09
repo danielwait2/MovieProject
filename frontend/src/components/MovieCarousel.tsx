@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Movie } from '../types/Movie';
 import MovieCard from './MovieCard';
-import './MovieCarousel.css'; // Make sure this file is loading correctly
+import '../css/MovieCarousel.css'; // Make sure this file is loading correctly
 import LazyLoad from './LazyLoad';
-import './MovieCarousel.css';
+import '../css/MovieCarousel.css';
 
 function MovieCarousel({
     selectedGenres,
