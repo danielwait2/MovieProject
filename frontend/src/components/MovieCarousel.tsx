@@ -7,6 +7,8 @@ import Slider, { Settings, CustomArrowProps } from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import '../css/MovieCarousel.css';
+import {baseURL} from '../api/MoviesAPI';
+
 
 /**
  * A "steeper angle" right arrow using an SVG path.
@@ -103,7 +105,7 @@ function MovieCarousel({
             try {
                 setLoading(true);
                 const response = await fetch(
-                    `https://movieintex2backend-bkhsfxfsdnejfbe6.eastus-01.azurewebsites.net/Movie/RecMoviesTemp?genres=${selectedGenres}`,
+                    `${baseURL}/Movie/RecMoviesTemp?genres=${selectedGenres}`,
                     {
                         credentials: 'include',
                     }

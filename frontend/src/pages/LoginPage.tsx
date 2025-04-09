@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 // import '../css/Identity.css';
 import CookieConsent from 'react-cookie-consent';
 import Footer from '../components/Footer';
+import {baseURL} from '../api/MoviesAPI';
+
 
 //hi
 
@@ -43,8 +45,8 @@ function LoginPage() {
         }
 
         const loginUrl = rememberme
-            ? 'https://movieintex2backend-bkhsfxfsdnejfbe6.eastus-01.azurewebsites.net/login?useCookies=true'
-            : 'https://movieintex2backend-bkhsfxfsdnejfbe6.eastus-01.azurewebsites.net/login?useSessionCookies=true';
+            ? `${baseURL}/login?useCookies=true`
+            : `${baseURL}/login?useSessionCookies=true`;
 
         try {
             const response = await fetch(loginUrl, {

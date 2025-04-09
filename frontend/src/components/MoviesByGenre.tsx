@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import MovieCarousel from './MovieCarousel';
 import LazyLoad from './LazyLoad';
+import {baseURL} from '../api/MoviesAPI';
+
 //delete this line below
 LazyLoad
 
@@ -14,7 +16,7 @@ setSelectedGenres
         const fetchGenres = async () => {
             try {
                 const response = await fetch(
-                    `https://movieintex2backend-bkhsfxfsdnejfbe6.eastus-01.azurewebsites.net/Movie/Genres`,
+                    `${baseURL}/Movie/Genres`,
                     {
                         credentials: 'include',
                     }

@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import {baseURL} from '../api/MoviesAPI';
+
 
 
 function Register() {
@@ -46,7 +48,7 @@ function Register() {
             setError('');
             setInfo('');
             // post data to the /register api
-            fetch('https://movieintex2backend-bkhsfxfsdnejfbe6.eastus-01.azurewebsites.net/register', {
+            fetch(`${baseURL}/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
