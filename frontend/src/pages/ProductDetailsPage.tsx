@@ -41,7 +41,7 @@ const ProductDetailsPage: React.FC = () => {
     }, [showId]);
 
     const handleBack = () => {
-        navigate('/');
+        navigate('/movies');
     };
 
     if (loading) {
