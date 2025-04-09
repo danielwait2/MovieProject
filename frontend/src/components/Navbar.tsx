@@ -4,6 +4,7 @@ import { AuthorizedUser } from './AuthorizeView';
 import  { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { baseURL } from '../api/MoviesAPI';
+import '../css/Navbar.css';
 
 const Navbar = () => {
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -29,12 +30,12 @@ const Navbar = () => {
 
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4 fixed-top">
-            <Link className="navbar-brand fs-3 fw-bold" to="/">
-                CineNiche
+            <Link className="navbar-brand brand-green" to="/">
+                CINENICHE
             </Link>
 
             <button
-                className="navbar-toggler"
+                className="navbar-toggler custom-toggler"
                 type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#navbarNav"
@@ -45,19 +46,19 @@ const Navbar = () => {
             <div className="collapse navbar-collapse" id="navbarNav">
                 <ul className="navbar-nav ms-auto gap-3">
                     <li className="nav-item">
-                        <Link className="nav-link" to="/movies">
+                        <Link className="nav-link custom-nav-link" to="/movies">
                             Movies
                         </Link>
                     </li>
                     {isLoggedIn ? (
                         <>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/admin">
+                                <Link className="nav-link custom-nav-link" to="/admin">
                                     Admin
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <Logout>
+                                <Logout className="nav-link custom-nav-link">
                                     Logout <AuthorizedUser value="email" />
                                 </Logout>
                             </li>
@@ -65,22 +66,18 @@ const Navbar = () => {
                     ) : (
                         <>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/register">
+                                <Link className="nav-link custom-nav-link" to="/register">
                                     Sign Up
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/login">
+                                <Link className="nav-link custom-nav-link" to="/login">
                                     Log In
                                 </Link>
                             </li>
                         </>
                     )}
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/privacyPolicy">
-                            Privacy
-                        </Link>
-                    </li>
+            
                 </ul>
             </div>
         </nav>
