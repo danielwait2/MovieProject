@@ -10,7 +10,11 @@ export const baseURL = 'https://localhost:5000';
 const API_URL = `${baseURL}/Movie`;
 
 export const fetchMovies = async (
-pageSize: number, pageNum: number, _searchQuery: string, selectedCategories: string[]): Promise<FetchMoviesResponse> => {
+    pageSize: number,
+    pageNum: number,
+    _searchQuery: string,
+    selectedCategories: string[]
+): Promise<FetchMoviesResponse> => {
     try {
         const categoryParams = selectedCategories
             .map((cat) => `projectTypes=${encodeURIComponent(cat)}`)
@@ -36,7 +40,9 @@ pageSize: number, pageNum: number, _searchQuery: string, selectedCategories: str
     }
 };
 
-export const addMovie = async (newMovie: Movie): Promise<Movie> => {
+type MovieWithGenres = Movie & { MovieGenres: string[] };
+
+export const addMovie = async (newMovie: MovieWithGenres): Promise<Movie> => {
     try {
         const response = await fetch(`${API_URL}/AddMovie`, {
             method: 'POST',
@@ -47,11 +53,15 @@ export const addMovie = async (newMovie: Movie): Promise<Movie> => {
             body: JSON.stringify(newMovie),
         });
 
+        const text = await response.text();
+        console.log('AddMovie response status:', response.status);
+        console.log('AddMovie response body:', text);
+
         if (!response.ok) {
-            throw new Error('Failed to add movie');
+            throw new Error(`Failed to add movie: ${text}`);
         }
 
-        return await response.json();
+        return JSON.parse(text);
     } catch (error) {
         console.error('Error adding movie: ', error);
         throw error;

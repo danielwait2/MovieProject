@@ -6,7 +6,14 @@ interface NewMovieFormProps {
     onSuccess: () => void;
     onCancel: () => void;
 }
-
+// Simple GUID generator (or use a library like uuid)
+const generateGuid = (): string => {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+        const r = (Math.random() * 16) | 0;
+        const v = c === 'x' ? r : (r & 0x3) | 0x8;
+        return v.toString(16);
+    });
+};
 const genreFields = [
     'action',
     'adventure',
@@ -44,7 +51,7 @@ const genreFields = [
 
 const NewMovieForm = ({ onSuccess, onCancel }: NewMovieFormProps) => {
     const [formData, setFormData] = useState<Movie>({
-        showId: '',
+        showId: generateGuid(), // generate a GUID on initialization
         title: '',
         type: '',
         director: '',
@@ -93,6 +100,11 @@ const NewMovieForm = ({ onSuccess, onCancel }: NewMovieFormProps) => {
         const { name, type, value, checked } = e.target;
         if (type === 'checkbox') {
             setFormData({ ...formData, [name]: checked ? 1 : 0 });
+        } else if (type === 'number') {
+            setFormData({
+                ...formData,
+                [name]: value === '' ? 0 : parseInt(value),
+            });
         } else {
             setFormData({ ...formData, [name]: value });
         }
@@ -100,8 +112,26 @@ const NewMovieForm = ({ onSuccess, onCancel }: NewMovieFormProps) => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        await addMovie(formData);
-        onSuccess();
+
+        // Extract genres that are set to 1
+        const selectedGenres = genreFields.filter(
+            (genre) => formData[genre as keyof Movie] === 1
+        );
+
+        // Send a new object with MovieGenres included
+        const movieToSend = {
+            ...formData,
+            MovieGenres: selectedGenres,
+        };
+
+        try {
+            console.log('Submitting movie...', movieToSend);
+            await addMovie(movieToSend);
+            onSuccess();
+        } catch (err) {
+            console.error('Add movie failed:', err);
+            alert('Failed to add movie. See console for details.');
+        }
     };
 
     return (
@@ -166,7 +196,7 @@ const NewMovieForm = ({ onSuccess, onCancel }: NewMovieFormProps) => {
                         type={type}
                         name={name}
                         className="form-control"
-                        value={formData[name as keyof Movie] as string}
+                        value={formData[name as keyof Movie]?.toString() ?? ''}
                         onChange={handleChange}
                     />
                 </div>

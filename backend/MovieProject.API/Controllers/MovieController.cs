@@ -276,13 +276,40 @@ public IActionResult GetProjects(int pageSize = 10, int pageNum = 1, string sear
             return Ok(projectTypes);
         }
 
-        [HttpPost("AddMovie")]
-        public IActionResult AddMovie([FromBody] Movie newMovie)
-        {
-            _movieContext.Movies.Add(newMovie);
-            _movieContext.SaveChanges();
-            return Ok(newMovie);
-        }
+[HttpPost("AddMovie")]
+public IActionResult AddMovie([FromBody] Movie newMovie)
+{
+    if (newMovie == null)
+    {
+        return BadRequest("Movie data is null.");
+    }
+
+    if (!ModelState.IsValid)
+    {
+        // Return all validation errors.
+        var errors = ModelState.Values.SelectMany(v => v.Errors)
+                                      .Select(e => e.ErrorMessage);
+        return BadRequest(new { Message = "Invalid movie data", Errors = errors });
+    }
+    
+    // If ShowId is still missing, generate one on the server.
+    if (string.IsNullOrEmpty(newMovie.ShowId))
+    {
+        newMovie.ShowId = Guid.NewGuid().ToString();
+    }
+
+    try
+    {
+        _movieContext.Movies.Add(newMovie);
+        _movieContext.SaveChanges();
+        return Ok(newMovie);
+    }
+    catch (Exception ex)
+    {
+        return StatusCode(500, $"Internal server error: {ex.Message}");
+    }
+}
+
 
         [HttpPut("UpdateMovie/{show_id}")]
         public IActionResult UpdateProject(string show_id, [FromBody] MovieUpdateDTO updatedMovie)
