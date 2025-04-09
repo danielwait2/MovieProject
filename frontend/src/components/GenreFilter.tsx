@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Slider, { Settings, CustomArrowProps } from 'react-slick';
 import '../css/GenreFilter.css';
+import {baseURL} from '../api/MoviesAPI';
+
 
 type GenreFilterProps = {
     selectedGenres: string[];
@@ -58,7 +60,7 @@ const GenreFilter: React.FC<GenreFilterProps> = ({
         const fetchGenres = async () => {
             try {
                 const response = await fetch(
-                    `https://localhost:5000/Movie/Genres?${selectedGenres}`,
+                    `${baseURL}/Movie/Genres?${selectedGenres}`,
                     {
                         credentials: 'include',
                     }

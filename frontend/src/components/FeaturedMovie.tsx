@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
 import '../css/FeaturedMovie.css'; // Import your CSS file for styling
 import { FaPlay } from 'react-icons/fa';
+import {baseURL} from '../api/MoviesAPI';
+
 
 function FeaturedMovie() {
     const [imageUrl, setImageUrl] = useState<string>('');
 
     useEffect(() => {
         // Dynamically set the image URL
-        setImageUrl(`https://localhost:5000/api/MovieImages/Zion.jpg`);
+        setImageUrl(`${baseURL}/api/MovieImages/Zion.jpg`);
     }, []);
 
     return (

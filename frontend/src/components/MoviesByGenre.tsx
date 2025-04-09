@@ -1,16 +1,22 @@
 import { useEffect, useState } from 'react';
 import MovieCarousel from './MovieCarousel';
 import LazyLoad from './LazyLoad';
+import {baseURL} from '../api/MoviesAPI';
+
+//delete this line below
+LazyLoad
 
 function MoviesByGenre() {
     const [genres, setGenres] = useState<string[]>([]);
     const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
+    //delete this line below
+setSelectedGenres
 
     useEffect(() => {
         const fetchGenres = async () => {
             try {
                 const response = await fetch(
-                    `https://localhost:5000/Movie/Genres`,
+                    `${baseURL}/Movie/Genres`,
                     {
                         credentials: 'include',
                     }

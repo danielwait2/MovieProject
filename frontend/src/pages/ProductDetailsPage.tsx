@@ -4,6 +4,8 @@ import { FaPlay, FaStar, FaTimes } from 'react-icons/fa';
 import '../css/ProductDetailsPage.css';
 import unknownImage from '../assets/unknown.jpg';
 import { Movie } from '../types/Movie';
+import {baseURL} from '../api/MoviesAPI';
+
 
 const ProductDetailsPage: React.FC = () => {
     // Extract the movie identifier from the URL (your route uses "showId")
@@ -20,7 +22,7 @@ const ProductDetailsPage: React.FC = () => {
             try {
                 setLoading(true);
                 const response = await fetch(
-                    `https://localhost:5000/Movie/Details/${showId}`,
+                    `${baseURL}/Movie/Details/${showId}`,
                     { credentials: 'include' }
                 );
                 if (!response.ok) {
