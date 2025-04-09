@@ -20,9 +20,7 @@ const ProductDetailsPage: React.FC = () => {
                 setLoading(true);
                 const response = await fetch(
                     `${baseURL}/Movie/Details/${showId}`,
-                    {
-                        credentials: 'include',
-                    }
+                    { credentials: 'include' }
                 );
                 if (!response.ok) {
                     throw new Error('Failed to fetch movie details');
@@ -42,56 +40,33 @@ const ProductDetailsPage: React.FC = () => {
     if (error) return <div>Error: {error}</div>;
     if (!movie) return <div>No movie details found.</div>;
 
-    // Build the poster URL (this was working fine for you):
     const posterUrl = movie.title
         ? `https://intex2025.blob.core.windows.net/movie-posters/${movie.title.replace(/[^a-zA-Z0-9 ]/g, '')}.jpg`
         : unknownImage;
 
-    // Limit the cast string to only show the first three actors
-    const firstThreeCast = movie.cast
-        ? movie.cast.indexOf(',') > -1
-            ? movie.cast
-                  .split(',')
-                  .slice(0, 3)
-                  .map((actor) => actor.trim())
-                  .join(', ')
-            : (() => {
-                  // If there are no commas, assume each actor name is made of two words
-                  const words = movie.cast.trim().split(/\s+/);
-                  const actorNames: string[] = [];
-                  for (let i = 0; i < words.length; i += 2) {
-                      const name =
-                          words[i] + (words[i + 1] ? ` ${words[i + 1]}` : '');
-                      actorNames.push(name);
-                      if (actorNames.length === 3) break;
-                  }
-                  return actorNames.join(', ');
-              })()
-        : '';
-
-    // If your API has these fields (unchanged)
     const genres = (movie as any).genre || (movie as any).Genres || [];
 
-    // Back button
+    // Limit the cast to the first three names (assuming a comma-separated string)
+    const limitedCast =
+        movie.cast && typeof movie.cast === 'string'
+            ? movie.cast.split(',').slice(0, 3).join(', ')
+            : movie.cast;
+
     const handleBack = () => navigate('/movies');
 
     return (
         <div className="product-details">
-            {/* 1) The narrower wrapper, centered on page */}
             <div className="hero-wrapper">
-                {/* 2) The hero background (fill .hero-wrapper) */}
+                {/* Moved X button inside the hero container */}
                 <div
                     className="hero"
                     style={{ backgroundImage: `url(${posterUrl})` }}
                 >
-                    {/* The X in top-right corner */}
                     <button className="back-button" onClick={handleBack}>
                         <FaTimes size={24} />
                     </button>
-                    {/* 3) Centered content inside .hero */}
                     <div className="centered-content">
                         <h1>{movie.title}</h1>
-
                         <div className="meta-row">
                             {movie.release_year && (
                                 <span className="meta-label">
@@ -103,26 +78,22 @@ const ProductDetailsPage: React.FC = () => {
                                     {movie.rating}
                                 </span>
                             )}
-                            {genres.length > 0 && (
+                            {Array.isArray(genres) && genres.length > 0 && (
                                 <span className="meta-label">
                                     {genres.join(', ')}
                                 </span>
                             )}
                         </div>
-
-                        {/* Now displaying the *limited* cast */}
-                        {movie.cast && (
+                        {limitedCast && (
                             <p className="cast-text">
-                                <strong>Cast:</strong> {firstThreeCast}
+                                <strong>Cast:</strong> {limitedCast}
                             </p>
                         )}
-
                         {movie.description && (
                             <p className="description-text">
                                 {movie.description}
                             </p>
                         )}
-
                         <div className="action-buttons">
                             <button className="btn btn-danger action-button">
                                 <FaPlay /> <span>Play</span>
@@ -155,12 +126,9 @@ const ProductDetailsPage: React.FC = () => {
                                 })}
                             </div>
                         </div>
-                    </div>{' '}
-                    {/* centered-content */}
-                </div>{' '}
-                {/* hero */}
-            </div>{' '}
-            {/* hero-wrapper */}
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };
