@@ -4,6 +4,8 @@ import '../css/Identity.css';
 import CookieConsent from 'react-cookie-consent';
 import Footer from '../components/Footer';
 
+//hi
+
 function LoginPage() {
     // state variables for email and passwords
     const [email, setEmail] = useState<string>('');
