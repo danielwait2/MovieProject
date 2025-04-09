@@ -31,6 +31,7 @@ function AppContent() {
             />
             {/* Main routes (background or full page) */}
             <Routes location={state?.backgroundLocation || location}>
+
                 <Route path="/" element={<HomePage />} />
                 <Route path="/movies" element={<MoviePage />} />
                 <Route path="/login" element={<LoginPage />} />
