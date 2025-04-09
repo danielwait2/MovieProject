@@ -106,6 +106,8 @@ const ProductDetailsPage: React.FC = () => {
                     />
                 </div>
 
+                
+
                 {/* Right side: Movie Info */}
                 <div className="info-container col-md-8">
                     <h1 className="text-start mb-3">{movie.title}</h1>
