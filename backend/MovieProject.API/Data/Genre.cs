@@ -8,7 +8,7 @@ namespace MovieProject.API.Data
     {
         [Required]
         [Key]
-        public string Code { get; set; }
+        public int Code { get; set; }
 
         [Column("Genre")]
         public string Name { get; set; }
