@@ -97,7 +97,7 @@ const GenreFilter: React.FC<GenreFilterProps> = ({
     // Use our custom arrows with steeper angle SVGs
     const settings: Settings = {
         dots: false,
-        infinite: false,
+        infinite: true,
         speed: 450,
         slidesToShow: 6,
         slidesToScroll: 2,

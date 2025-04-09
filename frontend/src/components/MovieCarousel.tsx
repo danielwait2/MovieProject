@@ -4,6 +4,10 @@ import MovieCard from './MovieCard';
 import '../css/MovieCarousel.css'; // Make sure this file is loading correctly
 import LazyLoad from './LazyLoad';
 import Slider, { Settings, CustomArrowProps } from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import '../css/MovieCarousel.css';
+
 /**
  * A "steeper angle" right arrow using an SVG path.
  * Feel free to tweak the path commands for a different shape.
@@ -74,36 +78,21 @@ function MovieCarousel({
     };
 
     // Slider settings.
-    const settings = {
+    const settings: Settings = {
         dots: false,
-        infinite: false, // Enable infinite looping if desired.
+        infinite: true,
         speed: 450,
-        slidesToShow: 6,
+        slidesToShow: 5,
         slidesToScroll: 2,
-        swipe: true, // Keep swipe enabled for touch devices.
-        draggable: false, // Disable native mouse dragging.
+        swipe: true,
+        draggable: false,
         variableWidth: true,
         nextArrow: <NextArrow />,
         prevArrow: <PrevArrow />,
         responsive: [
-            {
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 3,
-                },
-            },
-            {
-                breakpoint: 600,
-                settings: {
-                    slidesToShow: 2,
-                },
-            },
-            {
-                breakpoint: 480,
-                settings: {
-                    slidesToShow: 1,
-                },
-            },
+            { breakpoint: 1024, settings: { slidesToShow: 3 } },
+            { breakpoint: 600, settings: { slidesToShow: 2 } },
+            { breakpoint: 480, settings: { slidesToShow: 1 } },
         ],
     };
 
