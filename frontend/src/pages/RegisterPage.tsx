@@ -46,7 +46,7 @@ function Register() {
             setError('');
             setInfo('');
             // post data to the /register api
-            fetch('https://localhost:5000/register', {
+            fetch('https://movieintex2backend-bkhsfxfsdnejfbe6.eastus-01.azurewebsites.net/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

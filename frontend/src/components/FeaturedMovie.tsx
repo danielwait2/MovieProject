@@ -7,7 +7,7 @@ function FeaturedMovie() {
 
     useEffect(() => {
         // Dynamically set the image URL
-        setImageUrl(`https://localhost:5000/api/MovieImages/Zion.jpg`);
+        setImageUrl(`https://movieintex2backend-bkhsfxfsdnejfbe6.eastus-01.azurewebsites.net/api/MovieImages/Zion.jpg`);
     }, []);
 
     return (

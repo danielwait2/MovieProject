@@ -56,6 +56,8 @@ function MovieCarousel({
 }) {
     const [movies, setMovies] = useState<Movie[]>([]);
     const [loading, setLoading] = useState(true);
+    //delete this line below
+    loading
     const sliderRef = useRef<Slider>(null);
     const accumulatedDeltaRef = useRef(0); // Accumulates wheel deltaX
 
@@ -101,7 +103,7 @@ function MovieCarousel({
             try {
                 setLoading(true);
                 const response = await fetch(
-                    `https://localhost:5000/Movie/RecMoviesTemp?genres=${selectedGenres}`,
+                    `https://movieintex2backend-bkhsfxfsdnejfbe6.eastus-01.azurewebsites.net/Movie/RecMoviesTemp?genres=${selectedGenres}`,
                     {
                         credentials: 'include',
                     }
