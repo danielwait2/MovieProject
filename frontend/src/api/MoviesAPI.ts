@@ -14,7 +14,7 @@ export const fetchMovies = async (
 ): Promise<FetchMoviesResponse> => {
     try {
         const categoryParams = selectedCategories
-            .map((cat) => `movieTypes=${encodeURIComponent(cat)}`)
+            .map((cat) => `projectTypes=${encodeURIComponent(cat)}`)
             .join('&');
 
         const response = await fetch(
@@ -62,9 +62,9 @@ export const addMovie = async (newMovie: Movie): Promise<Movie> => {
 export const updateMovie = async (
     show_id: string,
     updatedMovie: Movie
-): Promise<Movie> => {
+): Promise<Movie | void> => {
     try {
-        const response = await fetch(`${API_URL}/UpdateProject/${show_id}`, {
+        const response = await fetch(`${API_URL}/UpdateMovie/${show_id}`, {
             method: 'PUT',
             credentials: 'include',
             headers: {
@@ -73,7 +73,19 @@ export const updateMovie = async (
             body: JSON.stringify(updatedMovie),
         });
 
-        return await response.json();
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('Server responded with error:', errorText);
+            throw new Error('Failed to update movie');
+        }
+
+        // Only parse JSON if there's a body
+        const contentType = response.headers.get('content-type');
+        if (contentType && contentType.includes('application/json')) {
+            return await response.json();
+        }
+
+        return; // No content expected
     } catch (error) {
         console.error('Error updating movie: ', error);
         throw error;
