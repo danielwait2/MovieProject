@@ -1,7 +1,7 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* 1) Import Bootstrap’s CSS first */
+@import 'bootstrap/dist/css/bootstrap.min.css';
 
+/* 2) Your global resets and base styles */
 :root {
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.5;
@@ -11,6 +11,23 @@
     color: rgba(255, 255, 255, 0.87);
     background-color: #121212;
 
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Font stack */
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    /* Line height & weight */
+    line-height: 1.5;
+    font-weight: 400;
+
+    /* Light/dark mode support */
+    color-scheme: light dark;
+    /* Default text & background */
+    color: rgba(255, 255, 255, 0.87);
+    background-color: #121212;
+
+    /* Font rendering optimizations */
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;

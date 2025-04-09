@@ -1,19 +1,59 @@
 import React, { useEffect, useState, useRef } from 'react';
-import Slider from 'react-slick';
-import './GenreFilter.css'; // Ensure this file includes your relevant styles
+import Slider, { Settings, CustomArrowProps } from 'react-slick';
+import '../css/GenreFilter.css';
 
-function GenreFilter({
-    selectedGenres,
-    setSelectedGenres,
-}: {
+type GenreFilterProps = {
     selectedGenres: string[];
     setSelectedGenres: (genres: string[]) => void;
-}) {
+};
+
+/**
+ * A "steeper angle" right arrow using an SVG path.
+ * Feel free to tweak the path commands for a different shape.
+ */
+function NextArrow(props: CustomArrowProps) {
+    const { onClick } = props;
+    return (
+        <div className="custom-arrow custom-next-arrow" onClick={onClick}>
+            <svg viewBox="0 0 24 24">
+                {/* This path draws a right-pointing chevron. 
+                    M4 2 -> move to (4,2)
+                    l12 10 -> line 12 right, 10 down
+                    -12 10 -> line 12 left, 10 down (back to x=4)
+                */}
+                <path d="M4 2 l12 10 -12 10" />
+            </svg>
+        </div>
+    );
+}
+
+/**
+ * A matching left arrow (mirror image).
+ */
+function PrevArrow(props: CustomArrowProps) {
+    const { onClick } = props;
+    return (
+        <div className="custom-arrow custom-prev-arrow" onClick={onClick}>
+            <svg viewBox="0 0 24 24">
+                {/* This path draws a left-pointing chevron.
+                    M20 2 -> move to (20,2)
+                    l-12 10 -> line 12 left, 10 down
+                    12 10 -> line 12 right, 10 down (back to x=20)
+                */}
+                <path d="M20 2 l-12 10 12 10" />
+            </svg>
+        </div>
+    );
+}
+
+const GenreFilter: React.FC<GenreFilterProps> = ({
+    selectedGenres,
+    setSelectedGenres,
+}) => {
     const [genres, setGenres] = useState<string[]>([]);
     const sliderRef = useRef<Slider>(null);
-    const accumulatedDeltaRef = useRef(0); // Accumulates wheel deltaX
+    const accumulatedDeltaRef = useRef(0);
 
-    // Fetch genres from the database on mount
     useEffect(() => {
         const fetchGenres = async () => {
             try {
@@ -23,77 +63,58 @@ function GenreFilter({
                         credentials: 'include',
                     }
                 );
-                const data = await response.json();
+                const data: string[] = await response.json();
                 setGenres(data);
             } catch (error) {
-                console.error('Error fetching categories', error);
+                console.error('Error fetching genres', error);
             }
         };
-
         fetchGenres();
-    }, []); // If selectedGenres may change externally, include it in the dependency array
+    }, []);
 
-    // Update selected genres when a checkbox is toggled.
-    function handleCheckboxChange({ target }: { target: HTMLInputElement }) {
-        const updatedGenres = selectedGenres.includes(target.value)
-            ? selectedGenres.filter((x) => x !== target.value)
-            : [...selectedGenres, target.value];
+    const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        const updated = selectedGenres.includes(value)
+            ? selectedGenres.filter((x) => x !== value)
+            : [...selectedGenres, value];
+        setSelectedGenres(updated);
+    };
 
-        setSelectedGenres(updatedGenres);
-    }
-
-    // Handle wheel events—accumulate deltaX and trigger slide change immediately upon reaching a threshold.
+    // Horizontal scroll on the wheel moves the slider
     const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
-        // Ignore events that are predominantly vertical
         if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) return;
-
-        // Update our accumulated delta.
         accumulatedDeltaRef.current += e.deltaX;
-        const threshold = 50; // Adjust this value to control sensitivity
-
+        const threshold = 50;
         if (accumulatedDeltaRef.current > threshold) {
             sliderRef.current?.slickNext();
-            accumulatedDeltaRef.current = 0; // Reset after triggering next
+            accumulatedDeltaRef.current = 0;
         } else if (accumulatedDeltaRef.current < -threshold) {
             sliderRef.current?.slickPrev();
-            accumulatedDeltaRef.current = 0; // Reset after triggering previous
+            accumulatedDeltaRef.current = 0;
         }
     };
 
-    // Slider settings.
-    const settings = {
+    // Use our custom arrows with steeper angle SVGs
+    const settings: Settings = {
         dots: false,
-        infinite: false, // Enable infinite looping if desired.
+        infinite: false,
         speed: 450,
         slidesToShow: 6,
         slidesToScroll: 2,
-        swipe: true, // Keep swipe enabled for touch devices.
-        draggable: false, // Disable native mouse dragging.
+        swipe: true,
+        draggable: false,
         variableWidth: true,
+        nextArrow: <NextArrow />,
+        prevArrow: <PrevArrow />,
         responsive: [
-            {
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 3,
-                },
-            },
-            {
-                breakpoint: 600,
-                settings: {
-                    slidesToShow: 2,
-                },
-            },
-            {
-                breakpoint: 480,
-                settings: {
-                    slidesToShow: 1,
-                },
-            },
+            { breakpoint: 1024, settings: { slidesToShow: 3 } },
+            { breakpoint: 600, settings: { slidesToShow: 2 } },
+            { breakpoint: 480, settings: { slidesToShow: 1 } },
         ],
     };
 
     return (
-        <div>
+        <div className="genre-filter">
             <h2 className="carousel-title">Filter By Genre:</h2>
             <div
                 className="genre-carousel"
@@ -109,6 +130,7 @@ function GenreFilter({
                                 value={c}
                                 className="btn-check"
                                 onChange={handleCheckboxChange}
+                                checked={selectedGenres.includes(c)}
                             />
                             <label className="btn btn-filter" htmlFor={c}>
                                 {c.substring(
@@ -124,6 +146,6 @@ function GenreFilter({
             </div>
         </div>
     );
-}
+};
 
 export default GenreFilter;

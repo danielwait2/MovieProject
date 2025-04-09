@@ -26,7 +26,12 @@ function Logout(props: { children: React.ReactNode }) {
     };
 
     return (
-        <a className="logout" href="#" onClick={handleLogout}>
+        <a
+            type="button"
+            className="btn btn-outline-light logout-button"
+            href="#"
+            onClick={handleLogout}
+        >
             {props.children}
         </a>
     );

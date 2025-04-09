@@ -1,0 +1,141 @@
+.genre-filter {
+    position: relative;
+    width: auto;
+    font-family: Arial, sans-serif;
+}
+
+.carousel-title {
+    margin-left: 60px;
+    color: #d9d9d9;
+}
+
+.genre-carousel {
+    position: relative;
+    height: 60px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+/* react-slick overrides */
+.slick-list {
+    margin: 0 -10px;
+    overflow: visible;
+}
+
+.slick-slide {
+    display: inline-block;
+    margin: 0 10px;
+    overflow: visible;
+}
+
+/* Genre items */
+.genre-item label {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+
+    font-size: 1rem;
+    color: #d9d9d9;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 10px;
+
+    border-radius: 8px;
+    transition: transform 0.2s ease;
+    transform-origin: center center;
+}
+
+.genre-item:hover label {
+    transform: scale(1.05);
+}
+
+/* Filter button styles */
+.btn-filter {
+    background-color: rgba(217, 217, 217, 0.1) !important;
+    color: #d9d9d9 !important;
+}
+
+.btn-check:checked + .btn-filter {
+    background-color: rgba(0, 0, 0, 0.4) !important;
+    font-weight: bold;
+    border: 0;
+}
+
+.btn-check:hover + .btn-filter {
+    font-weight: bold;
+    color: #d9d9d9 !important;
+}
+
+/* Hide Slick’s default arrows when using custom arrows */
+.slick-prev,
+.slick-next {
+    display: none !important;
+}
+
+/* ------------------------------------
+   Custom Netflix‑style arrows (SVG)
+   ------------------------------------ */
+.custom-arrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 60px;
+
+    cursor: pointer;
+    transition: background 0.3s ease;
+    z-index: 10;
+    /* border-radius: 8px; */
+    overflow: visible;
+}
+
+/* Right (next) arrow: gradient from transparent to a semi-transparent black */
+.custom-next-arrow {
+    right: 0;
+    background: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.4) 100%
+    );
+}
+.custom-next-arrow:hover {
+    background: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.6) 100%
+    );
+}
+
+/* Left (prev) arrow: gradient from transparent to a semi-transparent black */
+.custom-prev-arrow {
+    left: 0;
+    background: linear-gradient(
+        to left,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.4) 100%
+    );
+}
+.custom-prev-arrow:hover {
+    background: linear-gradient(
+        to left,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.6) 100%
+    );
+}
+
+/* The SVG icon inside the arrow: white stroke and sized as you like */
+.custom-arrow svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: #fff;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
