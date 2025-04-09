@@ -10,7 +10,7 @@ function MoviesByGenre() {
         const fetchGenres = async () => {
             try {
                 const response = await fetch(
-                    `https://localhost:5000/Movie/Genres`,
+                    `https://movieintex2backend-bkhsfxfsdnejfbe6.eastus-01.azurewebsites.net/Movie/Genres`,
                     {
                         credentials: 'include',
                     }

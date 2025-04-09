@@ -20,7 +20,7 @@ const ProductDetailsPage: React.FC = () => {
             try {
                 setLoading(true);
                 const response = await fetch(
-                    `https://localhost:5000/Movie/Details/${showId}`,
+                    `https://movieintex2backend-bkhsfxfsdnejfbe6.eastus-01.azurewebsites.net/Movie/Details/${showId}`,
                     { credentials: 'include' }
                 );
                 if (!response.ok) {

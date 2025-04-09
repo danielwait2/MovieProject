@@ -101,7 +101,7 @@ function MovieCarousel({
             try {
                 setLoading(true);
                 const response = await fetch(
-                    `https://localhost:5000/Movie/RecMoviesTemp?genres=${selectedGenres}`,
+                    `https://movieintex2backend-bkhsfxfsdnejfbe6.eastus-01.azurewebsites.net/Movie/RecMoviesTemp?genres=${selectedGenres}`,
                     {
                         credentials: 'include',
                     }

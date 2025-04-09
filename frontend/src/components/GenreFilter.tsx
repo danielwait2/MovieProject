@@ -58,7 +58,7 @@ const GenreFilter: React.FC<GenreFilterProps> = ({
         const fetchGenres = async () => {
             try {
                 const response = await fetch(
-                    `https://localhost:5000/Movie/Genres?${selectedGenres}`,
+                    `https://movieintex2backend-bkhsfxfsdnejfbe6.eastus-01.azurewebsites.net/Movie/Genres?${selectedGenres}`,
                     {
                         credentials: 'include',
                     }
