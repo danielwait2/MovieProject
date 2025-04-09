@@ -63,9 +63,11 @@ const ProductDetailsPage: React.FC = () => {
     if (error) return <div>Error: {error}</div>;
     if (!movie) return <div>No movie details found.</div>;
 
+    console.log("Movie Title:", movie.title);
     const posterUrl = movie.title
-        ? `https://intex2025.blob.core.windows.net/movie-posters/${movie.title.replace(/[^a-zA-Z0-9 ]/g, '')}.jpg`
+        ? `https://intex2025.blob.core.windows.net/movie-posters/${encodeURIComponent(movie.title.replace(/[^a-zA-Z0-9 ]/g, ''))}.jpg`
         : unknownImage;
+    console.log("Poster URL:", posterUrl);
 
     const genres = (movie as any).genre || (movie as any).Genres || [];
 
