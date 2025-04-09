@@ -44,7 +44,7 @@ const ProductDetailsPage: React.FC = () => {
 
     // Build the poster URL (this was working fine for you):
     const posterUrl = movie.title
-        ? `https://intex2025.blob.core.windows.net/movie-posters/${movie.title}.jpg`
+        ? `https://intex2025.blob.core.windows.net/movie-posters/${movie.title.replace(/[^a-zA-Z0-9 ]/g, '')}.jpg`
         : unknownImage;
 
     // Limit the cast string to only show the first three actors
