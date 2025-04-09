@@ -9,7 +9,7 @@ namespace MovieProject.API.Data
         public string ShowId { get; set; }
 
         [Column("genre_code")]
-        public string GenreCode { get; set; }
+        public int GenreCode { get; set; }
 
         // Navigation properties
         public Movie Movie { get; set; }
