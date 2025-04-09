@@ -1,4 +1,4 @@
-
+import {Link} from 'react-router-dom';
 
 const HomePage = () => {
     return (
@@ -10,8 +10,11 @@ const HomePage = () => {
                     </h1>
                     <p className="fs-5 mt-3">Watch anywhere. Cancel anytime.</p>
                     <button className="btn btn-danger btn-lg mt-4">
-                        Get Started
+                        <Link className="nav-link" to="/login">
+                            Get Started
+                        </Link>
                     </button>
+                    
                 </div>
             </header>
         </div>

@@ -13,7 +13,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ showId, title, year }) => {
     const [imageUrl, setImageUrl] = useState<string>('');
 
     useEffect(() => {
-        setImageUrl(`https://localhost:5000/api/MovieImages/${title}.jpg`);
+        setImageUrl(`https://intex2025.blob.core.windows.net/movie-posters/${title}.jpg`);
     }, [title]);
 
     return (

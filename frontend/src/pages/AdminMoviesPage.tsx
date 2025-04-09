@@ -152,7 +152,7 @@ const AdminMoviePage = () => {
                             </div>
 
                             <img
-                                src={`https://localhost:5000/api/MovieImages/${m.title}.jpg`}
+                                src={`https://intex2025.blob.core.windows.net/movie-posters/${m.title}.jpg`}
                                 alt={m.title}
                                 className="card-img-top object-fit-cover"
                                 style={{
