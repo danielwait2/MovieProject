@@ -103,13 +103,32 @@ const AdminMoviePage = () => {
         }
     };
 
+    const toggleGenre = (genre: string) => {
+        setSelectedCategories((prev) =>
+            prev.includes(genre)
+                ? prev.filter((g) => g !== genre)
+                : [...prev, genre]
+        );
+    };
+
     if (loading) return <p>Loading movies ...</p>;
     if (error) return <p className="text-red-500">Error: {error}</p>;
 
     return (
         <div>
-            <h1>Admin - Movies</h1>
+            <div className="text-center mb-3">
+                <h1 className="mb-0">Admin - Movies</h1>
+            </div>
+            <div className="d-flex justify-content-end px-3 mb-4">
+                <button
+                    className="btn btn-success"
+                    onClick={() => setShowForm(true)}
+                >
+                    Add Movie
+                </button>
+            </div>
 
+            {/* Add Movie Modal */}
             {showForm && (
                 <div
                     className="modal d-block"
@@ -130,8 +149,12 @@ const AdminMoviePage = () => {
                                 <NewMovieForm
                                     onSuccess={() => {
                                         setShowForm(false);
-                                        fetchMovies(pageSize, pageNum, []).then(
-                                            (data) => setMovies(data.movies)
+                                        fetchMovies(
+                                            pageSize,
+                                            pageNum,
+                                            selectedCategories
+                                        ).then((data) =>
+                                            setMovies(data.movies)
                                         );
                                     }}
                                     onCancel={() => setShowForm(false)}
@@ -142,6 +165,7 @@ const AdminMoviePage = () => {
                 </div>
             )}
 
+            {/* Edit Movie Modal */}
             {editingMovie && (
                 <div
                     className="modal d-block"
@@ -163,8 +187,12 @@ const AdminMoviePage = () => {
                                     movie={editingMovie}
                                     onSuccess={() => {
                                         setEditingMovie(null);
-                                        fetchMovies(pageSize, pageNum, []).then(
-                                            (data) => setMovies(data.movies)
+                                        fetchMovies(
+                                            pageSize,
+                                            pageNum,
+                                            selectedCategories
+                                        ).then((data) =>
+                                            setMovies(data.movies)
                                         );
                                     }}
                                     onCancel={() => setEditingMovie(null)}
@@ -177,20 +205,49 @@ const AdminMoviePage = () => {
 
             <div className="container">
                 <div className="row">
-                    <div className="col-lg-2"></div> {/* Left margin */}
+                    {/* Sidebar: Filter options */}
+                    <div className="col-lg-2 mb-4">
+                        <h5 className="mb-3">Filter by Genre</h5>
+                        {selectedCategories.length > 0 && (
+                            <button
+                                className="btn btn-sm btn-outline-secondary mb-3"
+                                onClick={() => setSelectedCategories([])}
+                            >
+                                Clear Filters
+                            </button>
+                        )}
+                        {genreFields.map((genre) => (
+                            <div className="form-check" key={genre}>
+                                <input
+                                    className="form-check-input"
+                                    type="checkbox"
+                                    id={`filter-${genre}`}
+                                    name={genre}
+                                    checked={selectedCategories.includes(genre)}
+                                    onChange={() => toggleGenre(genre)}
+                                />
+                                <label
+                                    className="form-check-label"
+                                    htmlFor={`filter-${genre}`}
+                                >
+                                    {formatGenreLabel(genre)}
+                                </label>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Movie Cards */}
                     <div className="col-12 col-lg-10">
                         <div className="row g-4">
                             {movies.map((m) => (
                                 <div key={m.showId} className="col-12 col-md-4">
                                     <div className="card h-100 text-white bg-dark d-flex flex-column text-center">
-                                        {/* Title */}
                                         <div className="card-header w-100 d-flex justify-content-between align-items-center">
                                             <h5 className="card-title text-danger fw-bold mb-0 text-truncate w-100">
                                                 {m.title}
                                             </h5>
                                         </div>
 
-                                        {/* Poster Image */}
                                         <img
                                             src={`https://intex2025.blob.core.windows.net/movie-posters/${m.title}.jpg`}
                                             alt={m.title}
@@ -205,7 +262,6 @@ const AdminMoviePage = () => {
                                             }}
                                         />
 
-                                        {/* Edit/Delete Buttons */}
                                         <div className="card-footer w-100 d-grid gap-2 mt-auto">
                                             <button
                                                 className="btn btn-primary"

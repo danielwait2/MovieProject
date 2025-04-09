@@ -135,9 +135,113 @@ public IActionResult GetProjects(int pageSize = 10, int pageNum = 1, string sear
     var query = _movieContext.Movies.AsQueryable();
 
     if (projectTypes != null && projectTypes.Any())
+{
+    foreach (var genre in projectTypes)
     {
-        query = query.Where(p => p.Genres.Any(g => projectTypes.Contains(g)));
+        switch (genre.ToLower())
+        {
+            case "action":
+                query = query.Where(m => m.Action == 1);
+                break;
+            case "adventure":
+                query = query.Where(m => m.Adventure == 1);
+                break;
+            case "animeseriesinternationaltvshows":
+                query = query.Where(m => m.AnimeSeriesInternationalTvShows == 1);
+                break;
+            case "britishtvshowsdocuseriesinternationaltvshows":
+                query = query.Where(m => m.BritishTvShowsDocuseriesInternationalTvShows == 1);
+                break;
+            case "children":
+                query = query.Where(m => m.Children == 1);
+                break;
+            case "comedies":
+                query = query.Where(m => m.Comedies == 1);
+                break;
+            case "comediesdramasinternationalmovies":
+                query = query.Where(m => m.ComediesDramasInternationalMovies == 1);
+                break;
+            case "comediesinternationalmovies":
+                query = query.Where(m => m.ComediesInternationalMovies == 1);
+                break;
+            case "comediesromanticmovies":
+                query = query.Where(m => m.ComediesRomanticMovies == 1);
+                break;
+            case "crimetvshowsdocuseries":
+                query = query.Where(m => m.CrimeTvShowsDocuseries == 1);
+                break;
+            case "documentaries":
+                query = query.Where(m => m.Documentaries == 1);
+                break;
+            case "documentariesinternationalmovies":
+                query = query.Where(m => m.DocumentariesInternationalMovies == 1);
+                break;
+            case "docuseries":
+                query = query.Where(m => m.Docuseries == 1);
+                break;
+            case "dramas":
+                query = query.Where(m => m.Dramas == 1);
+                break;
+            case "dramasinternationalmovies":
+                query = query.Where(m => m.DramasInternationalMovies == 1);
+                break;
+            case "dramasromanticmovies":
+                query = query.Where(m => m.DramasRomanticMovies == 1);
+                break;
+            case "familymovies":
+                query = query.Where(m => m.FamilyMovies == 1);
+                break;
+            case "fantasy":
+                query = query.Where(m => m.Fantasy == 1);
+                break;
+            case "horrormovies":
+                query = query.Where(m => m.HorrorMovies == 1);
+                break;
+            case "internationalmoviesthrillers":
+                query = query.Where(m => m.InternationalMoviesThrillers == 1);
+                break;
+            case "internationaltvshowsromantictvshows":
+                query = query.Where(m => m.InternationalTvShowsRomanticTvShowsTvDramas == 1);
+                break;
+            case "kidstv":
+                query = query.Where(m => m.KidsTV == 1);
+                break;
+            case "languagetvshows":
+                query = query.Where(m => m.LanguageTvShows == 1);
+                break;
+            case "musicals":
+                query = query.Where(m => m.Musicals == 1);
+                break;
+            case "naturetv":
+                query = query.Where(m => m.NatureTv == 1);
+                break;
+            case "realitytv":
+                query = query.Where(m => m.RealityTv == 1);
+                break;
+            case "spirituality":
+                query = query.Where(m => m.Spirituality == 1);
+                break;
+            case "tvaction":
+                query = query.Where(m => m.TvAction == 1);
+                break;
+            case "tvcomedies":
+                query = query.Where(m => m.TvComedies == 1);
+                break;
+            case "tvdramas":
+                query = query.Where(m => m.TvDramas == 1);
+                break;
+            case "talkshowstvcomedies":
+                query = query.Where(m => m.TalkShowsTvComedies == 1);
+                break;
+            case "thrillers":
+                query = query.Where(m => m.Thrillers == 1);
+                break;
+            default:
+                break;
+        }
     }
+}
+
 
     if (!string.IsNullOrWhiteSpace(searchQuery))
     {
