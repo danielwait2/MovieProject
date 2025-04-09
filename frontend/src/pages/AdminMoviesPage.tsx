@@ -47,6 +47,8 @@ const getGenresForMovie = (movie: Movie): string[] => {
     return genreFields.filter((field) => movie[field as keyof Movie] === 1);
 };
 
+getGenresForMovie;
+
 const formatGenreLabel = (key: string): string =>
     key.replace(/([A-Z])/g, ' $1').replace(/^./, (c) => c.toUpperCase());
 
