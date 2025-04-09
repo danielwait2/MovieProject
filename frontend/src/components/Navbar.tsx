@@ -31,7 +31,7 @@ const Navbar = () => {
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4 fixed-top">
             <Link className="navbar-brand brand-green" to="/">
-                CineNiche
+                CINENICHE
             </Link>
 
             <button
