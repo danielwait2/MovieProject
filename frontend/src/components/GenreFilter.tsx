@@ -106,6 +106,7 @@ const GenreFilter: React.FC<GenreFilterProps> = ({
         variableWidth: true,
         nextArrow: <NextArrow />,
         prevArrow: <PrevArrow />,
+        centerMode: true, // Enables space on the edges,
         responsive: [
             { breakpoint: 1024, settings: { slidesToShow: 3 } },
             { breakpoint: 600, settings: { slidesToShow: 2 } },
