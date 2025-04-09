@@ -58,7 +58,7 @@ const ProductDetailsPage: React.FC = () => {
 
     // Build the image URL using movie.title (fallback to unknownImage)
     const imageUrl = movie.title
-        ? `https://localhost:5000/api/MovieImages/${movie.title}.jpg`
+        ? `https://intex2025.blob.core.windows.net/movie-posters/${movie.title}.jpg`
         : unknownImage;
 
     // Retrieve genres from the movie object. (Your API may have either "genre" or "Genres")
