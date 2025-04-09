@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using MovieProject.API.Data;
 using System.Security.Claims;
 using MovieProject.API.Services;
+using System;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,8 +23,13 @@ builder.Services.AddDbContext<MovieDbContext>(options =>
         .EnableSensitiveDataLogging()
         .LogTo(Console.WriteLine, LogLevel.Information));
 
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("IdentityConnection")));
+
+builder.Services.AddDbContext<RecsContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("RecsConnection")));
+
 
 
 builder.Services.AddAuthorization();
