@@ -1,42 +1,72 @@
-/* 1) Container: pinned near top, dark fallback background */
+/***********************************************
+  0) Keyframes for fade in animation.
+***********************************************/
+@keyframes fadeInModal {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/***********************************************
+  1) Modal overlay for the product details.
+     Covers the viewport with a semi-transparent background.
+     Animates using the fadeInModal keyframes.
+***********************************************/
 .product-details {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
-    width: 100%;
-    min-height: 100vh;
-    margin: 0;
-    padding: 0;
-    background-color: #121212;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.8);
     color: #fff;
-    overflow: auto; 
+    overflow: auto;
+    z-index: 1000;
+    animation: fadeInModal 0.12s ease-out; /* Reduced from 0.3s to 0.15s */
 }
 
-/* 2) Wider/narrower wrapper if desired (adjust width, max-width) */
+/***********************************************
+  2) Hero wrapper for the modal window:
+     - Reduced size and rounded corners.
+***********************************************/
 .hero-wrapper {
     position: relative;
-    width: 90%;         /* bigger than 80% for a wider poster */
-    max-width: 1000px;  /* allow up to 1000px wide on large screens */
+    width: 80%;
+    max-width: 800px;
     margin: 0 auto;
     box-sizing: border-box;
-    min-height: 100vh;  /* ensure it spans full viewport height */
+    border-radius: 10px; /* Rounded corners */
+    overflow: hidden; /* Clip contents to rounded corners */
 }
 
-/* 3) Hero background with "cover" to fill the container 
-   (makes the image bigger but may crop top/bottom if aspect ratio doesn't match) */
+/***********************************************
+  3) Hero background:
+     - Reduced height for a smaller modal window.
+***********************************************/
 .hero {
     position: relative;
     width: 100%;
-    min-height: 100vh;    /* at least full screen height */
-    background-position: 50% 10%;
-    background-size: cover;   /* bigger = fill container, can crop edges */
+    height: 80vh; /* Use a smaller height (80% of viewport height) */
+    background-position: center 20%;
+    background-size: cover;
     background-repeat: no-repeat;
+    overflow: hidden;
+    z-index: 0;
 }
 
-/* 4) Fade starts earlier (10%) so top is partially dark; 
-   mostly black by the bottom (could do 80% or 90% if you want a larger fade). */
+/***********************************************
+  4) Fade overlay to darken the background image.
+***********************************************/
 .hero::after {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     right: 0;
@@ -44,30 +74,31 @@
     left: 0;
     background: linear-gradient(
         to bottom,
-        rgba(0, 0, 0, 0.2) 10%,  /* start fade at 10% from top */
-        rgba(0, 0, 0, 0.8) 100%  /* much darker by the bottom */
+        rgba(0, 0, 0, 0.2) 10%,
+        rgba(0, 0, 0, 0.8) 100%
     );
     pointer-events: none;
-}
-
-/* 5) Centered content (or near bottom). 
-   If you prefer the text in the lower portion, use 'flex-end'. 
-   If you want it in the middle, use 'center'. */
-.centered-content {
-    position: relative;
     z-index: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center; /* keeps things centered vertically, but with padding offset */
-    width: 100%;
-    height: 100%;
-    padding: 15rem 2rem 2rem; /* top = 6rem, horizontal = 2rem, bottom = 2rem */
-    box-sizing: border-box;
-    text-align: center;
 }
 
-/* "X" in top-right corner of the .hero-wrapper */
+/***********************************************
+  5) Centered text overlay on the hero.
+     - Positioned absolutely toward the bottom.
+***********************************************/
+.centered-content {
+    position: absolute;
+    bottom: 10%; /* Adjust as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    text-align: center;
+    z-index: 2;
+    box-sizing: border-box;
+}
+
+/***********************************************
+  6) "X" button positioned in the top-right corner within the hero.
+***********************************************/
 .back-button {
     position: absolute;
     top: 1rem;
@@ -79,11 +110,14 @@
     z-index: 10;
     transition: transform 0.2s ease;
 }
+
 .back-button:hover {
     transform: scale(1.1);
 }
 
-/* Title, meta, cast, etc. */
+/***********************************************
+  7) Title, meta, cast, and description text styles.
+***********************************************/
 .centered-content h1 {
     font-size: 3rem;
     font-weight: bold;
@@ -97,6 +131,7 @@
     font-size: 0.9rem;
     color: #ccc;
 }
+
 .meta-label {
     background-color: rgba(255, 255, 255, 0.1);
     padding: 0.3rem 0.6rem;
@@ -119,13 +154,17 @@
     margin-bottom: 1.5rem;
 }
 
-/* Play button + rating stars */
+/***********************************************
+  8) Action buttons and rating stars, centered horizontally.
+***********************************************/
 .action-buttons {
     display: flex;
+    justify-content: center;
     align-items: center;
     gap: 1rem;
     margin-top: 1rem;
 }
+
 .btn-danger.action-button {
     display: inline-flex;
     align-items: center;
@@ -138,6 +177,7 @@
     border-radius: 4px;
     transition: background-color 0.2s ease-in-out;
 }
+
 .btn-danger.action-button:hover {
     background-color: #f40612;
 }
@@ -147,11 +187,12 @@
     align-items: center;
     gap: 0.5rem;
 }
+
 .star {
     cursor: pointer;
     transition: transform 0.2s ease;
 }
+
 .star:hover {
     transform: scale(1.1);
 }
-
