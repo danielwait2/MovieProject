@@ -30,7 +30,8 @@ const ImageCarousel = () => {
             ref={containerRef}
             style={{ overflowX: 'hidden', whiteSpace: 'nowrap' }}
         >
-            {images.map((src, index) => (
+            {images.map((index) => (
+
                 <img
                     key={index}
                     src="https://intex2025.blob.core.windows.net/movie-posters/Life%20as%20We%20Know%20It.jpg"

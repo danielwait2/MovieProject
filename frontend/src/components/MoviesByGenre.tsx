@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react';
 import MovieCarousel from './MovieCarousel';
 import LazyLoad from './LazyLoad';
+//delete this line below
+LazyLoad
 
 function MoviesByGenre() {
     const [genres, setGenres] = useState<string[]>([]);
     const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
+    //delete this line below
+setSelectedGenres
 
     useEffect(() => {
         const fetchGenres = async () => {

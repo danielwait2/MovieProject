@@ -43,9 +43,13 @@ const genreFields = [
 const getGenresForMovie = (movie: Movie): string[] => {
     return genreFields.filter((field) => movie[field as keyof Movie] === 1);
 };
+//delete this line below
+getGenresForMovie
 
 const formatGenreLabel = (key: string): string =>
     key.replace(/([A-Z])/g, ' $1').replace(/^./, (c) => c.toUpperCase());
+//delete this line below
+formatGenreLabel
 
 const AdminMoviePage = () => {
     const [movies, setMovies] = useState<Movie[]>([]);
@@ -57,6 +61,8 @@ const AdminMoviePage = () => {
     const [showForm, setShowForm] = useState(false);
     const [editingMovie, setEditingMovie] = useState<Movie | null>(null);
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+    //delete this line below
+    setSelectedCategories
 
     useEffect(() => {
         const loadMovies = async () => {

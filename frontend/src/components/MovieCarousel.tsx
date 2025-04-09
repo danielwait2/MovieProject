@@ -56,6 +56,8 @@ function MovieCarousel({
 }) {
     const [movies, setMovies] = useState<Movie[]>([]);
     const [loading, setLoading] = useState(true);
+    //delete this line below
+    loading
     const sliderRef = useRef<Slider>(null);
     const accumulatedDeltaRef = useRef(0); // Accumulates wheel deltaX
 
