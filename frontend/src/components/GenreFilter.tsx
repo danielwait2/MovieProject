@@ -58,8 +58,10 @@ const GenreFilter: React.FC<GenreFilterProps> = ({
         const fetchGenres = async () => {
             try {
                 const response = await fetch(
-                    'https://localhost:5000/Movie/Genres',
-                    { credentials: 'include' }
+                    `https://localhost:5000/Movie/Genres?${selectedGenres}`,
+                    {
+                        credentials: 'include',
+                    }
                 );
                 const data: string[] = await response.json();
                 setGenres(data);
@@ -114,7 +116,11 @@ const GenreFilter: React.FC<GenreFilterProps> = ({
     return (
         <div className="genre-filter">
             <h2 className="carousel-title">Filter By Genre:</h2>
-            <div className="genre-carousel" onWheel={handleWheel}>
+            <div
+                className="genre-carousel"
+                style={{ width: '100%', margin: '0 auto' }}
+                onWheel={handleWheel}
+            >
                 <Slider ref={sliderRef} {...settings}>
                     {genres.map((c) => (
                         <div key={c} className="genre-item">

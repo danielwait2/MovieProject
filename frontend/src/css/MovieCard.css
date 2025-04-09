@@ -47,6 +47,9 @@
 .movie-info {
     padding: 12px;
     background-color: rgba(0, 0, 0, 0.4); /* 40% opacity black background */
+    white-space: nowrap; /* Prevents text from wrapping to a new line */
+    overflow: hidden; /* Hides the text that overflows the container */
+    text-overflow: ellipsis; /* Displays an ellipsis (...) for overflowed text */
 }
 
 .movie-title {
@@ -70,6 +73,6 @@ a {
 }
 
 .movie-card a {
-  text-decoration: none;
-  color: inherit;
+    text-decoration: none;
+    color: inherit;
 }

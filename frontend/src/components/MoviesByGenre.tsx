@@ -4,6 +4,7 @@ import LazyLoad from './LazyLoad';
 
 function MoviesByGenre() {
     const [genres, setGenres] = useState<string[]>([]);
+    const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
 
     useEffect(() => {
         const fetchGenres = async () => {
@@ -25,7 +26,7 @@ function MoviesByGenre() {
         };
 
         fetchGenres();
-    }, []);
+    }, [selectedGenres]);
 
     return (
         <div>
