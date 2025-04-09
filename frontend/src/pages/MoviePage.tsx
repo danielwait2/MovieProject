@@ -4,6 +4,7 @@ import { useState } from 'react';
 import AuthorizeView, { AuthorizedUser } from '../components/AuthorizeView';
 import Footer from '../components/Footer';
 import MoviesByGenre from '../components/MoviesByGenre';
+import FeaturedMovie from '../components/FeaturedMovie';
 
 const MoviePage = () => {
     const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
@@ -12,14 +13,12 @@ const MoviePage = () => {
         <>
             <AuthorizeView>
                 <div className="min-h-screen bg-[#121212] text-white">
-                    <header className="p-6 border-b border-gray-800">
-                        <h1 className="text-3xl font-bold">Movies</h1>
-                    </header>
                     <main>
-                        <div className="row mb-5">
+                        <FeaturedMovie />
+                        <div className="row mb-5" style={{ marginTop: '2%' }}>
                             <MovieCarousel
                                 selectedGenres={selectedGenres}
-                                title="Recommended for You:"
+                                title="Recommended for You"
                             />
                         </div>
                         <div className="row">
@@ -28,7 +27,7 @@ const MoviePage = () => {
                                 setSelectedGenres={setSelectedGenres}
                             />
                         </div>
-                        <div className="row">
+                        <div className="row mb-5">
                             <MoviesByGenre />
                         </div>
                     </main>

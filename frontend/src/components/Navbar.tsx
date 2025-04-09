@@ -4,8 +4,8 @@ import { AuthorizedUser } from './AuthorizeView';
 
 const Navbar = () => {
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4">
-            <Link className="navbar-brand fs-3 fw-bold text-danger" to="/">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4 fixed-top">
+            <Link className="navbar-brand fs-3 fw-bold" to="/">
                 CineNiche
             </Link>
 

@@ -40,6 +40,9 @@ body {
     min-height: 100vh;
 }
 
-#root {
-    width: 100%;
+.navbar {
+    background-color: #0d0d0d !important;
+}
+.navbar-brand {
+    color: #ff0000;
 }

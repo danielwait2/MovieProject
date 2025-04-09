@@ -3,7 +3,49 @@ import { Movie } from '../types/Movie';
 import MovieCard from './MovieCard';
 import '../css/MovieCarousel.css'; // Make sure this file is loading correctly
 import LazyLoad from './LazyLoad';
-import Slider from 'react-slick';
+import Slider, { Settings, CustomArrowProps } from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import '../css/MovieCarousel.css';
+
+/**
+ * A "steeper angle" right arrow using an SVG path.
+ * Feel free to tweak the path commands for a different shape.
+ */
+function NextArrow(props: CustomArrowProps) {
+    const { onClick } = props;
+    return (
+        <div className="custom-arrow custom-next-arrow" onClick={onClick}>
+            <svg viewBox="0 0 24 24">
+                {/* This path draws a right-pointing chevron. 
+                    M4 2 -> move to (4,2)
+                    l12 10 -> line 12 right, 10 down
+                    -12 10 -> line 12 left, 10 down (back to x=4)
+                */}
+                <path d="M4 2 l12 10 -12 10" />
+            </svg>
+        </div>
+    );
+}
+
+/**
+ * A matching left arrow (mirror image).
+ */
+function PrevArrow(props: CustomArrowProps) {
+    const { onClick } = props;
+    return (
+        <div className="custom-arrow custom-prev-arrow" onClick={onClick}>
+            <svg viewBox="0 0 24 24">
+                {/* This path draws a left-pointing chevron.
+                    M20 2 -> move to (20,2)
+                    l-12 10 -> line 12 left, 10 down
+                    12 10 -> line 12 right, 10 down (back to x=20)
+                */}
+                <path d="M20 2 l-12 10 12 10" />
+            </svg>
+        </div>
+    );
+}
 
 function MovieCarousel({
     selectedGenres,
@@ -36,34 +78,21 @@ function MovieCarousel({
     };
 
     // Slider settings.
-    const settings = {
+    const settings: Settings = {
         dots: false,
-        infinite: false, // Enable infinite looping if desired.
+        infinite: true,
         speed: 450,
-        slidesToShow: 6,
+        slidesToShow: 5,
         slidesToScroll: 2,
-        swipe: true, // Keep swipe enabled for touch devices.
-        draggable: false, // Disable native mouse dragging.
+        swipe: true,
+        draggable: false,
         variableWidth: true,
+        nextArrow: <NextArrow />,
+        prevArrow: <PrevArrow />,
         responsive: [
-            {
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 3,
-                },
-            },
-            {
-                breakpoint: 600,
-                settings: {
-                    slidesToShow: 2,
-                },
-            },
-            {
-                breakpoint: 480,
-                settings: {
-                    slidesToShow: 1,
-                },
-            },
+            { breakpoint: 1024, settings: { slidesToShow: 3 } },
+            { breakpoint: 600, settings: { slidesToShow: 2 } },
+            { breakpoint: 480, settings: { slidesToShow: 1 } },
         ],
     };
 
@@ -95,7 +124,7 @@ function MovieCarousel({
             <h2 className="carousel-title">{title}:</h2>
             <LazyLoad>
                 <div
-                    className="genre-carousel"
+                    className="movie-carousel"
                     style={{ width: '100%', margin: '0 auto' }}
                     onWheel={handleWheel}
                 >

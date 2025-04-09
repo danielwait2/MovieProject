@@ -3,6 +3,7 @@
     margin: 0 auto;
     /* padding: .5%; */
     text-align: center;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 /* In your App.css or a global stylesheet */
