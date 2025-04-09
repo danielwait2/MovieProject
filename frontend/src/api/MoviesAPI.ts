@@ -4,7 +4,9 @@ interface FetchMoviesResponse {
     movies: Movie[];
     totalNumMovies: number;
 }
-export const baseURL = 'https://movieintex2backend-bkhsfxfsdnejfbe6.eastus-01.azurewebsites.net';
+// export const baseURL = 'https://movieintex2backend-bkhsfxfsdnejfbe6.eastus-01.azurewebsites.net';
+export const baseURL = 'https://localhost:5000';
+
 const API_URL = `${baseURL}/Movie`;
 
 export const fetchMovies = async (
