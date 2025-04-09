@@ -44,25 +44,25 @@ const getGenresForMovie = (movie: Movie): string[] => {
     return genreFields.filter((field) => movie[field as keyof Movie] === 1);
 };
 //delete this line below
-getGenresForMovie
+getGenresForMovie;
 
 const formatGenreLabel = (key: string): string =>
     key.replace(/([A-Z])/g, ' $1').replace(/^./, (c) => c.toUpperCase());
 //delete this line below
-formatGenreLabel
+formatGenreLabel;
 
 const AdminMoviePage = () => {
     const [movies, setMovies] = useState<Movie[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);
-    const [pageSize, setPageSize] = useState<number>(5);
+    const [pageSize, setPageSize] = useState<number>(8);
     const [pageNum, setPageNum] = useState<number>(1);
     const [totalPages, setTotalPages] = useState<number>(0);
     const [showForm, setShowForm] = useState(false);
     const [editingMovie, setEditingMovie] = useState<Movie | null>(null);
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
     //delete this line below
-    setSelectedCategories
+    setSelectedCategories;
 
     useEffect(() => {
         const loadMovies = async () => {
@@ -240,7 +240,10 @@ const AdminMoviePage = () => {
                     <div className="col-12 col-lg-10">
                         <div className="row g-4">
                             {movies.map((m) => (
-                                <div key={m.showId} className="col-12 col-md-4">
+                                <div
+                                    key={m.showId}
+                                    className="col-6 col-md-4 col-lg-3"
+                                >
                                     <div className="card h-100 text-white bg-dark d-flex flex-column text-center">
                                         <div className="card-header w-100 d-flex justify-content-between align-items-center">
                                             <h5 className="card-title text-danger fw-bold mb-0 text-truncate w-100">
