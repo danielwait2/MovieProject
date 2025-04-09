@@ -4,6 +4,9 @@ import { deleteMovie, fetchMovies } from '../api/MoviesAPI';
 import EditMovieForm from '../components/EditMovieForm';
 import NewMovieForm from '../components/NewMovieForm';
 import Pagination from '../components/Pagination';
+import AuthorizeView, { AuthorizedUser } from '../components/AuthorizeView';
+//delete this line below
+AuthorizedUser
 
 const genreFields = [
     'action',
@@ -107,7 +110,8 @@ const AdminMoviePage = () => {
     if (error) return <p className="text-red-500">Error: {error}</p>;
 
     return (
-        <div>
+        <>
+            <AuthorizeView>
             <h1>Admin - Movies</h1>
 
             {showForm && (
@@ -242,7 +246,8 @@ const AdminMoviePage = () => {
                     setPageNum(1);
                 }}
             />
-        </div>
+            </AuthorizeView>
+        </>
     );
 };
 
