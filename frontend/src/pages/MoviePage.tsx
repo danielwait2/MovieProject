@@ -28,7 +28,7 @@ const MoviePage = () => {
                                 setSelectedGenres={setSelectedGenres}
                             />
                         </div>
-                        <div className="row">
+                        <div className="row mb-5">
                             <MoviesByGenre />
                         </div>
                     </main>
