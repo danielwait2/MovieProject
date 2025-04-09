@@ -142,7 +142,7 @@ const ProductDetailsPage: React.FC = () => {
                     {/* Action Buttons and Five-Star Rating */}
                     <div className="action-buttons">
                         <button className="btn btn-danger action-button">
-                            <FaPlay /> <span>Watch Now</span>
+                            <FaPlay /> <span>Play</span>
                         </button>
                         <div className="rating-scale">
                             {Array.from({ length: 5 }, (_, index) => {
