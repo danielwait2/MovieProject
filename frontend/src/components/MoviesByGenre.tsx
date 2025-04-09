@@ -1,26 +1,23 @@
 import { useEffect, useState } from 'react';
 import MovieCarousel from './MovieCarousel';
 import LazyLoad from './LazyLoad';
-import {baseURL} from '../api/MoviesAPI';
+import { baseURL } from '../api/MoviesAPI';
 
 //delete this line below
-LazyLoad
+LazyLoad;
 
 function MoviesByGenre() {
     const [genres, setGenres] = useState<string[]>([]);
     const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
     //delete this line below
-setSelectedGenres
+    setSelectedGenres;
 
     useEffect(() => {
         const fetchGenres = async () => {
             try {
-                const response = await fetch(
-                    `${baseURL}/Movie/Genres`,
-                    {
-                        credentials: 'include',
-                    }
-                );
+                const response = await fetch(`${baseURL}/Movie/Genres`, {
+                    credentials: 'include',
+                });
                 const data = await response.json();
 
                 // Check the structure of your API response
@@ -39,7 +36,11 @@ setSelectedGenres
             <div>
                 {genres && genres.length > 0 ? (
                     genres.map((m) => (
-                        <MovieCarousel title={m} selectedGenres={[m]} />
+                        <MovieCarousel
+                            title={m}
+                            selectedGenres={[m]}
+                            rec={false}
+                        />
                     ))
                 ) : (
                     <div>No genres found</div>

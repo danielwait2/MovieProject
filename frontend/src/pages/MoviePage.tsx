@@ -3,7 +3,7 @@ import MovieCarousel from '../components/MovieCarousel';
 import { useState } from 'react';
 import AuthorizeView, { AuthorizedUser } from '../components/AuthorizeView';
 //delete this line below
-AuthorizedUser
+AuthorizedUser;
 import Footer from '../components/Footer';
 import MoviesByGenre from '../components/MoviesByGenre';
 import FeaturedMovie from '../components/FeaturedMovie';
@@ -21,6 +21,7 @@ const MoviePage = () => {
                             <MovieCarousel
                                 selectedGenres={selectedGenres}
                                 title="Recommended for You"
+                                rec={true}
                             />
                         </div>
                         <div className="row">
