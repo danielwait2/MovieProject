@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../css/Identity.css';
+// import '../css/Identity.css';
 import CookieConsent from 'react-cookie-consent';
 import Footer from '../components/Footer';
 
