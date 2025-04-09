@@ -8,7 +8,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import '../css/MovieCarousel.css';
 import { baseURL } from '../api/MoviesAPI';
-import { VscArchive } from 'react-icons/vsc';
+
 
 /**
  * A "steeper angle" right arrow using an SVG path.
@@ -60,6 +60,7 @@ function MovieCarousel({
 }) {
     const [movies, setMovies] = useState<Movie[]>([]);
     const [loading, setLoading] = useState(true);
+    loading
 
     const sliderRef = useRef<Slider>(null);
     const accumulatedDeltaRef = useRef(0); // Accumulates wheel deltaX
