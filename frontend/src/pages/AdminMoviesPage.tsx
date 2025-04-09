@@ -4,6 +4,7 @@ import { deleteMovie, fetchMovies } from '../api/MoviesAPI';
 import EditMovieForm from '../components/EditMovieForm';
 import NewMovieForm from '../components/NewMovieForm';
 import Pagination from '../components/Pagination';
+import SearchBar from '../components/SearchBar';
 
 const genreFields = [
     'action',
@@ -64,12 +65,17 @@ const AdminMoviePage = () => {
     //delete this line below
     setSelectedCategories;
 
+    // New: State for searchQuery that will be updated when Enter is pressed.
+    const [searchQuery, setSearchQuery] = useState<string>('');
+
     useEffect(() => {
         const loadMovies = async () => {
             try {
+                // Pass searchQuery along with pageSize, pageNum, and selectedCategories
                 const data = await fetchMovies(
                     pageSize,
                     pageNum,
+                    searchQuery,
                     selectedCategories
                 );
                 if (data && Array.isArray(data.movies)) {
@@ -87,7 +93,7 @@ const AdminMoviePage = () => {
         };
 
         loadMovies();
-    }, [pageSize, pageNum, selectedCategories]);
+    }, [pageSize, pageNum, searchQuery, selectedCategories]);
 
     const handleDelete = async (showId: string) => {
         const confirmDelete = window.confirm(
@@ -152,6 +158,7 @@ const AdminMoviePage = () => {
                                         fetchMovies(
                                             pageSize,
                                             pageNum,
+                                            searchQuery,
                                             selectedCategories
                                         ).then((data) =>
                                             setMovies(data.movies)
@@ -190,6 +197,7 @@ const AdminMoviePage = () => {
                                         fetchMovies(
                                             pageSize,
                                             pageNum,
+                                            searchQuery,
                                             selectedCategories
                                         ).then((data) =>
                                             setMovies(data.movies)
@@ -207,6 +215,18 @@ const AdminMoviePage = () => {
                 <div className="row">
                     {/* Sidebar: Filter options */}
                     <div className="col-lg-2 mb-4">
+                        {/* Search Bar placed above the filter categories */}
+                        <div className="mb-3">
+                            <SearchBar
+                                onSearch={(query) => {
+                                    setSearchQuery(query);
+                                    // Reset the page when performing a new search
+                                    setPageNum(1);
+                                }}
+                                placeholder="Search by title..."
+                            />
+                        </div>
+
                         <h5 className="mb-3">Filter by Genre</h5>
                         {selectedCategories.length > 0 && (
                             <button
