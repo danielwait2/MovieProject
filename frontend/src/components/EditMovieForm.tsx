@@ -62,18 +62,22 @@ const EditMovieForm = ({ movie, onSuccess, onCancel }: EditMovieFormProps) => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <h2>Update Movie</h2>
-            <label>Movie Title:</label>
-            <input
-                type="text"
-                name="title"
-                value={formData.title}
-                onChange={handleChange}
-            />
+        <form onSubmit={handleSubmit} className="p-3">
+            <h2 className="mb-4">Update Movie</h2>
+
+            <div className="mb-3">
+                <label className="form-label">Title</label>
+                <input
+                    type="text"
+                    name="title"
+                    className="form-control"
+                    value={formData.title}
+                    onChange={handleChange}
+                />
+            </div>
+
             <div className="mb-3">
                 <label className="form-label d-block">Type</label>
-
                 <div className="form-check form-check-inline">
                     <input
                         className="form-check-input"
@@ -88,7 +92,6 @@ const EditMovieForm = ({ movie, onSuccess, onCancel }: EditMovieFormProps) => {
                         Movie
                     </label>
                 </div>
-
                 <div className="form-check form-check-inline">
                     <input
                         className="form-check-input"
@@ -104,55 +107,27 @@ const EditMovieForm = ({ movie, onSuccess, onCancel }: EditMovieFormProps) => {
                     </label>
                 </div>
             </div>
-            <label>Director</label>
-            <input
-                type="text"
-                name="director"
-                value={formData.director}
-                onChange={handleChange}
-            />
-            <label>Cast</label>
-            <input
-                type="text"
-                name="cast"
-                value={formData.cast}
-                onChange={handleChange}
-            />
-            <label>Country</label>
-            <input
-                type="text"
-                name="country"
-                value={formData.country}
-                onChange={handleChange}
-            />
-            <label>Release Year</label>
-            <input
-                type="number"
-                name="release_year"
-                value={formData.release_year}
-                onChange={handleChange}
-            />
-            <label>Rating</label>
-            <input
-                type="text"
-                name="rating"
-                value={formData.rating}
-                onChange={handleChange}
-            />
-            <label>Duration</label>
-            <input
-                type="text"
-                name="duration"
-                value={formData.duration}
-                onChange={handleChange}
-            />
-            <label>Description</label>
-            <input
-                type="text"
-                name="description"
-                value={formData.description}
-                onChange={handleChange}
-            />
+
+            {[
+                { label: 'Director', name: 'director' },
+                { label: 'Cast', name: 'cast' },
+                { label: 'Country', name: 'country' },
+                { label: 'Release Year', name: 'release_year', type: 'number' },
+                { label: 'Rating', name: 'rating' },
+                { label: 'Duration', name: 'duration' },
+                { label: 'Description', name: 'description' },
+            ].map(({ label, name, type = 'text' }) => (
+                <div className="mb-3" key={name}>
+                    <label className="form-label">{label}</label>
+                    <input
+                        type={type}
+                        name={name}
+                        className="form-control"
+                        value={formData[name as keyof Movie] as string}
+                        onChange={handleChange}
+                    />
+                </div>
+            ))}
 
             <div className="mb-3 mt-4">
                 <label className="form-label d-block">Genres</label>
@@ -177,16 +152,18 @@ const EditMovieForm = ({ movie, onSuccess, onCancel }: EditMovieFormProps) => {
                 </div>
             </div>
 
-            <button type="submit" className="btn btn-primary mt-3">
-                Save
-            </button>
-            <button
-                type="button"
-                className="btn btn-secondary mt-3 ms-2"
-                onClick={onCancel}
-            >
-                Cancel
-            </button>
+            <div className="mt-4">
+                <button type="submit" className="btn btn-primary me-2">
+                    Save
+                </button>
+                <button
+                    type="button"
+                    className="btn btn-secondary"
+                    onClick={onCancel}
+                >
+                    Cancel
+                </button>
+            </div>
         </form>
     );
 };

@@ -104,117 +104,126 @@ const AdminMoviePage = () => {
         <div>
             <h1>Admin - Movies</h1>
 
-            {!showForm && (
-                <button
-                    className="btn btn-success mb-3"
-                    onClick={() => setShowForm(true)}
-                >
-                    Add Movie
-                </button>
-            )}
-
             {showForm && (
-                <NewMovieForm
-                    onSuccess={() => {
-                        setShowForm(false);
-                        fetchMovies(pageSize, pageNum, []).then((data) =>
-                            setMovies(data.movies)
-                        );
-                    }}
-                    onCancel={() => setShowForm(false)}
-                />
-            )}
-
-            {editingMovie && (
-                <EditMovieForm
-                    movie={editingMovie}
-                    onSuccess={() => {
-                        setEditingMovie(null);
-                        fetchMovies(pageSize, pageNum, []).then((data) =>
-                            setMovies(data.movies)
-                        );
-                    }}
-                    onCancel={() => setEditingMovie(null)}
-                />
-            )}
-
-            <div className="row g-4">
-                {movies.map((m) => (
-                    <div key={m.showId} className="col-12 col-md-4">
-                        <div className="card h-100 text-white bg-dark d-flex flex-column align-items-center text-center">
-                            <div className="card-header w-100 d-flex justify-content-between align-items-center">
-                                <h5 className="card-title text-danger fw-bold mb-0">
-                                    {m.title}
-                                </h5>
-                                <span className="badge bg-secondary">
-                                    {m.type}
-                                </span>
-                            </div>
-
-                            <img
-                                src={`https://intex2025.blob.core.windows.net/movie-posters/${m.title}.jpg`}
-                                alt={m.title}
-                                className="card-img-top object-fit-cover"
-                                style={{
-                                    height: '100%',
-                                    width: '100%',
-                                    objectFit: 'cover',
-                                }}
-                                onError={(e) => {
-                                    e.currentTarget.src = '/assets/unknown.jpg';
-                                }}
-                            />
-
-                            <div className="card-body px-3">
-                                <p>
-                                    <strong>Director:</strong>{' '}
-                                    {m.director || 'N/A'}
-                                </p>
-                                <p>
-                                    <strong>Cast:</strong> {m.cast || 'N/A'}
-                                </p>
-                                <p>
-                                    <strong>Country:</strong>{' '}
-                                    {m.country || 'N/A'}
-                                </p>
-                                <p>
-                                    <strong>Year:</strong> {m.release_year}
-                                </p>
-                                <p>
-                                    <strong>Rating:</strong> {m.rating}
-                                </p>
-                                <p>
-                                    <strong>Duration:</strong> {m.duration}
-                                </p>
-                                <p>
-                                    <strong>Description:</strong>{' '}
-                                    {m.description}
-                                </p>
-                                <p>
-                                    <strong>Genres:</strong>{' '}
-                                    {getGenresForMovie(m)
-                                        .map(formatGenreLabel)
-                                        .join(', ')}
-                                </p>
-                            </div>
-
-                            <div className="card-footer w-100 d-grid gap-2">
+                <div
+                    className="modal d-block"
+                    role="dialog"
+                    style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}
+                >
+                    <div className="modal-dialog modal-lg" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title">Add New Movie</h5>
                                 <button
-                                    className="btn btn-primary"
-                                    onClick={() => setEditingMovie(m)}
-                                >
-                                    Edit
-                                </button>
-                                <button
-                                    className="btn btn-danger"
-                                    onClick={() => handleDelete(m.showId)}
-                                >
-                                    Delete
-                                </button>
+                                    type="button"
+                                    className="btn-close"
+                                    onClick={() => setShowForm(false)}
+                                ></button>
+                            </div>
+                            <div className="modal-body">
+                                <NewMovieForm
+                                    onSuccess={() => {
+                                        setShowForm(false);
+                                        fetchMovies(pageSize, pageNum, []).then(
+                                            (data) => setMovies(data.movies)
+                                        );
+                                    }}
+                                    onCancel={() => setShowForm(false)}
+                                />
                             </div>
                         </div>
                     </div>
-                ))}
+                </div>
+            )}
+
+            {editingMovie && (
+                <div
+                    className="modal d-block"
+                    role="dialog"
+                    style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}
+                >
+                    <div className="modal-dialog modal-lg" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title">Edit Movie</h5>
+                                <button
+                                    type="button"
+                                    className="btn-close"
+                                    onClick={() => setEditingMovie(null)}
+                                ></button>
+                            </div>
+                            <div className="modal-body">
+                                <EditMovieForm
+                                    movie={editingMovie}
+                                    onSuccess={() => {
+                                        setEditingMovie(null);
+                                        fetchMovies(pageSize, pageNum, []).then(
+                                            (data) => setMovies(data.movies)
+                                        );
+                                    }}
+                                    onCancel={() => setEditingMovie(null)}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            <div className="container">
+                <div className="row">
+                    <div className="col-lg-2"></div> {/* Left margin */}
+                    <div className="col-12 col-lg-10">
+                        <div className="row g-4">
+                            {movies.map((m) => (
+                                <div key={m.showId} className="col-12 col-md-4">
+                                    <div className="card h-100 text-white bg-dark d-flex flex-column text-center">
+                                        {/* Title */}
+                                        <div className="card-header w-100 d-flex justify-content-between align-items-center">
+                                            <h5 className="card-title text-danger fw-bold mb-0 text-truncate w-100">
+                                                {m.title}
+                                            </h5>
+                                        </div>
+
+                                        {/* Poster Image */}
+                                        <img
+                                            src={`https://intex2025.blob.core.windows.net/movie-posters/${m.title}.jpg`}
+                                            alt={m.title}
+                                            className="card-img-top"
+                                            style={{
+                                                maxHeight: '100%',
+                                                objectFit: 'cover',
+                                            }}
+                                            onError={(e) => {
+                                                e.currentTarget.src =
+                                                    '/assets/unknown.jpg';
+                                            }}
+                                        />
+
+                                        {/* Edit/Delete Buttons */}
+                                        <div className="card-footer w-100 d-grid gap-2 mt-auto">
+                                            <button
+                                                className="btn btn-primary"
+                                                onClick={() =>
+                                                    setEditingMovie(m)
+                                                }
+                                            >
+                                                Edit
+                                            </button>
+                                            <button
+                                                className="btn btn-danger"
+                                                onClick={() =>
+                                                    handleDelete(m.showId)
+                                                }
+                                            >
+                                                Delete
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <Pagination

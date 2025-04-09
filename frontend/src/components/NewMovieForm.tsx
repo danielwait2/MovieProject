@@ -105,18 +105,22 @@ const NewMovieForm = ({ onSuccess, onCancel }: NewMovieFormProps) => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <h2>Add Movie</h2>
-            <label>Movie Title:</label>
-            <input
-                type="text"
-                name="title"
-                value={formData.title}
-                onChange={handleChange}
-            />
+        <form onSubmit={handleSubmit} className="p-3">
+            <h2 className="mb-4">Add Movie</h2>
+
+            <div className="mb-3">
+                <label className="form-label">Title</label>
+                <input
+                    type="text"
+                    name="title"
+                    className="form-control"
+                    value={formData.title}
+                    onChange={handleChange}
+                />
+            </div>
+
             <div className="mb-3">
                 <label className="form-label d-block">Type</label>
-
                 <div className="form-check form-check-inline">
                     <input
                         className="form-check-input"
@@ -131,7 +135,6 @@ const NewMovieForm = ({ onSuccess, onCancel }: NewMovieFormProps) => {
                         Movie
                     </label>
                 </div>
-
                 <div className="form-check form-check-inline">
                     <input
                         className="form-check-input"
@@ -147,84 +150,63 @@ const NewMovieForm = ({ onSuccess, onCancel }: NewMovieFormProps) => {
                     </label>
                 </div>
             </div>
-            <label>Director</label>
-            <input
-                type="text"
-                name="director"
-                value={formData.director}
-                onChange={handleChange}
-            />
-            <label>Cast</label>
-            <input
-                type="text"
-                name="cast"
-                value={formData.cast}
-                onChange={handleChange}
-            />
-            <label>Country</label>
-            <input
-                type="text"
-                name="country"
-                value={formData.country}
-                onChange={handleChange}
-            />
-            <label>Release Year</label>
-            <input
-                type="number"
-                name="release_year"
-                value={formData.release_year}
-                onChange={handleChange}
-            />
-            <label>Rating</label>
-            <input
-                type="text"
-                name="rating"
-                value={formData.rating}
-                onChange={handleChange}
-            />
-            <label>Duration</label>
-            <input
-                type="text"
-                name="duration"
-                value={formData.duration}
-                onChange={handleChange}
-            />
-            <label>Description</label>
-            <input
-                type="text"
-                name="description"
-                value={formData.description}
-                onChange={handleChange}
-            />
 
-            {genreFields.map((genre) => (
-                <div className="form-check col-md-6" key={genre}>
+            {[
+                { label: 'Director', name: 'director' },
+                { label: 'Cast', name: 'cast' },
+                { label: 'Country', name: 'country' },
+                { label: 'Release Year', name: 'release_year', type: 'number' },
+                { label: 'Rating', name: 'rating' },
+                { label: 'Duration', name: 'duration' },
+                { label: 'Description', name: 'description' },
+            ].map(({ label, name, type = 'text' }) => (
+                <div className="mb-3" key={name}>
+                    <label className="form-label">{label}</label>
                     <input
-                        className="form-check-input"
-                        type="checkbox"
-                        id={genre}
-                        name={genre}
-                        checked={formData[genre as keyof Movie] === 1}
+                        type={type}
+                        name={name}
+                        className="form-control"
+                        value={formData[name as keyof Movie] as string}
                         onChange={handleChange}
                     />
-                    <label className="form-check-label" htmlFor={genre}>
-                        {genre
-                            .replace(/([A-Z])/g, ' $1')
-                            .replace(/^\w/, (c) => c.toUpperCase())}
-                    </label>
                 </div>
             ))}
 
-            <button type="submit" className="btn btn-primary mt-3">
-                Add
-            </button>
-            <button
-                type="button"
-                className="btn btn-secondary mt-3 ms-2"
-                onClick={onCancel}
-            >
-                Cancel
-            </button>
+            <div className="mb-3">
+                <label className="form-label d-block">Genres</label>
+                <div className="row">
+                    {genreFields.map((genre) => (
+                        <div className="form-check col-md-6" key={genre}>
+                            <input
+                                className="form-check-input"
+                                type="checkbox"
+                                id={genre}
+                                name={genre}
+                                checked={formData[genre as keyof Movie] === 1}
+                                onChange={handleChange}
+                            />
+                            <label className="form-check-label" htmlFor={genre}>
+                                {genre
+                                    .replace(/([A-Z])/g, ' $1')
+                                    .replace(/^\w/, (c) => c.toUpperCase())}
+                            </label>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            <div className="mt-4">
+                <button type="submit" className="btn btn-primary me-2">
+                    Add
+                </button>
+                <button
+                    type="button"
+                    className="btn btn-secondary"
+                    onClick={onCancel}
+                >
+                    Cancel
+                </button>
+            </div>
         </form>
     );
 };
