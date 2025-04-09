@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Movie } from '../types/Movie';
 import MovieCard from './MovieCard';
 import '../css/MovieCarousel.css'; // Make sure this file is loading correctly
 import LazyLoad from './LazyLoad';
-import '../css/MovieCarousel.css';
+import Slider from 'react-slick';
 
 function MovieCarousel({
     selectedGenres,
@@ -14,6 +14,58 @@ function MovieCarousel({
 }) {
     const [movies, setMovies] = useState<Movie[]>([]);
     const [loading, setLoading] = useState(true);
+    const sliderRef = useRef<Slider>(null);
+    const accumulatedDeltaRef = useRef(0); // Accumulates wheel deltaX
+
+    // Handle wheel events—accumulate deltaX and trigger slide change upon reaching a threshold.
+    const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
+        // Ignore events that are predominantly vertical
+        if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) return;
+
+        // Update our accumulated delta.
+        accumulatedDeltaRef.current += e.deltaX;
+        const threshold = 50; // Adjust this value to control sensitivity
+
+        if (accumulatedDeltaRef.current > threshold) {
+            sliderRef.current?.slickNext();
+            accumulatedDeltaRef.current = 0; // Reset after triggering next
+        } else if (accumulatedDeltaRef.current < -threshold) {
+            sliderRef.current?.slickPrev();
+            accumulatedDeltaRef.current = 0; // Reset after triggering previous
+        }
+    };
+
+    // Slider settings.
+    const settings = {
+        dots: false,
+        infinite: false, // Enable infinite looping if desired.
+        speed: 450,
+        slidesToShow: 6,
+        slidesToScroll: 2,
+        swipe: true, // Keep swipe enabled for touch devices.
+        draggable: false, // Disable native mouse dragging.
+        variableWidth: true,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 3,
+                },
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 2,
+                },
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                },
+            },
+        ],
+    };
 
     useEffect(() => {
         const fetchMovies = async () => {
@@ -39,32 +91,30 @@ function MovieCarousel({
     }, [selectedGenres]);
 
     return (
-        <div className="carousel-wrapper">
-            <h2 className="carousel-title">{title}</h2>
+        <div className="row mb-4">
+            <h2 className="carousel-title">{title}:</h2>
             <LazyLoad>
-                <div className="carousel-container">
-                    {loading ? (
-                        <div className="carousel-placeholder">
-                            <p>Loading movies...</p>
-                        </div>
-                    ) : (
-                        <div className="movie-carousel">
-                            {movies && movies.length > 0 ? (
-                                movies.map((m) => (
-                                    <MovieCard
-                                        key={m.showId}
-                                        showId={m.showId}
-                                        title={m.title}
-                                        year={parseInt(
-                                            String(m.release_year ?? '0')
-                                        )}
-                                    />
-                                ))
-                            ) : (
-                                <div>No movies found</div>
-                            )}
-                        </div>
-                    )}
+                <div
+                    className="genre-carousel"
+                    style={{ width: '100%', margin: '0 auto' }}
+                    onWheel={handleWheel}
+                >
+                    <Slider ref={sliderRef} {...settings}>
+                        {movies && movies.length > 0 ? (
+                            movies.map((m) => (
+                                <MovieCard
+                                    key={m.showId}
+                                    showId={m.showId}
+                                    title={m.title}
+                                    year={parseInt(
+                                        String(m.release_year ?? '0')
+                                    )}
+                                />
+                            ))
+                        ) : (
+                            <div>No movies found</div>
+                        )}
+                    </Slider>
                 </div>
             </LazyLoad>
         </div>
