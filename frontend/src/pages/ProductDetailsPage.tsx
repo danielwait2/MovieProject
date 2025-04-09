@@ -6,6 +6,29 @@ import unknownImage from '../assets/unknown.jpg';
 import { Movie } from '../types/Movie';
 import { baseURL } from '../api/MoviesAPI';
 
+// Helper function to limit the cast string to the first three names.
+function getThreeCast(cast: string): string {
+    if (!cast) return '';
+    // If there are commas, assume it's already comma-separated.
+    if (cast.indexOf(',') > -1) {
+        return cast
+            .split(',')
+            .slice(0, 3)
+            .map((actor) => actor.trim())
+            .join(', ');
+    } else {
+        // If there are no commas, assume it's a space-separated list.
+        const words = cast.trim().split(/\s+/);
+        const actorNames: string[] = [];
+        for (let i = 0; i < words.length; i += 2) {
+            const name = words[i] + (words[i + 1] ? ` ${words[i + 1]}` : '');
+            actorNames.push(name);
+            if (actorNames.length === 3) break;
+        }
+        return actorNames.join(', ');
+    }
+}
+
 const ProductDetailsPage: React.FC = () => {
     const { showId } = useParams<{ showId: string }>();
     const [movie, setMovie] = useState<Movie | null>(null);
@@ -46,10 +69,10 @@ const ProductDetailsPage: React.FC = () => {
 
     const genres = (movie as any).genre || (movie as any).Genres || [];
 
-    // Limit the cast to the first three names (assuming a comma-separated string)
+    // Use the helper function to limit the cast to the first three names.
     const limitedCast =
         movie.cast && typeof movie.cast === 'string'
-            ? movie.cast.split(',').slice(0, 3).join(', ')
+            ? getThreeCast(movie.cast)
             : movie.cast;
 
     const handleBack = () => navigate('/movies');
