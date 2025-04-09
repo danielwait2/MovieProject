@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import MovieCarousel from './MovieCarousel';
-import LazyLoad from './LazyLoad';
+// import LazyLoad from './LazyLoad';
 
 function MoviesByGenre() {
     const [genres, setGenres] = useState<string[]>([]);

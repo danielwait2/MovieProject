@@ -70,6 +70,8 @@ const AdminMoviePage = () => {
                     setMovies(data.movies);
                     setTotalPages(Math.ceil(data.totalNumMovies / pageSize));
                 } else {
+                    // this needs to be deleted the setselectedcategories it does nothing
+                    setSelectedCategories([]);
                     setMovies([]);
                     setError('Failed to load movie data');
                 }

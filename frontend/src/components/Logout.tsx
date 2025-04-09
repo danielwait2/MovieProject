@@ -1,7 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Logout: React.FC = () => {
+interface LogoutProps {
+    children?: React.ReactNode;
+}
+
+const Logout: React.FC<LogoutProps> = ({ children }) => {
     const navigate = useNavigate();
 
     const handleLogout = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -31,7 +35,7 @@ const Logout: React.FC = () => {
             className="btn btn-outline-light logout-button"
             onClick={handleLogout}
         >
-            Logout
+            {children || 'Logout'}
         </button>
     );
 };
