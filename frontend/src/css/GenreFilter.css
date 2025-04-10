@@ -10,6 +10,7 @@
     line-height: normal;
     text-align: left;
     margin-left: 3%;
+
 }
 .genre-carousel {
     position: relative;
@@ -55,6 +56,11 @@
 
 .genre-item:hover label {
     transform: scale(1.05);
+    color: #6fc276;
+}
+
+.btn-filter:hover {
+    color: #6fc276 !important;
 }
 
 /* Filter button styles */
@@ -67,6 +73,7 @@
     background-color: #6fc276 !important;
     font-weight: bold;
     border: 0;
+    color: #6fc276 !important;
 }
 
 .btn-check:hover + .btn-filter {
