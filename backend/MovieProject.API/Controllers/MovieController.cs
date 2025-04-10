@@ -276,13 +276,45 @@ public IActionResult GetProjects(int pageSize = 10, int pageNum = 1, string sear
             return Ok(projectTypes);
         }
 
-        [HttpPost("AddMovie")]
-        public IActionResult AddMovie([FromBody] Movie newMovie)
-        {
-            _movieContext.Movies.Add(newMovie);
-            _movieContext.SaveChanges();
-            return Ok(newMovie);
-        }
+[HttpPost("AddMovie")]
+public IActionResult AddMovie([FromBody] Movie newMovie)
+{
+    if (newMovie == null)
+    {
+        return BadRequest("Movie data is null.");
+    }
+
+    if (!ModelState.IsValid)
+    {
+        var errors = ModelState.Values.SelectMany(v => v.Errors)
+                                      .Select(e => e.ErrorMessage);
+        return BadRequest(new { Message = "Invalid movie data", Errors = errors });
+    }
+    
+    try
+    {
+        // Query the maximum numeric part from ShowId.
+        // This assumes your ShowId always starts with an "s" followed by a number.
+        int maxId = _movieContext.Movies
+    .AsEnumerable()
+    .Select(m => int.Parse(m.ShowId.Substring(1)))
+    .DefaultIfEmpty(0)
+    .Max();
+        
+        // Generate a new ShowId by incrementing the max value.
+        newMovie.ShowId = "s" + (maxId + 1).ToString();
+
+        _movieContext.Movies.Add(newMovie);
+        _movieContext.SaveChanges();
+        return Ok(newMovie);
+    }
+    catch (Exception ex)
+    {
+        return StatusCode(500, $"Internal server error: {ex.Message}");
+    }
+}
+
+
 
         [HttpPut("UpdateMovie/{show_id}")]
         public IActionResult UpdateProject(string show_id, [FromBody] MovieUpdateDTO updatedMovie)
@@ -381,7 +413,7 @@ public IActionResult GetProjects(int pageSize = 10, int pageNum = 1, string sear
         }
 
         [HttpDelete("DeleteMovie/{show_id}")]
-        public IActionResult DeleteMovie(int show_id)
+        public IActionResult DeleteMovie(string show_id)
         {
             var movie = _movieContext.Movies.Find(show_id);
 

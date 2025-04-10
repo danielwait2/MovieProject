@@ -24,7 +24,7 @@ namespace MovieProject.API.Data
         
         // Navigation property (not needed for genres output)
         [JsonIgnore]
-        public ICollection<MovieGenre> MovieGenres { get; set; }
+        public ICollection<MovieGenre>? MovieGenres { get; set; }
 
         // Genre/category columns
         public int? Action { get; set; }
