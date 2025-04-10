@@ -21,9 +21,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<MovieDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("MovieConnection")));
-        //.EnableSensitiveDataLogging()
-/*        .LogTo(Console.WriteLine, LogLevel.Information));*/
+    options.UseSqlite(builder.Configuration.GetConnectionString("MovieConnection"))
+        .EnableSensitiveDataLogging()
+        .LogTo(Console.WriteLine, LogLevel.Information));
 
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -74,7 +74,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowFrontend",
         policy =>
         {
-            policy.WithOrigins("http://localhost:3000","https://wonderful-smoke-0afae881e.6.azurestaticapps.net")
+            policy.WithOrigins("http://localhost:3000", "https://wonderful-smoke-0afae881e.6.azurestaticapps.net")
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials();

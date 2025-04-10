@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../css/RegisterPage.css';
+import { baseURL } from '../api/MoviesAPI';
 
 function RegisterPage() {
     // State variables for registration fields
@@ -15,11 +16,14 @@ function RegisterPage() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
+    const [info, setInfo] = useState('');
 
     const navigate = useNavigate();
 
     // Handle input changes
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const handleChange = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    ) => {
         const { name, value } = e.target;
         switch (name) {
             case 'fullName':
@@ -64,24 +68,49 @@ function RegisterPage() {
                 break;
         }
     };
-
-    // Handle form submission for registration
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setError('');
-
-        if (password !== confirmPassword) {
-            setError('Passwords do not match.');
-            return;
-        }
-
-        try {
-            // Example: call your backend API
-            // const response = await fetch('/api/register', { ... });
-            // if (!response.ok) throw new Error('Registration failed.');
-            navigate('/movies');
-        } catch (err: any) {
-            setError(err.message || 'Registration failed.');
+        // validate email and passwords
+        if (!email || !password || !confirmPassword) {
+            setError('Please fill in all fields.');
+            setInfo('Please fill in all fields.');
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            setError('Please enter a valid email address.');
+            setInfo('Please enter a valid email address.');
+        } else if (password.length < 14) {
+            setInfo('Password must be at least 14 characters long.');
+            setError('Password must be at least 14 characters long.');
+        } else if (password !== confirmPassword) {
+            setInfo('Passwords do not match.');
+            setError('Passwords do not match');
+        } else {
+            // clear messages
+            setError('');
+            setInfo('');
+            // post data to the /register api
+            fetch(`${baseURL}/register`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: password,
+                }),
+            })
+                //.then((response) => response.json())
+                .then((data) => {
+                    // handle success or error from the server
+                    console.log(data);
+                    if (data.ok)
+                        setError('Successful registration. Please log in.');
+                    else setError('Error registering.');
+                })
+                .catch((error) => {
+                    // handle network error
+                    console.error(error);
+                    setError('Error registering.');
+                });
         }
     };
 
@@ -97,7 +126,6 @@ function RegisterPage() {
                     X
                 </button>
                 <h5 className="modal-title">Register</h5>
-
 
                 <form onSubmit={handleSubmit}>
                     {/* Row 1: Full Name + Age */}
@@ -308,9 +336,7 @@ function RegisterPage() {
                     </div>
 
                     <div className="register-button-wrapper">
-                        <button type="submit" className="register-button">
-                            Register
-                        </button>
+                        <button className="register-button">Register</button>
                     </div>
                 </form>
 
