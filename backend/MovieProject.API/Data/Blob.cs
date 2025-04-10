@@ -48,12 +48,6 @@ public class BlobStorageService
                 return memoryStream;
             }
 
-            // For debugging, log all entries
-            Console.WriteLine("Available entries in zip:");
-            foreach (var e in archive.Entries)
-            {
-                Console.WriteLine($"- {e.FullName}");
-            }
         }
 
         return null;

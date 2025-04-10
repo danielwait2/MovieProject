@@ -3,7 +3,7 @@
     overflow-x: auto;
     overflow-y: hidden;
     white-space: nowrap;
-    padding: 10px 0;
+    /* padding: 10px 0; */
     width: 100%;
 }
 
@@ -23,16 +23,6 @@
     flex: 0 0 auto;
 }
 
-.carousel-title {
-    color: #ececec;
-    font-size: 35px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-    text-align: left;
-    padding-left: 20px;
-}
-
 .carousel-placeholder {
     min-height: 300px; /* Reserve sufficient vertical space */
     display: flex;
@@ -48,7 +38,7 @@
 }
 
 .movie-carousel {
-    margin: 0 auto;
-    width: 100%;
+    position: relative;
+    box-sizing: border-box;
     overflow: hidden;
 }

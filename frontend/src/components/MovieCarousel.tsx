@@ -91,7 +91,7 @@ function MovieCarousel({
     }, [selectedGenres]);
 
     return (
-        <div className="row mb-4">
+        <div className="row mb-5" style={{ marginTop: '2%' }}>
             <h2 className="carousel-title">{title}:</h2>
             <LazyLoad>
                 <div

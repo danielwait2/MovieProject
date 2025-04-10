@@ -1,4 +1,3 @@
-import GenreFilter from '../components/GenreFilter';
 import MovieCarousel from '../components/MovieCarousel';
 import { useState } from 'react';
 import AuthorizeView, { AuthorizedUser } from '../components/AuthorizeView';
@@ -11,7 +10,7 @@ import '../css/MoviePage.css';
 
 const MoviePage = () => {
     const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
-
+    setSelectedGenres
     return (
         <AuthorizeView>
             {/* 2) Replace your old Tailwind or inline styles with our new "movie-page" class */}
@@ -20,32 +19,23 @@ const MoviePage = () => {
                     {/* If you want the featured movie spaced like Netflix, wrap it in a custom class */}
                     <div className="featured-movie">
                         <FeaturedMovie />
-                    </div>
 
-                    {/* Section row for "Recommended for You" carousel */}
-                    <div className="row">
-                        <MovieCarousel
-                            selectedGenres={selectedGenres}
-                            title="Recommended for You"
-                            rec={true}
-                        />
-                    </div>
-
-                    {/* Section row for the genre filter */}
-                    <div className="row">
-                        <GenreFilter
-                            selectedGenres={selectedGenres}
-                            setSelectedGenres={setSelectedGenres}
-                        />
-                    </div>
-
-                    {/* Section row for movies by genre */}
-                    <div className="row">
-                        <MoviesByGenre />
-                    </div>
-                </main>
-            </div>
-        </AuthorizeView>
+                        <div className="row mb-5" style={{ marginTop: '2%' }}>
+                            <MovieCarousel
+                                selectedGenres={selectedGenres}
+                                title="Recommended for You"
+                                rec={true}
+                            />
+                        </div>
+                        <div className="row mb-5">
+                            <MoviesByGenre />
+                            </div>
+                        </div>
+                    </main>
+                </div>
+                <br />
+                <br />
+            </AuthorizeView>
     );
 };
 

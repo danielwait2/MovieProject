@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Slider, { Settings, CustomArrowProps } from 'react-slick';
 import '../css/GenreFilter.css';
-import {baseURL} from '../api/MoviesAPI';
-
+import { baseURL } from '../api/MoviesAPI';
 
 type GenreFilterProps = {
     selectedGenres: string[];
@@ -18,11 +17,11 @@ function NextArrow(props: CustomArrowProps) {
     return (
         <div className="custom-arrow custom-next-arrow" onClick={onClick}>
             <svg viewBox="0 0 24 24">
-                {/* This path draws a right-pointing chevron. 
-                    M4 2 -> move to (4,2)
-                    l12 10 -> line 12 right, 10 down
-                    -12 10 -> line 12 left, 10 down (back to x=4)
-                */}
+                {/* This path draws a right-pointing chevron.
+M4 2 -> move to (4,2)
+l12 10 -> line 12 right, 10 down
+-12 10 -> line 12 left, 10 down (back to x=4)
+*/}
                 <path d="M4 2 l12 10 -12 10" />
             </svg>
         </div>
@@ -38,10 +37,10 @@ function PrevArrow(props: CustomArrowProps) {
         <div className="custom-arrow custom-prev-arrow" onClick={onClick}>
             <svg viewBox="0 0 24 24">
                 {/* This path draws a left-pointing chevron.
-                    M20 2 -> move to (20,2)
-                    l-12 10 -> line 12 left, 10 down
-                    12 10 -> line 12 right, 10 down (back to x=20)
-                */}
+M20 2 -> move to (20,2)
+l-12 10 -> line 12 left, 10 down
+12 10 -> line 12 right, 10 down (back to x=20)
+*/}
                 <path d="M20 2 l-12 10 12 10" />
             </svg>
         </div>
@@ -118,7 +117,8 @@ const GenreFilter: React.FC<GenreFilterProps> = ({
 
     return (
         <div className="genre-filter">
-            {/* <h2 className="carousel-title">Filter By Genre:</h2> */}
+
+            <div className="carousel-title">Filter By Genre:</div>
             <div
                 className="genre-carousel"
                 style={{ width: '100%', margin: '0 auto' }}
