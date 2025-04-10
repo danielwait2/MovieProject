@@ -17,6 +17,7 @@ import CookieConsent from 'react-cookie-consent';
 import AdminMoviesPage from './pages/AdminMoviesPage';
 import BoldToggle from './components/BoldToggle';
 import { SearchProvider } from './components/SearchContext';
+import ProtectedRoute from './components/ProtectedRoute';  
 
 function AppContent() {
     const location = useLocation();
@@ -73,11 +74,28 @@ function AppContent() {
             {/* Render primary background routes */}
             <Routes location={backgroundLocation}>
                 <Route path="/" element={<HomePage />} />
-                <Route path="/movies" element={<MoviePage />} />
-                <Route path="/privacyPolicy" element={<PrivacyPolicyPage />} />
-                <Route path="/admin" element={<AdminMoviesPage />} />
+                
+                <Route path="/movies" element={
+                    <ProtectedRoute>
+                        <MoviePage />
+                    </ProtectedRoute>
+                } />
+                <Route path="/privacyPolicy" element={
+                    <ProtectedRoute>
+                        <PrivacyPolicyPage />
+                    </ProtectedRoute>
+                } />
+                <Route path="/admin" element={
+                    <ProtectedRoute>
+                        <AdminMoviesPage />
+                    </ProtectedRoute>
+                } />
 
-                <Route path="/unauthorized" element={<LoginPage />} />
+                <Route path="/unauthorized" element={
+                    <ProtectedRoute>
+                        <LoginPage />
+                    </ProtectedRoute>
+                } />
             </Routes>
 
             {/* Render the login and register modals over the background */}
