@@ -51,7 +51,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     padding: 0 10px;
-    font-family: "Exo 2", sans-serif;
+    font-family: 'Exo 2', sans-serif;
 
     border-radius: 8px;
     transition:
@@ -107,7 +107,7 @@
 }
 
 .custom-next-arrow {
-    right: 0;
+    right: 0px;
     background: linear-gradient(
         to right,
         rgba(0, 0, 0, 0) 0%,
