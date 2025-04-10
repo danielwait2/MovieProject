@@ -1,11 +1,11 @@
-import AuthorizeView from '../components/AuthorizeView';
+import AuthorizeViewAdmin from '../components/AuthorizeViewAdmin';
 import AuthorizedAdminMoviesPage from './AuthorizedAdminMoviesPage';
 
 const AdminMoviePage = () => {
     return (
-        <AuthorizeView>
+        <AuthorizeViewAdmin>
             <AuthorizedAdminMoviesPage />
-        </AuthorizeView>
+        </AuthorizeViewAdmin>
     );
 };
 
