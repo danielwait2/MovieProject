@@ -4,13 +4,15 @@ import AuthorizeView, { AuthorizedUser } from '../components/AuthorizeView';
 AuthorizedUser; // (comment says "delete this line below" but it won't break anything)
 import MoviesByGenre from '../components/MoviesByGenre';
 import FeaturedMovie from '../components/FeaturedMovie';
+import { useSearch } from '../components/SearchContext';
 
 /* 1) Import the new MoviePage.css file here */
 import '../css/MoviePage.css';
 
 const MoviePage = () => {
     const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
-    setSelectedGenres
+    const { searchTerm } = useSearch();
+    setSelectedGenres;
 
     return (
         <AuthorizeView>
@@ -22,6 +24,16 @@ const MoviePage = () => {
                         <FeaturedMovie />
                     </div>
 
+                    {searchTerm && (
+                        <div>
+                            <MovieCarousel
+                                selectedGenres={selectedGenres}
+                                title="Search Results"
+                                rec={false}
+                                searchTerm={searchTerm}
+                            />
+                        </div>
+                    )}
                     <div>
                         <MovieCarousel
                             selectedGenres={selectedGenres}

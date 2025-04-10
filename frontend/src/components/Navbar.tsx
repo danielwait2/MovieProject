@@ -1,18 +1,24 @@
 import { Link, useLocation } from 'react-router-dom';
 import Logout from './Logout';
 import { AuthorizedUser } from './AuthorizeView';
-import  { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { baseURL } from '../api/MoviesAPI';
 import '../css/Navbar.css';
+import SearchBar from './SearchBar';
+import { useSearch } from '../components/SearchContext';
 
 const Navbar = () => {
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
     const location = useLocation();
+    const { setSearchTerm } = useSearch();
 
     useEffect(() => {
-        fetchWithRetry(`${baseURL}/pingauth`, { method: 'GET', credentials: 'include' })
-            .then(data => {
+        fetchWithRetry(`${baseURL}/pingauth`, {
+            method: 'GET',
+            credentials: 'include',
+        })
+            .then((data) => {
                 if (data.email) {
                     setIsLoggedIn(true);
                     Cookies.set('auth', 'true');
@@ -21,7 +27,7 @@ const Navbar = () => {
                     Cookies.remove('auth');
                 }
             })
-            .catch(error => {
+            .catch((error) => {
                 console.error('Error pinging auth:', error);
                 setIsLoggedIn(false);
                 Cookies.remove('auth');
@@ -47,8 +53,16 @@ const Navbar = () => {
                 <ul className="navbar-nav ms-auto gap-3">
                     {isLoggedIn ? (
                         <>
+                            {location.pathname === '/movies' && (
+                                <div className="ms-auto">
+                                    <SearchBar onSearch={setSearchTerm} />
+                                </div>
+                            )}
                             <li className="nav-item">
-                                <Link className="nav-link custom-nav-link" to="/movies">
+                                <Link
+                                    className="nav-link custom-nav-link"
+                                    to="/movies"
+                                >
                                     Movies
                                 </Link>
                             </li>
@@ -61,18 +75,23 @@ const Navbar = () => {
                     ) : (
                         <>
                             <li className="nav-item">
-                                <Link className="nav-link custom-nav-link" to="/register">
+                                <Link
+                                    className="nav-link custom-nav-link"
+                                    to="/register"
+                                >
                                     Sign Up
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link custom-nav-link" to="/login">
+                                <Link
+                                    className="nav-link custom-nav-link"
+                                    to="/login"
+                                >
                                     Log In
                                 </Link>
                             </li>
                         </>
                     )}
-            
                 </ul>
             </div>
         </nav>
@@ -81,19 +100,26 @@ const Navbar = () => {
 
 export default Navbar;
 
-function fetchWithRetry(url: string, options: RequestInit, retries: number = 3, delay: number = 1000): Promise<any> {
+function fetchWithRetry(
+    url: string,
+    options: RequestInit,
+    retries: number = 3,
+    delay: number = 1000
+): Promise<any> {
     return fetch(url, options)
-        .then(response => {
+        .then((response) => {
             if (!response.ok) {
                 throw new Error(`HTTP error: ${response.status}`);
             }
             return response.json();
         })
-        .catch(error => {
+        .catch((error) => {
             if (retries > 0) {
                 return new Promise((resolve) => {
                     setTimeout(() => {
-                        resolve(fetchWithRetry(url, options, retries - 1, delay));
+                        resolve(
+                            fetchWithRetry(url, options, retries - 1, delay)
+                        );
                     }, delay);
                 });
             } else {
