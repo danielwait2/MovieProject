@@ -79,23 +79,42 @@ namespace MovieProject.API.Controllers
 
                 [HttpGet("MovieRec")]
         public async Task<IActionResult> GetMovieRecommendations(string title, int numRecs)
-        { 
+        {
 
-                // Query for recommendations asynchronously.
-                var recommended = await _recContext.MovieRecs
-                    .Where(m => m.IfYouWatched == title)
-                    .Take(numRecs)
-                    // .Select(r => r.ShowId)
-                    .ToListAsync();
+            // Query for recommendations asynchronously.
+            // Get a flat list of recommended titles using Union.
+            var recommendedTitles = await _recContext.MovieRecs
+                .Where(r => r.IfYouWatched == title)
+                .Select(r => r.Recommendation1)
+                .Union(
+                    _recContext.MovieRecs.Where(r => r.IfYouWatched == title)
+                        .Select(r => r.Recommendation2)
+                )
+                .Union(
+                    _recContext.MovieRecs.Where(r => r.IfYouWatched == title)
+                        .Select(r => r.Recommendation3)
+                )
+                .Union(
+                    _recContext.MovieRecs.Where(r => r.IfYouWatched == title)
+                        .Select(r => r.Recommendation4)
+                )
+                .Union(
+                    _recContext.MovieRecs.Where(r => r.IfYouWatched == title)
+                        .Select(r => r.Recommendation5)
+                )
+                .Where(rec => rec != null)  // Optionally filter out nulls
+                .ToListAsync();
 
-                if (!recommended.Any())
-                    return NotFound("No recommendations found for this user.");
+            if (!recommendedTitles.Any())
+                return NotFound("No recommendations found for this user.");
 
-                var movies = _moviesContext.Movies
-                    .Where(m => recommended.Select(r => r.IfYouWatched).Contains(m.Title))
-                    .ToList();
+            // Query the Movies table for movies with titles in the recommended list.
+            var movies = _moviesContext.Movies
+                .Where(m => recommendedTitles.Contains(m.Title))
+                .ToList();
 
-                return Ok(movies);
+            return Ok(movies);
+
         }
     }
 }

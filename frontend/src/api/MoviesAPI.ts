@@ -43,6 +43,23 @@ export const fetchMovies = async (
         throw error;
     }
 };
+export const fetchContentRecs = async (title: string) => {
+    try {
+        const response = await fetch(
+            `${baseURL}/Rec/MovieRec?title=${title}&numRecs=20`,
+            {
+                credentials: 'include',
+            }
+        );
+        if (!response.ok) {
+            throw new Error('Failed to fetch movie recommendations');
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('Error fetching content recommendations:', error);
+        throw error;
+    }
+};
 
 export const addMovie = async (newMovie: Movie): Promise<Movie> => {
     try {

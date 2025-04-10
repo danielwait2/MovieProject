@@ -13,49 +13,83 @@
 }
 
 /***********************************************
-  1) Modal overlay for the product details.
+  1) Modal overlay container for the entire popup.
      Covers the viewport with a semi-transparent background.
-     Animates using the fadeInModal keyframes.
 ***********************************************/
-.product-details {
+.pop-up-container {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    overflow-y: auto;
+    animation: fadeInModal 0.12s ease-out;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.8);
-    color: #fff;
-    overflow: auto;
-    z-index: 1000;
-    animation: fadeInModal 0.12s ease-out; /* Reduced from 0.3s to 0.15s */
 }
 
 /***********************************************
-  2) Hero wrapper for the modal window:
-     - Reduced size and rounded corners.
+  2) Container wrapping product details & recommendations.
+***********************************************/
+.full-popup {
+    width: 90%;
+    max-width: 900px; /* Slightly larger if you prefer */
+    height: 80%;
+    overflow-y: auto !important;
+    background: #222;
+    color: #fff;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    /* Firefox: Hide scrollbar */
+    scrollbar-width: none; /* Hides the scrollbar in Firefox */
+
+    /* Internet Explorer 10+ */
+    -ms-overflow-style: none; /* Hides the scrollbar in IE 10+ */
+}
+
+/* WebKit browsers (Chrome, Safari, Opera) */
+.full-popup::-webkit-scrollbar {
+    display: none; /* Hides the scrollbar */
+}
+
+/***********************************************
+  3) Product details area.
+     Remove the old "fixed" approach; let the content flow.
+***********************************************/
+.product-details {
+    padding: 0; /* Remove default padding so the hero can expand fully */
+    width: 100%;
+    position: relative;
+    box-sizing: border-box;
+}
+
+/***********************************************
+  4) Hero wrapper for the modal window:
+     - Now takes 100% width with no extra margin.
+     - Remove rounded corners if you want it fully rectangular.
 ***********************************************/
 .hero-wrapper {
     position: relative;
-    width: 80%;
-    max-width: 800px;
-    margin: 0 auto;
-    box-sizing: border-box;
-    border-radius: 10px; /* Rounded corners */
-    overflow: hidden; /* Clip contents to rounded corners */
+    width: 100%;
+    margin: 0;
+    border-radius: 0; /* Or keep your border-radius if desired */
+    overflow: hidden;
 }
 
 /***********************************************
-  3) Hero background:
-     - Reduced height for a smaller modal window.
+  5) Hero background:
+     - If you want the entire top area to be the background, 
+       set an explicit height or min-height (e.g. 50vh or 70vh).
 ***********************************************/
 .hero {
     position: relative;
     width: 100%;
-    height: 80vh; /* Use a smaller height (80% of viewport height) */
-    background-position: center 20%;
+    height: 60vh; /* Adjust the hero’s vertical height as needed */
+    background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
     overflow: hidden;
@@ -63,7 +97,7 @@
 }
 
 /***********************************************
-  4) Fade overlay to darken the background image.
+  6) Optional fade overlay to darken the background image.
 ***********************************************/
 .hero::after {
     content: '';
@@ -82,8 +116,7 @@
 }
 
 /***********************************************
-  5) Centered text overlay on the hero.
-     - Positioned absolutely toward the bottom.
+  7) Centered text overlay on the hero.
 ***********************************************/
 .centered-content {
     position: absolute;
@@ -94,10 +127,11 @@
     text-align: center;
     z-index: 2;
     box-sizing: border-box;
+    color: #fff;
 }
 
 /***********************************************
-  6) "X" button positioned in the top-right corner within the hero.
+  8) "X" button positioned in the top-right corner within the hero.
 ***********************************************/
 .back-button {
     position: absolute;
@@ -116,7 +150,7 @@
 }
 
 /***********************************************
-  7) Title, meta, cast, and description text styles.
+  9) Title, meta, cast, and description text styles.
 ***********************************************/
 .centered-content h1 {
     font-size: 3rem;
@@ -155,7 +189,7 @@
 }
 
 /***********************************************
-  8) Action buttons and rating stars, centered horizontally.
+  10) Action buttons and rating stars.
 ***********************************************/
 .action-buttons {
     display: flex;
@@ -169,7 +203,7 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    background-color: #6fc276; 
+    background-color: #6fc276;
     border: none;
     cursor: pointer;
     padding: 0.75rem 1.5rem;
@@ -196,4 +230,33 @@
 
 .star:hover {
     transform: scale(1.1);
+}
+
+/***********************************************
+  11) Recommended movies section, after the hero area
+***********************************************/
+.recommended-section {
+    background: #111;
+}
+
+.recommended-list {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+}
+
+.recommended-item {
+    flex: 0 0 auto;
+    width: 120px;
+    text-align: center;
+}
+
+.recommended-item img {
+    width: 100%;
+    border-radius: 4px;
+}
+
+.rec-text {
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 600;
 }

@@ -1,0 +1,77 @@
+.movie-card-small {
+    width: 166px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.1);
+    margin: 16px;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    will-change: transform;
+    position: relative;
+}
+
+.movie-card-small:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+/* Optional: Add this for an even smoother effect */
+.movie-card-small::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transition: opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.movie-card-small:hover::after {
+    opacity: 1;
+}
+
+.movie-image-placeholder-small {
+    height: 250px;
+}
+
+.movie-image-small {
+    height: 250px;
+    width: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+.movie-info-small {
+    height: 60px;
+    width: 166px; /* Set a fixed width (or use max-width as needed) */
+    box-sizing: border-box; /* Include padding in the width calculation */
+    padding: 12px;
+    background-color: rgba(0, 0, 0, 0.4);
+    white-space: wrap;
+}
+.movie-title-small {
+    margin: 0;
+    font-weight: bold;
+    color: #d9d9d9;
+    text-align: left;
+    font-size: 1.1rem;
+}
+
+.movie-year-small {
+    margin: 4px 0 0;
+    font-size: 14px;
+    color: #d9d9d9;
+    text-align: left;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.movie-card a {
+    text-decoration: none;
+    color: inherit;
+}

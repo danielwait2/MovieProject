@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import '../css/MovieCard.css';
+import '../css/MovieCardSmall.css';
 import unknownImage from '../assets/unknown.jpg';
 
 interface MovieCardProps {
     showId: string; // Unique identifier for the movie
     title: string;
-    year: number;
     style?: string;
 }
 
-const MovieCard: React.FC<MovieCardProps> = ({ showId, title, year }) => {
+const MovieCard: React.FC<MovieCardProps> = ({ showId, title }) => {
     const [imageUrl, setImageUrl] = useState<string>('');
     const location = useLocation();
 
@@ -27,10 +26,10 @@ const MovieCard: React.FC<MovieCardProps> = ({ showId, title, year }) => {
             state={{ backgroundLocation: location }} // pass current location as state
             style={{ textDecoration: 'none' }}
         >
-            <div className="movie-card">
-                <div className="movie-image-placeholder">
+            <div className="movie-card-small">
+                <div className="movie-image-placeholder-small">
                     <img
-                        className="movie-image"
+                        className="movie-image-small"
                         src={imageUrl || unknownImage}
                         alt={title}
                         onError={(e) => {
@@ -38,9 +37,8 @@ const MovieCard: React.FC<MovieCardProps> = ({ showId, title, year }) => {
                         }}
                     />
                 </div>
-                <div className="movie-info">
-                    <h3 className="movie-title">{title}</h3>
-                    <p className="movie-year">{year}</p>
+                <div className="movie-info-small">
+                    <h3 className="movie-title-small">{title}</h3>
                 </div>
             </div>
         </Link>

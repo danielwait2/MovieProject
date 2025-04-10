@@ -5,6 +5,7 @@ import '../css/ProductDetailsPage.css';
 import unknownImage from '../assets/unknown.jpg';
 import { Movie } from '../types/Movie';
 import { baseURL } from '../api/MoviesAPI';
+import RecSection from '../components/RecSection';
 
 // Helper function to limit the cast string to the first three names.
 function getThreeCast(cast: string): string {
@@ -63,11 +64,10 @@ const ProductDetailsPage: React.FC = () => {
     if (error) return <div>Error: {error}</div>;
     if (!movie) return <div>No movie details found.</div>;
 
-    console.log("Movie Title:", movie.title);
     const posterUrl = movie.title
         ? `https://intex2025.blob.core.windows.net/movie-posters/${encodeURIComponent(movie.title.replace(/[^a-zA-Z0-9 ]/g, ''))}.jpg`
         : unknownImage;
-    console.log("Poster URL:", posterUrl);
+    console.log('Poster URL:', posterUrl);
 
     const genres = (movie as any).genre || (movie as any).Genres || [];
 
@@ -80,83 +80,99 @@ const ProductDetailsPage: React.FC = () => {
     const handleBack = () => navigate('/movies');
 
     return (
-        <div className="product-details">
-            <div className="hero-wrapper">
-                {/* Moved X button inside the hero container */}
-                <div
-                    className="hero"
-                    style={{ backgroundImage: `url(${posterUrl})` }}
-                >
-                    <button className="back-button" onClick={handleBack}>
-                        <FaTimes size={24} />
-                    </button>
-                    <div className="centered-content">
-                        <h1>{movie.title}</h1>
-                        <div className="meta-row">
-                            {movie.release_year && (
-                                <span className="meta-label">
-                                    {movie.release_year}
-                                </span>
-                            )}
-                            {movie.rating && (
-                                <span className="meta-label">
-                                    {movie.rating}
-                                </span>
-                            )}
-                            {movie.duration && (
-                                <span className="meta-label">
-                                    {movie.duration}
-                                </span>
-                            )}
-                            {Array.isArray(genres) && genres.length > 0 && (
-                                <span className="meta-label">
-                                    {genres.join(', ')}
-                                </span>
-                            )}
-                        </div>
-                        {limitedCast && (
-                            <p className="cast-text">
-                                <strong>Cast:</strong> {limitedCast}
-                            </p>
-                        )}
-                        {movie.description && (
-                            <p className="description-text">
-                                {movie.description}
-                            </p>
-                        )}
-                        <div className="action-buttons">
-                            <button className="btn btn-danger action-button">
-                                <FaPlay /> <span>Play</span>
+        <div className="pop-up-container">
+            <div className="full-popup">
+                <div className="product-details">
+                    <div className="hero-wrapper">
+                        <div
+                            className="hero"
+                            style={{ backgroundImage: `url(${posterUrl})` }}
+                        >
+                            <button
+                                className="back-button"
+                                onClick={handleBack}
+                            >
+                                <FaTimes size={24} />
                             </button>
-                            <div className="rating-scale">
-                                {Array.from({ length: 5 }, (_, i) => {
-                                    const ratingVal = i + 1;
-                                    return (
-                                        <label key={ratingVal}>
-                                            <input
-                                                type="radio"
-                                                name="rating"
-                                                value={ratingVal}
-                                                style={{ display: 'none' }}
-                                                onClick={() =>
-                                                    setSelectedRating(ratingVal)
-                                                }
-                                            />
-                                            <FaStar
-                                                className="star"
-                                                color={
-                                                    ratingVal <= selectedRating
-                                                        ? '#ffc107'
-                                                        : '#e4e5e9'
-                                                }
-                                                size={24}
-                                            />
-                                        </label>
-                                    );
-                                })}
+                            <div className="centered-content">
+                                <h1>{movie.title}</h1>
+                                <div className="meta-row">
+                                    {movie.release_year && (
+                                        <span className="meta-label">
+                                            {movie.release_year}
+                                        </span>
+                                    )}
+                                    {movie.rating && (
+                                        <span className="meta-label">
+                                            {movie.rating}
+                                        </span>
+                                    )}
+                                    {movie.duration && (
+                                        <span className="meta-label">
+                                            {movie.duration}
+                                        </span>
+                                    )}
+                                    {Array.isArray(genres) &&
+                                        genres.length > 0 && (
+                                            <span className="meta-label">
+                                                {genres.join(', ')}
+                                            </span>
+                                        )}
+                                </div>
+                                {limitedCast && (
+                                    <p className="cast-text">
+                                        <strong>Cast:</strong> {limitedCast}
+                                    </p>
+                                )}
+                                {movie.description && (
+                                    <p className="description-text">
+                                        {movie.description}
+                                    </p>
+                                )}
+                                <div className="action-buttons">
+                                    <button className="btn btn-danger action-button">
+                                        <FaPlay /> <span>Play</span>
+                                    </button>
+                                    <div className="rating-scale">
+                                        {Array.from({ length: 5 }, (_, i) => {
+                                            const ratingVal = i + 1;
+                                            return (
+                                                <label key={ratingVal}>
+                                                    <input
+                                                        type="radio"
+                                                        name="rating"
+                                                        value={ratingVal}
+                                                        style={{
+                                                            display: 'none',
+                                                        }}
+                                                        onClick={() =>
+                                                            setSelectedRating(
+                                                                ratingVal
+                                                            )
+                                                        }
+                                                    />
+                                                    <FaStar
+                                                        className="star"
+                                                        color={
+                                                            ratingVal <=
+                                                            selectedRating
+                                                                ? '#ffc107'
+                                                                : '#e4e5e9'
+                                                        }
+                                                        size={24}
+                                                    />
+                                                </label>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div className="recommended-section">
+                    <h2 className="rec-text">You may also like:</h2>
+                    <RecSection title={movie.title} />
                 </div>
             </div>
         </div>
