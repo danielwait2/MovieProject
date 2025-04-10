@@ -1,4 +1,3 @@
-import GenreFilter from '../components/GenreFilter';
 import MovieCarousel from '../components/MovieCarousel';
 import { useState } from 'react';
 import AuthorizeView, { AuthorizedUser } from '../components/AuthorizeView';
@@ -11,7 +10,7 @@ import '../css/MoviePage.css';
 
 const MoviePage = () => {
     const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
-
+    setSelectedGenres
     return (
         <AuthorizeView>
             {/* 2) Replace your old Tailwind or inline styles with our new "movie-page" class */}
@@ -30,13 +29,13 @@ const MoviePage = () => {
                         </div>
                         <div className="row mb-5">
                             <MoviesByGenre />
+                            </div>
                         </div>
                     </main>
                 </div>
                 <br />
                 <br />
             </AuthorizeView>
-        </>
     );
 };
 
