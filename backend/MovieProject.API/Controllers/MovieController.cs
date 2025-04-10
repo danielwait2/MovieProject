@@ -16,7 +16,7 @@ namespace MovieProject.API.Controllers
         public MovieController(MovieDbContext temp) => _movieContext = temp;
 
         [HttpGet("RecMoviesTemp")]
-        public IActionResult GetMovies([FromQuery] List<string>? genreParams = null)
+        public IActionResult GetMovies([FromQuery] List<string>? genres = null)
         {
             var query = _movieContext.Movies.AsQueryable();
 
