@@ -129,7 +129,7 @@ const AuthorizedAdminMoviePage = () => {
                 <br />
                 <div>
                     <div className="text-center mb-3">
-                        <h1 className="mb-0">Admin - Movies</h1>
+                        <h1 className="admin-title">Admin - Movies</h1>
                     </div>
                     <div className="d-flex justify-content-end px-3 mb-4">
                         <button
