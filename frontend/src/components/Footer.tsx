@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/Footer.css';
+import { Link } from 'react-router-dom';
 
 const Footer: React.FC = () => {
     return (
@@ -10,15 +11,16 @@ const Footer: React.FC = () => {
                     © {new Date().getFullYear()} CineNiche All rights reserved.
                 </p>
                 <p className="mb-0">
-                    <a href="/privacyPolicy" className="privacy-link me-3">
+                    <Link to="/privacyPolicy" className="me-3">
                         Privacy Policy
-                    </a>
-                    <a href="/admin" className="privacy-link">
+                    </Link>
+                    <Link to="/admin">
                         Manage
-                    </a>
+                    </Link>
                 </p>
             </div>
         </footer>
+        
     );
 };
 

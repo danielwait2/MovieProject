@@ -1,6 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/PrivacyPolicyPage.css';
-import Footer from '../components/Footer';
 
 
 
@@ -236,7 +235,6 @@ const PrivacyPolicyPage = () => {
                     </p>
                 </section>
 
-                <Footer />
             </div>
         </>
     );

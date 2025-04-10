@@ -71,7 +71,7 @@ const [activeImages, setActiveImages] = useState<{
             src: imagePool[Math.floor(Math.random() * imagePool.length)],
             id: Date.now(),
             direction,
-            top: `${Math.random() * 80 + 10}%`,
+            top: `${Math.random() * 80 - 20}%`,
             duration: `${25 + Math.random() * 10}s`,
             opacity: 0.35 + Math.random() * 0.2,
             scale: 0.5 + Math.random() * 0.5
@@ -80,7 +80,7 @@ const [activeImages, setActiveImages] = useState<{
             // Clean up old images after 30s
             setTimeout(() => {
                 setActiveImages(prev => prev.filter(img => img.id !== newImage.id));
-            }, 30000);
+            }, 35000);
         }, 2000);
         return () => clearInterval(interval);
     }, []);
@@ -381,17 +381,7 @@ const HomePage = () => {
             border-radius: 4px;
           }
 
-          /* Footer */
-          .main-footer {
-            position: relative;
-            width: 100%;
-            text-align: center;
-            padding: 1rem 0;
-            background-color: rgba(0, 0, 0, 0.6);
-            font-size: 0.9rem;
-            opacity: 0.8;
-            z-index: 10;
-          }
+
         `}
             </style>
         </div>

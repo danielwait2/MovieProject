@@ -2,8 +2,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {baseURL} from '../api/MoviesAPI';
 
-
-
 function Register() {
     // state variables for email and passwords
     const [email, setEmail] = useState('');
@@ -75,8 +73,8 @@ function Register() {
     };
 
     return (
-        <>
-            <div className="container mt-5">
+        <div className="d-flex flex-column min-vh-100">
+            <div className="container my-auto">
                 <div className="row">
                     <div className="card border-0 shadow rounded-3 ">
                         <div className="card-body p-4 p-sm-5">
@@ -147,7 +145,7 @@ function Register() {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 }
 
