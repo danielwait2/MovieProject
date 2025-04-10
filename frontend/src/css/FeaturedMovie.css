@@ -1,7 +1,7 @@
 /* Hero container */
 .hero {
     width: 100vw; /* Full width of the viewport */
-    height: 500px; /* Fixed height for the hero section */
+    height: 60vh !important; /* Fixed height for the hero section */
     position: relative; /* Allows positioning of overlay and content */
 }
 
@@ -43,13 +43,14 @@
 }
 .hero-content h2 {
     margin: 10;
-    color: #ff0000;
+    color: #6fc276;
     font-weight: bold;
+    text-transform: uppercase;
     font-size: 40px; /* Adjust font size to fit within constraints */
     line-height: 1.2; /* Adjust line height for better spacing */
 }
 .hero-content p {
-    width: 400px;
+    width: 40%;
     margin: 0; /* Removes default margin */
     padding: 0; /* Removes default padding */
     font-size: 20px; /* Sets font size */

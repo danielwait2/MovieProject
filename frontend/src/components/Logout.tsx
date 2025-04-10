@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import {baseURL} from '../api/MoviesAPI';
 
 
-function Logout(props: { children: React.ReactNode }) {
+function Logout(props: { children: React.ReactNode; className?: string }) {
     const navigate = useNavigate();
 
     const handleLogout = async (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -29,8 +29,7 @@ function Logout(props: { children: React.ReactNode }) {
 
     return (
         <a
-            type="button"
-            className="btn btn-outline-light logout-button"
+            className={'nav-link custom-nav-link'}
             href="#"
             onClick={handleLogout}
         >

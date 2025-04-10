@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import '../css/MovieCard.css';
 import unknownImage from '../assets/unknown.jpg';
 
@@ -11,13 +11,19 @@ interface MovieCardProps {
 
 const MovieCard: React.FC<MovieCardProps> = ({ showId, title, year }) => {
     const [imageUrl, setImageUrl] = useState<string>('');
+    const location = useLocation();
 
     useEffect(() => {
-        setImageUrl(`https://intex2025.blob.core.windows.net/movie-posters/${title}.jpg`);
+        const sanitizedTitle = title.replace(/[^a-zA-Z0-9 ]/g, '');
+        setImageUrl(`https://intex2025.blob.core.windows.net/movie-posters/${sanitizedTitle}.jpg`);
     }, [title]);
 
     return (
-        <Link to={`/movies/${showId}`} style={{ textDecoration: 'none' }}>
+        <Link
+            to={`/movies/${showId}`}
+            state={{ backgroundLocation: location }} // pass current location as state
+            style={{ textDecoration: 'none' }}
+        >
             <div className="movie-card">
                 <div className="movie-image-placeholder">
                     <img

@@ -1,16 +1,36 @@
 import { useEffect, useState } from 'react';
 import '../css/FeaturedMovie.css'; // Import your CSS file for styling
 import { FaPlay } from 'react-icons/fa';
-import {baseURL} from '../api/MoviesAPI';
-
+import { baseURL } from '../api/MoviesAPI';
+import { Movie } from '../types/Movie';
 
 function FeaturedMovie() {
+    const [topMovie, setTopMovie] = useState<Movie | null>(null);
     const [imageUrl, setImageUrl] = useState<string>('');
 
     useEffect(() => {
-        // Dynamically set the image URL
-        setImageUrl(`${baseURL}/api/MovieImages/Zion.jpg`);
+        const fetchTopMovie = async () => {
+            const response = await fetch(`${baseURL}/Rec/UserRec?numRecs=1`, {
+                credentials: 'include', // Include this if you're using cookies for auth
+            });
+            const data = await response.json();
+            setTopMovie(data[0]); // Assuming the first movie is the top recommendation
+        };
+        fetchTopMovie();
     }, []);
+
+    useEffect(() => {
+        if (topMovie) {
+            const title = topMovie.title;
+            console.log('Top Movie:', title); // Debugging line to check the title
+            const sanitizedTitle = title.replace(/[^a-zA-Z0-9 ]/g, '');
+            const encodedTitle = encodeURIComponent(sanitizedTitle);
+
+            setImageUrl(
+                `https://intex2025.blob.core.windows.net/movie-posters/${encodedTitle}.jpg`
+            );
+        }
+    }, [topMovie]);
 
     return (
         <div
@@ -27,10 +47,10 @@ function FeaturedMovie() {
             {/* Optional content inside the hero */}
             <div className="hero-content">
                 <h3>Your #1 Recommended Movie</h3>
-                <h2>THE MOVIE TITLE</h2>
+                {topMovie && <h2>{topMovie.title}</h2>}
                 <p>
-                    blah blah blah description description description
-                    description description
+                    {topMovie?.description ||
+                        'No description available for this movie.'}
                 </p>
 
                 <button

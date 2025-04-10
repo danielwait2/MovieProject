@@ -3,6 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using MovieProject.API.Data;
 using System.Security.Claims;
 using MovieProject.API.Services;
+using System;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,8 +25,13 @@ builder.Services.AddDbContext<MovieDbContext>(options =>
         .EnableSensitiveDataLogging()
         .LogTo(Console.WriteLine, LogLevel.Information));
 
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("IdentityConnection")));
+
+builder.Services.AddDbContext<RecsContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("RecsConnection")));
+
 
 
 builder.Services.AddAuthorization();
@@ -31,6 +39,7 @@ builder.Services.AddAuthorization();
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
+
 
 
 builder.Services.Configure<IdentityOptions>(options =>
@@ -46,6 +55,7 @@ builder.Services.Configure<IdentityOptions>(options =>
 });
 
 builder.Services.AddScoped<IUserClaimsPrincipalFactory<IdentityUser>, CustomUserClaimsPrincipalFactory>();
+
 
 builder.Services.ConfigureApplicationCookie(options =>
 {

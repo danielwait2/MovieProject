@@ -35,8 +35,12 @@ namespace MovieProject.API.Data
                 .HasOne(mg => mg.Genre)
                 .WithMany(g => g.MovieGenres)
                 .HasForeignKey(mg => mg.GenreCode);
+            // Optionally enforce uniqueness of the IdentityUserId
+            modelBuilder.Entity<User>()
+    .HasIndex(u => u.IdentityUserId)
+    .IsUnique();
 
         }
-        
+
     }
 }

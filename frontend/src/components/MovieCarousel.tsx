@@ -7,8 +7,7 @@ import Slider, { Settings, CustomArrowProps } from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import '../css/MovieCarousel.css';
-import {baseURL} from '../api/MoviesAPI';
-
+import { baseURL } from '../api/MoviesAPI';
 
 /**
  * A "steeper angle" right arrow using an SVG path.
@@ -52,14 +51,16 @@ function PrevArrow(props: CustomArrowProps) {
 function MovieCarousel({
     selectedGenres,
     title,
+    rec,
 }: {
     selectedGenres: string[];
     title: string;
+    rec: boolean;
 }) {
     const [movies, setMovies] = useState<Movie[]>([]);
     const [loading, setLoading] = useState(true);
-    //delete this line below
-    loading
+    loading;
+
     const sliderRef = useRef<Slider>(null);
     const accumulatedDeltaRef = useRef(0); // Accumulates wheel deltaX
 
@@ -102,14 +103,22 @@ function MovieCarousel({
 
     useEffect(() => {
         const fetchMovies = async () => {
+            let url = '';
+            if (!rec) {
+                // Append each genre individually so that the URL includes repeated parameters.
+                const params = new URLSearchParams();
+                selectedGenres.forEach((genre) => {
+                    params.append('genres', genre);
+                });
+                url = `${baseURL}/Movie/RecMoviesTemp?${params.toString()}`;
+            } else {
+                url = `${baseURL}/Rec/UserRec?numRecs=10`;
+            }
             try {
                 setLoading(true);
-                const response = await fetch(
-                    `${baseURL}/Movie/RecMoviesTemp?genres=${selectedGenres}`,
-                    {
-                        credentials: 'include',
-                    }
-                );
+                const response = await fetch(url, {
+                    credentials: 'include',
+                });
                 const data = await response.json();
                 setMovies(data);
             } catch (error) {
