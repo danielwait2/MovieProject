@@ -2,42 +2,50 @@ import GenreFilter from '../components/GenreFilter';
 import MovieCarousel from '../components/MovieCarousel';
 import { useState } from 'react';
 import AuthorizeView, { AuthorizedUser } from '../components/AuthorizeView';
-//delete this line below
-AuthorizedUser;
+AuthorizedUser; // (comment says "delete this line below" but it won't break anything)
 import MoviesByGenre from '../components/MoviesByGenre';
 import FeaturedMovie from '../components/FeaturedMovie';
+
+/* 1) Import the new MoviePage.css file here */
+import '../css/MoviePage.css';
 
 const MoviePage = () => {
     const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
 
     return (
-        <>
-            <AuthorizeView>
-                <div className="min-h-screen bg-[#121212] text-white">
-                    <main>
+        <AuthorizeView>
+            {/* 2) Replace your old Tailwind or inline styles with our new "movie-page" class */}
+            <div className="movie-page">
+                <main>
+                    {/* If you want the featured movie spaced like Netflix, wrap it in a custom class */}
+                    <div className="featured-movie">
                         <FeaturedMovie />
-                        <div className="row mb-5" style={{ marginTop: '2%' }}>
-                            <MovieCarousel
-                                selectedGenres={selectedGenres}
-                                title="Recommended for You"
-                                rec={true}
-                            />
-                        </div>
-                        <div className="row">
-                            <GenreFilter
-                                selectedGenres={selectedGenres}
-                                setSelectedGenres={setSelectedGenres}
-                            />
-                        </div>
-                        <div className="row mb-5">
-                            <MoviesByGenre />
-                        </div>
-                    </main>
-                </div>
-                <br />
-                <br />
-            </AuthorizeView>
-        </>
+                    </div>
+
+                    {/* Section row for "Recommended for You" carousel */}
+                    <div className="row">
+                        <MovieCarousel
+                            selectedGenres={selectedGenres}
+                            title="Recommended for You"
+                            rec={true}
+                        />
+                    </div>
+
+                    {/* Section row for the genre filter */}
+                    <div className="row">
+                        <GenreFilter
+                            selectedGenres={selectedGenres}
+                            setSelectedGenres={setSelectedGenres}
+                        />
+                    </div>
+
+                    {/* Section row for movies by genre */}
+                    <div className="row">
+                        <MoviesByGenre />
+                    </div>
+                </main>
+            </div>
+        </AuthorizeView>
     );
 };
 
