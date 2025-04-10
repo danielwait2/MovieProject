@@ -9,6 +9,7 @@ export const baseURL = 'https://movieintex2backend-bkhsfxfsdnejfbe6.eastus-01.az
 
 const API_URL = `${baseURL}/Movie`;
 
+
 export const fetchMovies = async (
     pageSize: number,
     pageNum: number,
