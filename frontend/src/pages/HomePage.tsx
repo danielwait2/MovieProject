@@ -188,8 +188,8 @@ const HomePage = () => {
 
             {/* Hero Section */}
             <section className="hero-section">
-                <h1>Unlimited movies, TV shows, and more.</h1>
-                <p>Starts at $7.99. Cancel anytime.</p>
+                <h1>Unlimited movies, TV shows, and more!</h1>
+                <p>Starts at $7.99! Cancel anytime.</p>
                 <div className="hero-cta">
                     <button className="hero-button">
                         <Link

@@ -1,0 +1,58 @@
+/* MoviePage.css */
+
+/* Overall page styling */
+.movie-page {
+  background-color: #121212; /* Dark Netflix-style background */
+  color: #fff;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Main content area */
+
+
+/* Reusable "row" class for spacing between sections */
+.row {
+  margin-bottom: 2rem;
+}
+
+/* If you want a bit more vertical spacing between consecutive rows: */
+/* .row + .row {
+  margin-top: 2rem;
+} */
+
+/* Override or enhance the carousel title styling to give it a more Netflix-like vibe,
+   without changing any carousel code. */
+.carousel-title {
+  color: #fff !important;
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+  margin-left: 20px !important;
+  margin-bottom: 1rem !important;
+  padding-left: 2rem;
+}
+
+/* Example styling if your FeaturedMovie or genre filter headings need spacing */
+.featured-movie {
+  margin-bottom: 2rem;
+}
+
+/* Additional optional classes for headings, if you have any standalone headings: */
+.section-heading {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  margin-left: 20px;
+  color: #fff;
+}
+
+/* If your genre filter or "MoviesByGenre" components need headings:
+.genre-filter-heading,
+.movies-by-genre-heading {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-left: 20px;
+  color: #ccc;
+} */
