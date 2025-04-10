@@ -1,12 +1,12 @@
-import AuthorizeView from "../components/AuthorizeView";
-import AuthorizedAdminMoviesPage from "./AuthorizedAdminMoviesPage";
+import AuthorizeView from '../components/AuthorizeView';
+import AuthorizedAdminMoviesPage from './AuthorizedAdminMoviesPage';
 
 const AdminMoviePage = () => {
     return (
-      <AuthorizeView>
-        <AuthorizedAdminMoviesPage />
-      </AuthorizeView>
+        <AuthorizeView>
+            <AuthorizedAdminMoviesPage />
+        </AuthorizeView>
     );
-  };
+};
 
 export default AdminMoviePage;
