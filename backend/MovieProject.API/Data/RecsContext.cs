@@ -29,7 +29,7 @@ public partial class RecsContext : DbContext
         {
             entity
                 .HasNoKey()
-                .ToTable("movie_recs");
+                .ToTable("MovieRecs");
 
             entity.Property(e => e.IfYouWatched).HasColumnName("If you watched");
             entity.Property(e => e.Recommendation1).HasColumnName("Recommendation 1");
