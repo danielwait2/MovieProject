@@ -2,17 +2,21 @@
     position: relative;
     font-family: Arial, sans-serif;
 }
-
 .carousel-title {
-    margin-left: 60px;
-    color: #d9d9d9;
+    color: #ececec;
+    font-size: 35px;
+    font-style: normal;
+    font-weight: bold;
+    line-height: normal;
+    text-align: left;
+    margin-left: 3%;
 }
-
 .genre-carousel {
     position: relative;
-    height: 60px;
+    height: 100px;
     box-sizing: border-box;
     overflow: hidden;
+    padding-top: 1%;
 }
 
 /* react-slick overrides */
@@ -60,7 +64,7 @@
 }
 
 .btn-check:checked + .btn-filter {
-    background-color: rgba(0, 0, 0, 0.4) !important;
+    background-color: #6fc276 !important;
     font-weight: bold;
     border: 0;
 }

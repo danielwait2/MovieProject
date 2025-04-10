@@ -23,12 +23,6 @@ const MoviePage = () => {
                                 rec={true}
                             />
                         </div>
-                        <div className="row">
-                            <GenreFilter
-                                selectedGenres={selectedGenres}
-                                setSelectedGenres={setSelectedGenres}
-                            />
-                        </div>
                         <div className="row mb-5">
                             <MoviesByGenre />
                         </div>
