@@ -69,4 +69,22 @@ public class RoleController : Controller
 
         return StatusCode(500, "An error occurred while assigning the role.");
     }
+
+    [HttpGet("GetUserRoles")]
+    public async Task<IActionResult> GetUserRoles(string userEmail)
+    {
+        if (string.IsNullOrWhiteSpace(userEmail))
+        {
+            return BadRequest("User email is required.");
+        }
+
+        var user = await _userManager.FindByEmailAsync(userEmail);
+        if (user == null)
+        {
+            return NotFound("User not found.");
+        }
+
+        var roles = await _userManager.GetRolesAsync(user);
+        return Ok(new { Email = userEmail, Roles = roles });
+    }
 }
