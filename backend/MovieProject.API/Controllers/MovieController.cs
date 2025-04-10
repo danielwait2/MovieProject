@@ -38,7 +38,6 @@ namespace MovieProject.API.Controllers
             var movies = query
                 .Include(m => m.MovieGenres)
                 .ThenInclude(mg => mg.Genre)
-                .Take(10)
                 .ToList();
 
             return Ok(movies);
