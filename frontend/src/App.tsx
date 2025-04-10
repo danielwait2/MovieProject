@@ -16,6 +16,7 @@ import Footer from './components/Footer';
 import CookieConsent from 'react-cookie-consent';
 import AdminMoviesPage from './pages/AdminMoviesPage';
 import BoldToggle from './components/BoldToggle';
+import { SearchProvider } from './components/SearchContext';
 
 function AppContent() {
     const location = useLocation();
@@ -111,7 +112,9 @@ function AppContent() {
 function App() {
     return (
         <Router>
+            <SearchProvider>
             <AppContent />
+            </SearchProvider>
         </Router>
     );
 }

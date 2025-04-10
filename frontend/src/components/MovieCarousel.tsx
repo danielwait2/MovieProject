@@ -33,15 +33,16 @@ function MovieCarousel({
     selectedGenres,
     title,
     rec,
+    searchTerm = '',
 }: {
     selectedGenres: string[];
     title: string;
     rec: boolean;
+    searchTerm?: string;
 }) {
     const [movies, setMovies] = useState<Movie[]>([]);
     const [loading, setLoading] = useState(true);
     loading;
-
     const sliderRef = useRef<Slider>(null);
     const accumulatedDeltaRef = useRef(0); // Accumulates wheel deltaX
 
@@ -116,6 +117,12 @@ function MovieCarousel({
         fetchMovies();
     }, [selectedGenres]);
 
+    const filteredMovies = searchTerm
+        ? movies.filter((movie) =>
+              movie.title.toLowerCase().includes(searchTerm.toLowerCase())
+          )
+        : movies;
+
     return (
         <div className="row mb-5" style={{ marginTop: '2%' }}>
             <h2 className="carousel-title">{title}:</h2>
@@ -127,8 +134,8 @@ function MovieCarousel({
                         onWheel={handleWheel}
                     >
                         <Slider ref={sliderRef} {...settings}>
-                            {movies && movies.length > 0 ? (
-                                movies.map((m) => (
+                            {filteredMovies && filteredMovies.length > 0 ? (
+                                filteredMovies.map((m) => (
                                     <div>
                                         <MovieCard
                                             key={m.showId}
