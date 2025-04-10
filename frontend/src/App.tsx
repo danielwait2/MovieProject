@@ -10,7 +10,6 @@ import ProductDetailsPage from './pages/ProductDetailsPage';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
 import AdminMoviePage from './pages/AdminMoviesPage';
-// import BoldToggle from './components/BoldToggle';
 import SessionTimeout from './components/SessionTimeout';
 import HomePage from './pages/HomePage';
 import Navbar from './components/Navbar';
@@ -18,11 +17,16 @@ import Footer from './components/Footer';
 import CookieConsent from 'react-cookie-consent';
 
 function AppContent() {
-    // Get the current location so we can check if there’s a background route
     const location = useLocation();
-    // If this state property is set, it means we navigated here
-    // via a link that provided state for the background location.
     const state = location.state as { backgroundLocation?: Location };
+
+    // If no background is provided and the current URL is /login or /register,
+    // force the background to be the homepage.
+    const backgroundLocation =
+        state?.backgroundLocation ||
+        (location.pathname === '/login' || location.pathname === '/register'
+            ? { pathname: '/' }
+            : location);
 
     return (
         <>
@@ -30,17 +34,25 @@ function AppContent() {
             <SessionTimeout
                 onLogout={() => (window.location.href = '/login')}
             />
-            {/* Main routes (background or full page) */}
-            <Routes location={state?.backgroundLocation || location}>
 
+            {/* Render primary background routes */}
+            <Routes location={backgroundLocation}>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/movies" element={<MoviePage />} />
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/register" element={<RegisterPage />} />
                 <Route path="/privacyPolicy" element={<PrivacyPolicyPage />} />
                 <Route path="/admin" element={<AdminMoviePage />} />
             </Routes>
-            {/* Modal routes rendered on top of the background */}
+
+            {/* Render the login and register modals over the background */}
+            {(location.pathname === '/login' ||
+                location.pathname === '/register') && (
+                <Routes>
+                    <Route path="/login" element={<LoginPage />} />
+                    <Route path="/register" element={<RegisterPage />} />
+                </Routes>
+            )}
+
+            {/* Render additional modal routes (e.g., product details) if background state exists */}
             {state?.backgroundLocation && (
                 <Routes>
                     <Route
@@ -48,14 +60,13 @@ function AppContent() {
                         element={<ProductDetailsPage />}
                     />
                 </Routes>
-
-
             )}
+
             <footer className="text-center mt-auto">
-                    <CookieConsent>
-                        This website uses cookies to enhance the user experience.
-                    </CookieConsent>
-                </footer>
+                <CookieConsent>
+                    This website uses cookies to enhance the user experience.
+                </CookieConsent>
+            </footer>
             <Footer />
         </>
     );

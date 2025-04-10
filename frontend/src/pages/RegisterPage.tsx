@@ -1,152 +1,127 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {baseURL} from '../api/MoviesAPI';
+import '../css/RegisterPage.css';
 
-function Register() {
-    // state variables for email and passwords
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
+function RegisterPage() {
+    // State variables for registration fields
+    const [username, setUsername] = useState<string>('');
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+    const [confirmPassword, setConfirmPassword] = useState<string>('');
+    const [error, setError] = useState<string>('');
+
     const navigate = useNavigate();
 
-    // state variable for error messages
-    const [error, setError] = useState('');
-    const [info, setInfo] = useState('');
-
-    const handleLoginClick = () => {
-        navigate('/login');
-    };
-
-    // handle change events for input fields
+    // Handle input changes
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        if (name === 'email') setEmail(value);
-        if (name === 'password') setPassword(value);
-        if (name === 'confirmPassword') setConfirmPassword(value);
-    };
-
-    // handle submit event for the form
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        // validate email and passwords
-        if (!email || !password || !confirmPassword) {
-            setError('Please fill in all fields.');
-            setInfo('');
-        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-            setError('Please enter a valid email address.');
-            setInfo('');
-        } else if (password.length < 14) {
-            setInfo('Password must be at least 14 characters long.');
-            setError('');
-        } else if (password !== confirmPassword) {
-            setInfo('Passwords do not match.');
-            setError('');
-        } else {
-            // clear messages
-            setError('');
-            setInfo('');
-            // post data to the /register api
-            fetch(`${baseURL}/register`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    email: email,
-                    password: password,
-                }),
-            })
-                //.then((response) => response.json())
-                .then((data) => {
-                    // handle success or error from the server
-                    console.log(data);
-                    if (data.ok)
-                        setError('Successful registration. Please log in.');
-                    else setError('Error registering.');
-                })
-                .catch((error) => {
-                    // handle network error
-                    console.error(error);
-                    setError('Error registering.');
-                });
+        if (name === 'username') {
+            setUsername(value);
+        } else if (name === 'email') {
+            setEmail(value);
+        } else if (name === 'password') {
+            setPassword(value);
+        } else if (name === 'confirmPassword') {
+            setConfirmPassword(value);
         }
     };
 
-    return (
-        <div className="d-flex flex-column min-vh-100">
-            <div className="container my-auto">
-                <div className="row">
-                    <div className="card border-0 shadow rounded-3 ">
-                        <div className="card-body p-4 p-sm-5">
-                            <h5 className="card-title text-center mb-5 fw-light fs-5">
-                                Register
-                            </h5>
-                            <form onSubmit={handleSubmit}>
-                                <div className="form-floating mb-3">
-                                    <input
-                                        className="form-control"
-                                        type="email"
-                                        id="email"
-                                        name="email"
-                                        value={email}
-                                        onChange={handleChange}
-                                    />
-                                    <label htmlFor="email">Email address</label>
-                                </div>
-                                <div className="form-floating mb-3">
-                                    <input
-                                        className="form-control"
-                                        type="password"
-                                        id="password"
-                                        name="password"
-                                        value={password}
-                                        onChange={handleChange}
-                                    />
-                                    <label htmlFor="password">
-                                        Password (at least 14 Characters)
-                                    </label>
-                                </div>
-                                <div className="form-floating mb-3">
-                                    <input
-                                        className="form-control"
-                                        type="password"
-                                        id="confirmPassword"
-                                        name="confirmPassword"
-                                        value={confirmPassword}
-                                        onChange={handleChange}
-                                    />
-                                    <label htmlFor="confirmPassword">
-                                        Confirm Password
-                                    </label>
-                                </div>
+    // Handle form submission for registration
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setError('');
 
-                                <div className="d-grid mb-2">
-                                    <button
-                                        className="btn btn-primary btn-login text-uppercase fw-bold"
-                                        type="submit"
-                                    >
-                                        Register
-                                    </button>
-                                </div>
-                                <div className="d-grid mb-2">
-                                    <button
-                                        className="btn btn-primary btn-login text-uppercase fw-bold"
-                                        onClick={handleLoginClick}
-                                    >
-                                        Go to Login
-                                    </button>
-                                </div>
-                            </form>
-                            <strong>
-                                {error && <p className="error">{error}</p>}
-                                {info && <p className="info">{info}</p>}
-                            </strong>
-                        </div>
+        if (password !== confirmPassword) {
+            setError('Passwords do not match.');
+            return;
+        }
+
+        // Your registration API call logic goes here. For example:
+        try {
+            // const response = await fetch( registration endpoint, { ... });
+            // Assume success and navigate to movies:
+            navigate('/movies');
+        } catch (err: any) {
+            setError(err.message || 'Registration failed.');
+        }
+    };
+
+    // Close the modal and return to homepage
+    const handleClose = () => {
+        navigate('/');
+    };
+
+    return (
+        <div className="register-modal-overlay">
+            <div className="register-modal-content">
+                {/* Close ("X") button */}
+                <button className="close-modal" onClick={handleClose}>
+                    X
+                </button>
+                <h5 className="modal-title">Register</h5>
+                <form onSubmit={handleSubmit}>
+                    <div className="form-group">
+                        <label className="form-label" htmlFor="username">
+                            Username
+                        </label>
+                        <input
+                            type="text"
+                            id="username"
+                            name="username"
+                            value={username}
+                            onChange={handleChange}
+                            className="form-control"
+                        />
                     </div>
-                </div>
+                    <div className="form-group">
+                        <label className="form-label" htmlFor="email">
+                            Email
+                        </label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            value={email}
+                            onChange={handleChange}
+                            className="form-control"
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label className="form-label" htmlFor="password">
+                            Password
+                        </label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            value={password}
+                            onChange={handleChange}
+                            className="form-control"
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label className="form-label" htmlFor="confirmPassword">
+                            Confirm Password
+                        </label>
+                        <input
+                            type="password"
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            value={confirmPassword}
+                            onChange={handleChange}
+                            className="form-control"
+                        />
+                    </div>
+                    <div className="register-button-wrapper">
+                        <button type="submit" className="register-button">
+                            Register
+                        </button>
+                    </div>
+                </form>
+                {error && <p className="modal-error">{error}</p>}
             </div>
         </div>
     );
 }
 
-export default Register;
+export default RegisterPage;
