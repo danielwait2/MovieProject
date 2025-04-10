@@ -5,7 +5,7 @@ interface SessionTimeoutProps {
 }
 
 const SessionTimeout = ({ onLogout }: SessionTimeoutProps) => {
-    const warningTimeout = 1000  * 60 * 60; // 60 mins
+    const warningTimeout = 1000  * 1; // 60 mins
     const logoutTimeout = 1000  * 60 * 150; // 150 mins
 
     const [showWarning, setShowWarning] = useState(false);
@@ -54,8 +54,8 @@ const SessionTimeout = ({ onLogout }: SessionTimeoutProps) => {
     return (
         <>
             {showWarning && (
-                <div className="fixed inset-0 flex items-center justify-center z-50">
-                    <div className="bg-white text-black p-4 rounded shadow-lg">
+                <div className="popup">
+                    <div className="popup-content">
                         You will be logged out in 1 minute due to inactivity. Move your mouse or press a key to stay logged in.
                     </div>
                 </div>

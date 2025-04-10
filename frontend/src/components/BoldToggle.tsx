@@ -20,7 +20,7 @@ const BoldToggle = () => {
     }, [isBold]);
 
     return (
-        <label  style={{ position: 'fixed', bottom: '10px', right: '10px', color: 'white' }}>
+        <label style={{ position: 'fixed', bottom: '10px', right: '10px', color: 'white' }}>
             Bold Text: 
             <input
                 type="checkbox"

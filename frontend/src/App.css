@@ -6,10 +6,7 @@
     overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
-/* In your App.css or a global stylesheet */
-.bold-text * {
-    font-weight: bold !important;
-}
+
 
 .logo {
     height: 6em;
