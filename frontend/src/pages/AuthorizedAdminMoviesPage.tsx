@@ -287,8 +287,8 @@ const AdminMoviePage = () => {
                                                 </div>
 
                                                 <img
-                                                    src={`https://intex2025.blob.core.windows.net/movie-posters/${m.title}.jpg`}
-                                                    alt={m.title}
+                                                src={`https://intex2025.blob.core.windows.net/movie-posters/${m.title.replace(/[^a-zA-Z0-9 ]/g, '')}.jpg`}
+                                                alt={m.title}
                                                     className="card-img-top"
                                                     style={{
                                                         maxHeight: '100%',
