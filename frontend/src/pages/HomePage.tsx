@@ -381,17 +381,7 @@ const HomePage = () => {
             border-radius: 4px;
           }
 
-          /* Footer */
-          .main-footer {
-            position: relative;
-            width: 100%;
-            text-align: center;
-            padding: 1rem 0;
-            background-color: rgba(0, 0, 0, 0.6);
-            font-size: 0.9rem;
-            opacity: 0.8;
-            z-index: 10;
-          }
+
         `}
             </style>
         </div>

@@ -1,9 +1,12 @@
 .footer {
-    color: #272727;
+    color: #ffffff;
     background-color: #272727;
+    opacity: 1;
     padding: 20px;
     text-align: center;
     font-size: .7rem;
+    position: relative;
+    z-index: 10;
 }
 
 .privacy-link {
