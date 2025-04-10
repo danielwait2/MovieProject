@@ -2,6 +2,7 @@
     position: relative;
     font-family: Arial, sans-serif;
 }
+
 .carousel-title {
     color: #ececec;
     font-size: 35px;
@@ -10,8 +11,8 @@
     line-height: normal;
     text-align: left;
     margin-left: 3%;
-
 }
+
 .genre-carousel {
     position: relative;
     height: 100px;
@@ -50,7 +51,7 @@
     padding: 0 10px;
 
     border-radius: 8px;
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease, color 0.2s ease;
     transform-origin: center center;
 }
 
@@ -59,18 +60,19 @@
     color: #6fc276;
 }
 
-.btn-filter:hover {
-    color: #6fc276 !important;
-}
-
 /* Filter button styles */
 .btn-filter {
     background-color: rgba(217, 217, 217, 0.1) !important;
     color: #d9d9d9 !important;
+    transition: color 0.2s ease;
+}
+
+.btn-filter:hover {
+    color: #6fc276 !important;
 }
 
 .btn-check:checked + .btn-filter {
-    background-color: #6fc276 !important;
+    background-color: rgba(0, 0, 0, 0.4) !important;
     font-weight: bold;
     border: 0;
     color: #6fc276 !important;
@@ -102,11 +104,9 @@
     cursor: pointer;
     transition: background 0.3s ease;
     z-index: 10;
-    /* border-radius: 8px; */
     overflow: visible;
 }
 
-/* Right (next) arrow: gradient from transparent to a semi-transparent black */
 .custom-next-arrow {
     right: -10px;
     background: linear-gradient(
@@ -115,6 +115,7 @@
         rgba(0, 0, 0, 0.4) 100%
     );
 }
+
 .custom-next-arrow:hover {
     background: linear-gradient(
         to right,
@@ -123,7 +124,6 @@
     );
 }
 
-/* Left (prev) arrow: gradient from transparent to a semi-transparent black */
 .custom-prev-arrow {
     left: -10px;
     background: linear-gradient(
@@ -132,6 +132,7 @@
         rgba(0, 0, 0, 0.4) 100%
     );
 }
+
 .custom-prev-arrow:hover {
     background: linear-gradient(
         to left,
@@ -140,7 +141,6 @@
     );
 }
 
-/* The SVG icon inside the arrow: white stroke and sized as you like */
 .custom-arrow svg {
     width: 24px;
     height: 24px;
