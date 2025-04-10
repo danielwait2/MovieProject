@@ -7,6 +7,8 @@ interface NewMovieFormProps {
     onCancel: () => void;
 }
 
+type MovieFormData = Movie;
+
 const genreFields = [
     'action',
     'adventure',
@@ -43,7 +45,7 @@ const genreFields = [
 ];
 
 const NewMovieForm = ({ onSuccess, onCancel }: NewMovieFormProps) => {
-    const [formData, setFormData] = useState<Movie>({
+    const [formData, setFormData] = useState<MovieFormData>({
         showId: '',
         title: '',
         type: '',
@@ -54,7 +56,6 @@ const NewMovieForm = ({ onSuccess, onCancel }: NewMovieFormProps) => {
         rating: '',
         duration: '',
         description: '',
-
         action: 0,
         adventure: 0,
         animeSeriesInternationalTvShows: 0,
@@ -89,19 +90,33 @@ const NewMovieForm = ({ onSuccess, onCancel }: NewMovieFormProps) => {
         thrillers: 0,
     });
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
         const { name, type, value, checked } = e.target;
+
         if (type === 'checkbox') {
             setFormData({ ...formData, [name]: checked ? 1 : 0 });
+        } else if (type === 'number') {
+            setFormData({
+                ...formData,
+                [name]: Number(value),
+            });
         } else {
             setFormData({ ...formData, [name]: value });
         }
-    };
+    }
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        await addMovie(formData);
-        onSuccess();
+
+        try {
+            const movieToSend = formData;
+            console.log('Submitting movie...', movieToSend);
+            await addMovie(movieToSend);
+            onSuccess();
+        } catch (err) {
+            console.error('Add movie failed:', err);
+            alert('Failed to add movie. See console for details.');
+        }
     };
 
     return (
@@ -166,7 +181,10 @@ const NewMovieForm = ({ onSuccess, onCancel }: NewMovieFormProps) => {
                         type={type}
                         name={name}
                         className="form-control"
-                        value={formData[name as keyof Movie] as string}
+                        value={
+                            formData[name as keyof MovieFormData]?.toString() ??
+                            ''
+                        }
                         onChange={handleChange}
                     />
                 </div>
@@ -182,7 +200,9 @@ const NewMovieForm = ({ onSuccess, onCancel }: NewMovieFormProps) => {
                                 type="checkbox"
                                 id={genre}
                                 name={genre}
-                                checked={formData[genre as keyof Movie] === 1}
+                                checked={
+                                    formData[genre as keyof MovieFormData] === 1
+                                }
                                 onChange={handleChange}
                             />
                             <label className="form-check-label" htmlFor={genre}>

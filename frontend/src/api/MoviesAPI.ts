@@ -4,22 +4,31 @@ interface FetchMoviesResponse {
     movies: Movie[];
     totalNumMovies: number;
 }
-export const baseURL = 'https://movieintex2backend-bkhsfxfsdnejfbe6.eastus-01.azurewebsites.net';
-// export const baseURL = 'https://localhost:5000';
+// export const baseURL =
+    // 'https://movieintex2backend-bkhsfxfsdnejfbe6.eastus-01.azurewebsites.net';
+export const baseURL = 'https://localhost:5000';
 
 const API_URL = `${baseURL}/Movie`;
 
 export const fetchMovies = async (
-pageSize: number, pageNum: number, _searchQuery: string, selectedCategories: string[]): Promise<FetchMoviesResponse> => {
+    pageSize: number,
+    pageNum: number,
+    searchQuery: string,
+    selectedCategories: string[]
+): Promise<FetchMoviesResponse> => {
     try {
-        const categoryParams = selectedCategories
-            .map((cat) => `projectTypes=${encodeURIComponent(cat)}`)
-            .join('&');
+        const queryParams = new URLSearchParams({
+            pageSize: pageSize.toString(),
+            pageNum: pageNum.toString(),
+            searchQuery,
+        });
+
+        selectedCategories.forEach((cat) => {
+            queryParams.append('projectTypes', cat);
+        });
 
         const response = await fetch(
-            `${API_URL}/AllMovies?pageSize=${pageSize}&pageNum=${pageNum}${
-                selectedCategories.length ? `&${categoryParams}` : ''
-            }`,
+            `${API_URL}/AllMovies?${queryParams.toString()}`,
             {
                 credentials: 'include',
             }
@@ -38,7 +47,7 @@ pageSize: number, pageNum: number, _searchQuery: string, selectedCategories: str
 
 export const addMovie = async (newMovie: Movie): Promise<Movie> => {
     try {
-        const response = await fetch(`${API_URL}/AddMovie`, {
+        const response = await fetch(`https://localhost:5000/Movie/AddMovie`, {
             method: 'POST',
             credentials: 'include',
             headers: {
@@ -47,11 +56,15 @@ export const addMovie = async (newMovie: Movie): Promise<Movie> => {
             body: JSON.stringify(newMovie),
         });
 
+        const text = await response.text();
+        console.log('AddMovie response status:', response.status);
+        console.log('AddMovie response body:', text);
+
         if (!response.ok) {
-            throw new Error('Failed to add movie');
+            throw new Error(`Failed to add movie: ${text}`);
         }
 
-        return await response.json();
+        return JSON.parse(text);
     } catch (error) {
         console.error('Error adding movie: ', error);
         throw error;

@@ -243,7 +243,6 @@ const AuthorizedAdminMoviePage = () => {
                                         placeholder="Search by title..."
                                     />
                                 </div>
-
                                 <h5 className="mb-3">Filter by Genre</h5>
                                 {selectedCategories.length > 0 && (
                                     <button
@@ -334,16 +333,18 @@ const AuthorizedAdminMoviePage = () => {
                         </div>
                     </div>
 
-                    <Pagination
-                        currentPage={pageNum}
-                        totalPages={totalPages}
-                        pageSize={pageSize}
-                        onPageChange={setPageNum}
-                        onPageSizeChange={(newSize) => {
-                            setPageSize(newSize);
-                            setPageNum(1);
-                        }}
-                    />
+                    <div className="d-flex justify-content-center mt-4">
+                        <Pagination
+                            currentPage={pageNum}
+                            totalPages={totalPages}
+                            pageSize={pageSize}
+                            onPageChange={setPageNum}
+                            onPageSizeChange={(newSize) => {
+                                setPageSize(newSize);
+                                setPageNum(1);
+                            }}
+                        />
+                    </div>
                 </div>
             </AuthorizeView>
         </>
