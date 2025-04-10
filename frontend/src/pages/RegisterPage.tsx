@@ -98,6 +98,7 @@ function RegisterPage() {
                 </button>
                 <h5 className="modal-title">Register</h5>
 
+
                 <form onSubmit={handleSubmit}>
                     {/* Row 1: Full Name + Age */}
                     <div className="form-row">
