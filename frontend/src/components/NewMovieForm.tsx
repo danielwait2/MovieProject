@@ -216,7 +216,14 @@ const NewMovieForm = ({ onSuccess, onCancel }: NewMovieFormProps) => {
             </div>
 
             <div className="mt-4">
-                <button type="submit" className="btn btn-primary me-2">
+                <button
+                    type="submit"
+                    className="btn"
+                    style={{
+                        backgroundColor: '#6fc276',
+                        color: 'white',
+                    }}
+                >
                     Add
                 </button>
                 <button
