@@ -71,7 +71,7 @@ const [activeImages, setActiveImages] = useState<{
             src: imagePool[Math.floor(Math.random() * imagePool.length)],
             id: Date.now(),
             direction,
-            top: `${Math.random() * 80 + 10}%`,
+            top: `${Math.random() * 80 - 20}%`,
             duration: `${25 + Math.random() * 10}s`,
             opacity: 0.35 + Math.random() * 0.2,
             scale: 0.5 + Math.random() * 0.5
