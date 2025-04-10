@@ -76,5 +76,26 @@ namespace MovieProject.API.Controllers
                 return StatusCode(500, "An error occurred while retrieving recommendations.");
             }
         }
+
+                [HttpGet("MovieRec")]
+        public async Task<IActionResult> GetMovieRecommendations(string title, int numRecs)
+        { 
+
+                // Query for recommendations asynchronously.
+                var recommended = await _recContext.MovieRecs
+                    .Where(m => m.IfYouWatched == title)
+                    .Take(numRecs)
+                    // .Select(r => r.ShowId)
+                    .ToListAsync();
+
+                if (!recommended.Any())
+                    return NotFound("No recommendations found for this user.");
+
+                var movies = _moviesContext.Movies
+                    .Where(m => recommended.Select(r => r.IfYouWatched).Contains(m.Title))
+                    .ToList();
+
+                return Ok(movies);
+        }
     }
 }
