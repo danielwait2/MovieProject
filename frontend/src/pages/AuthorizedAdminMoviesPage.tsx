@@ -6,6 +6,7 @@ import NewMovieForm from '../components/NewMovieForm';
 import Pagination from '../components/Pagination';
 import SearchBar from '../components/SearchBar';
 import AuthorizeView from '../components/AuthorizeView';
+import '../css/AdminMoviesPage.css';
 
 const genreFields = [
     'action',
@@ -130,7 +131,11 @@ const AuthorizedAdminMoviePage = () => {
                     </div>
                     <div className="d-flex justify-content-end px-3 mb-4">
                         <button
-                            className="btn btn-success"
+                            className="btn"
+                            style={{
+                                backgroundColor: '#6fc276',
+                                color: 'white',
+                            }}
                             onClick={() => setShowForm(true)}
                         >
                             Add Movie
@@ -286,14 +291,19 @@ const AuthorizedAdminMoviePage = () => {
                                         >
                                             <div className="card h-100 text-white bg-dark d-flex flex-column text-center">
                                                 <div className="card-header w-100 d-flex justify-content-between align-items-center">
-                                                    <h5 className="card-title text-danger fw-bold mb-0 text-truncate w-100">
+                                                    <h5
+                                                        className="card-title fw-bold mb-0 text-truncate w-100"
+                                                        style={{
+                                                            color: '#6fc276',
+                                                        }}
+                                                    >
                                                         {m.title}
                                                     </h5>
                                                 </div>
 
                                                 <img
-                                                src={`https://intex2025.blob.core.windows.net/movie-posters/${m.title.replace(/[^a-zA-Z0-9 ]/g, '')}.jpg`}
-                                                alt={m.title}
+                                                    src={`https://intex2025.blob.core.windows.net/movie-posters/${m.title.replace(/[^a-zA-Z0-9 ]/g, '')}.jpg`}
+                                                    alt={m.title}
                                                     className="card-img-top"
                                                     style={{
                                                         maxHeight: '100%',
@@ -307,7 +317,12 @@ const AuthorizedAdminMoviePage = () => {
 
                                                 <div className="card-footer w-100 d-grid gap-2 mt-auto">
                                                     <button
-                                                        className="btn btn-primary"
+                                                        className="btn"
+                                                        style={{
+                                                            backgroundColor:
+                                                                '#6fc276',
+                                                            color: 'white',
+                                                        }}
                                                         onClick={() =>
                                                             setEditingMovie(m)
                                                         }
