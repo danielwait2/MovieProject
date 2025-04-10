@@ -1,38 +1,71 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using System.Linq;
+using System;
 using MovieProject.API.Data;
 
 namespace MovieProject.API.Controllers
 {
-    [Route("[controller]")]
     [ApiController]
+    [Route("[controller]")]
     public class RecController : ControllerBase
     {
         private readonly RecsContext _recContext;
-        private readonly MovieDbContext _movieContext;
+        private readonly MovieDbContext _moviesContext;
 
+        // Ensure you have exactly one constructor for DI
         public RecController(RecsContext recContext, MovieDbContext movieContext)
         {
             _recContext = recContext;
-            _movieContext = movieContext;
+            _moviesContext = movieContext;
         }
 
         [HttpGet("UserRec")]
-        public IActionResult GetMovies(int userId, int numRecs)
-        {
+        public async Task<IActionResult> GetRecommendations(int numRecs)
+        { 
+
+            // Try to get the custom claim.
+            var customUserIdClaim = User.FindFirst("CustomUserId")?.Value;
+
+            int customUserId;
+            if (!int.TryParse(customUserIdClaim, out customUserId))
+            {
+                // Fallback: use the IdentityUserId from the NameIdentifier claim
+                var identityUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                if (string.IsNullOrWhiteSpace(identityUserId))
+                {
+                    return BadRequest("Invalid user.");
+                }
+
+                // Query the Movies database for the custom user record.
+                var customUser = await _moviesContext.Users.FirstOrDefaultAsync(u => u.IdentityUserId == identityUserId);
+                if (customUser == null)
+                {
+                    return BadRequest("Invalid user.");
+                }
+                customUserId = customUser.UserId;
+            }
+            else
+            {
+            }
+
             try
             {
-                var recommended = _recContext.UserRecs
-                    .Where(r => r.UserId == userId)
+                // Query for recommendations asynchronously.
+                var recommended = await _recContext.UserRecs
+                    .Where(r => r.UserId == customUserId)
                     .OrderBy(r => r.RecNum)
                     .Take(numRecs)
                     .Select(r => r.ShowId)
-                    .ToList();
+                    .ToListAsync();
 
                 if (!recommended.Any())
                     return NotFound("No recommendations found for this user.");
 
-                var movies = _movieContext.Movies
+                var movies = _moviesContext.Movies
                     .Where(m => recommended.Contains(m.ShowId))
                     .ToList();
 
@@ -40,9 +73,8 @@ namespace MovieProject.API.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Server error: {ex.Message}");
+                return StatusCode(500, "An error occurred while retrieving recommendations.");
             }
         }
-
     }
 }

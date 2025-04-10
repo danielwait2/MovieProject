@@ -52,7 +52,7 @@ namespace MovieProject.API.Services
             }
 
             // Optionally, you can add the custom user's ID as a claim
-            identity.AddClaim(new Claim("UserId", customUser.UserId.ToString()));
+            identity.AddClaim(new Claim("NewUserId", customUser.UserId.ToString()));
 
             return identity;
         }
