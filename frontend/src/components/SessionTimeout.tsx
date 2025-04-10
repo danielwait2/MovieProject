@@ -5,7 +5,7 @@ interface SessionTimeoutProps {
 }
 
 const SessionTimeout = ({ onLogout }: SessionTimeoutProps) => {
-    const warningTimeout = 1000  * 1; // 60 mins
+    const warningTimeout = 1000  * 60 * 60; // 60 mins
     const logoutTimeout = 1000  * 60 * 150; // 150 mins
 
     const [showWarning, setShowWarning] = useState(false);
