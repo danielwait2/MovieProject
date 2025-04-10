@@ -80,7 +80,7 @@ const [activeImages, setActiveImages] = useState<{
             // Clean up old images after 30s
             setTimeout(() => {
                 setActiveImages(prev => prev.filter(img => img.id !== newImage.id));
-            }, 30000);
+            }, 35000);
         }, 2000);
         return () => clearInterval(interval);
     }, []);
