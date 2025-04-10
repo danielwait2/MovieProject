@@ -4,7 +4,7 @@
 }
 
 .carousel-title {
-    margin-left: 60px;
+    margin-left: 1rem;
     color: #d9d9d9;
 }
 
@@ -51,6 +51,11 @@
 
 .genre-item:hover label {
     transform: scale(1.05);
+    color: #6fc276;
+}
+
+.btn-filter:hover {
+    color: #6fc276 !important;
 }
 
 /* Filter button styles */
@@ -63,6 +68,7 @@
     background-color: rgba(0, 0, 0, 0.4) !important;
     font-weight: bold;
     border: 0;
+    color: #6fc276 !important;
 }
 
 .btn-check:hover + .btn-filter {
