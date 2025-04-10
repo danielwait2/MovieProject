@@ -58,12 +58,28 @@
     color: Black;
     padding-top: 2rem;
 }
+.form-check {
+    display: block;
+    text-align: left;
+    margin-left: 0;
+    padding-left: 0;
+}
 
-.genre-filter-label {
-    color: white;
+.form-check-input {
+    float: left;
+    margin-right: 0.5rem;
+    margin-top: 0.2rem; /* aligns vertically with first line of label */
+    position: relative;
 }
 
 .form-check-label {
+    display: block;
+    color: white;
+    margin-bottom: 0.5rem;
+    padding-left: 1.5rem; /* creates space for the checkbox */
+    position: relative;
+}
+.genre-filter-label {
     color: white;
 }
 
