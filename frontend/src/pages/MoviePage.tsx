@@ -1,4 +1,3 @@
-import GenreFilter from '../components/GenreFilter';
 import MovieCarousel from '../components/MovieCarousel';
 import { useState } from 'react';
 import AuthorizeView, { AuthorizedUser } from '../components/AuthorizeView';
@@ -11,6 +10,7 @@ import '../css/MoviePage.css';
 
 const MoviePage = () => {
     const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
+    setSelectedGenres
 
     return (
         <AuthorizeView>

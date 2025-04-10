@@ -9,14 +9,12 @@ import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 import ProductDetailsPage from './pages/ProductDetailsPage';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
-import AdminMoviePage from './pages/AdminMoviesPage';
 import SessionTimeout from './components/SessionTimeout';
 import HomePage from './pages/HomePage';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import CookieConsent from 'react-cookie-consent';
-import AdminRoute from './AdminWrapper';
-import AuthorizedAdminMoviesPage from './pages/AuthorizedAdminMoviesPage';
+import AdminMoviesPage from './pages/AdminMoviesPage';
 
 function AppContent() {
     const location = useLocation();
@@ -45,9 +43,7 @@ function AppContent() {
                 <Route
                     path="/admin"
                     element={
-                        <AdminRoute>
-                            <AuthorizedAdminMoviesPage />
-                        </AdminRoute>
+                            <AdminMoviesPage />
                     }
                 />
 

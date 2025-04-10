@@ -2,8 +2,7 @@ import React, {
     createContext,
     useContext,
     useState,
-    useEffect,
-    Context,
+    useEffect
 } from 'react';
 
 // Define the shape of the authentication data
