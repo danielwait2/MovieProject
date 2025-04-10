@@ -19,7 +19,7 @@ function RegisterPage() {
     const navigate = useNavigate();
 
     // Handle input changes
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         switch (name) {
             case 'fullName':
@@ -32,7 +32,15 @@ function RegisterPage() {
                 setGender(value);
                 break;
             case 'phone':
-                setPhone(value);
+                // Remove non-digit characters
+                const digits = value.replace(/\D/g, '').substring(0, 10);
+                let formatted = digits;
+                if (digits.length > 6) {
+                    formatted = `${digits.substring(0, 3)}-${digits.substring(3, 6)}-${digits.substring(6)}`;
+                } else if (digits.length > 3) {
+                    formatted = `${digits.substring(0, 3)}-${digits.substring(3)}`;
+                }
+                setPhone(formatted);
                 break;
             case 'city':
                 setCity(value);
@@ -90,6 +98,7 @@ function RegisterPage() {
                 </button>
                 <h5 className="modal-title">Register</h5>
 
+
                 <form onSubmit={handleSubmit}>
                     {/* Row 1: Full Name + Age */}
                     <div className="form-row">
@@ -127,14 +136,17 @@ function RegisterPage() {
                             <label className="form-label" htmlFor="gender">
                                 Gender
                             </label>
-                            <input
-                                type="text"
+                            <select
                                 id="gender"
                                 name="gender"
                                 value={gender}
                                 onChange={handleChange}
                                 className="form-control"
-                            />
+                            >
+                                <option value="">Select Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
                         </div>
                         <div className="form-group">
                             <label className="form-label" htmlFor="city">
@@ -157,14 +169,65 @@ function RegisterPage() {
                             <label className="form-label" htmlFor="stateName">
                                 State
                             </label>
-                            <input
-                                type="text"
+                            <select
                                 id="stateName"
                                 name="stateName"
                                 value={stateName}
                                 onChange={handleChange}
                                 className="form-control"
-                            />
+                            >
+                                <option value="">Select State</option>
+                                <option value="AL">Alabama</option>
+                                <option value="AK">Alaska</option>
+                                <option value="AZ">Arizona</option>
+                                <option value="AR">Arkansas</option>
+                                <option value="CA">California</option>
+                                <option value="CO">Colorado</option>
+                                <option value="CT">Connecticut</option>
+                                <option value="DE">Delaware</option>
+                                <option value="FL">Florida</option>
+                                <option value="GA">Georgia</option>
+                                <option value="HI">Hawaii</option>
+                                <option value="ID">Idaho</option>
+                                <option value="IL">Illinois</option>
+                                <option value="IN">Indiana</option>
+                                <option value="IA">Iowa</option>
+                                <option value="KS">Kansas</option>
+                                <option value="KY">Kentucky</option>
+                                <option value="LA">Louisiana</option>
+                                <option value="ME">Maine</option>
+                                <option value="MD">Maryland</option>
+                                <option value="MA">Massachusetts</option>
+                                <option value="MI">Michigan</option>
+                                <option value="MN">Minnesota</option>
+                                <option value="MS">Mississippi</option>
+                                <option value="MO">Missouri</option>
+                                <option value="MT">Montana</option>
+                                <option value="NE">Nebraska</option>
+                                <option value="NV">Nevada</option>
+                                <option value="NH">New Hampshire</option>
+                                <option value="NJ">New Jersey</option>
+                                <option value="NM">New Mexico</option>
+                                <option value="NY">New York</option>
+                                <option value="NC">North Carolina</option>
+                                <option value="ND">North Dakota</option>
+                                <option value="OH">Ohio</option>
+                                <option value="OK">Oklahoma</option>
+                                <option value="OR">Oregon</option>
+                                <option value="PA">Pennsylvania</option>
+                                <option value="RI">Rhode Island</option>
+                                <option value="SC">South Carolina</option>
+                                <option value="SD">South Dakota</option>
+                                <option value="TN">Tennessee</option>
+                                <option value="TX">Texas</option>
+                                <option value="UT">Utah</option>
+                                <option value="VT">Vermont</option>
+                                <option value="VA">Virginia</option>
+                                <option value="WA">Washington</option>
+                                <option value="WV">West Virginia</option>
+                                <option value="WI">Wisconsin</option>
+                                <option value="WY">Wyoming</option>
+                            </select>
                         </div>
                         <div className="form-group">
                             <label className="form-label" htmlFor="zip">
