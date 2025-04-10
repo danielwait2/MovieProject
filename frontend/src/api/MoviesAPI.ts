@@ -12,18 +12,22 @@ const API_URL = `${baseURL}/Movie`;
 export const fetchMovies = async (
     pageSize: number,
     pageNum: number,
-    _searchQuery: string,
+    searchQuery: string,
     selectedCategories: string[]
 ): Promise<FetchMoviesResponse> => {
     try {
-        const categoryParams = selectedCategories
-            .map((cat) => `projectTypes=${encodeURIComponent(cat)}`)
-            .join('&');
+        const queryParams = new URLSearchParams({
+            pageSize: pageSize.toString(),
+            pageNum: pageNum.toString(),
+            searchQuery,
+        });
+
+        selectedCategories.forEach((cat) => {
+            queryParams.append('projectTypes', cat);
+        });
 
         const response = await fetch(
-            `${API_URL}/AllMovies?pageSize=${pageSize}&pageNum=${pageNum}${
-                selectedCategories.length ? `&${categoryParams}` : ''
-            }`,
+            `${API_URL}/AllMovies?${queryParams.toString()}`,
             {
                 credentials: 'include',
             }
@@ -40,11 +44,9 @@ export const fetchMovies = async (
     }
 };
 
-type MovieWithGenres = Movie & { MovieGenres: string[] };
-
-export const addMovie = async (newMovie: MovieWithGenres): Promise<Movie> => {
+export const addMovie = async (newMovie: Movie): Promise<Movie> => {
     try {
-        const response = await fetch(`${API_URL}/AddMovie`, {
+        const response = await fetch(`https://localhost:5000/Movie/AddMovie`, {
             method: 'POST',
             credentials: 'include',
             headers: {

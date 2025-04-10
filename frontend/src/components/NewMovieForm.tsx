@@ -6,14 +6,9 @@ interface NewMovieFormProps {
     onSuccess: () => void;
     onCancel: () => void;
 }
-// Simple GUID generator (or use a library like uuid)
-const generateGuid = (): string => {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
-        const r = (Math.random() * 16) | 0;
-        const v = c === 'x' ? r : (r & 0x3) | 0x8;
-        return v.toString(16);
-    });
-};
+
+type MovieFormData = Movie;
+
 const genreFields = [
     'action',
     'adventure',
@@ -50,8 +45,8 @@ const genreFields = [
 ];
 
 const NewMovieForm = ({ onSuccess, onCancel }: NewMovieFormProps) => {
-    const [formData, setFormData] = useState<Movie>({
-        showId: generateGuid(), // generate a GUID on initialization
+    const [formData, setFormData] = useState<MovieFormData>({
+        showId: '',
         title: '',
         type: '',
         director: '',
@@ -61,7 +56,6 @@ const NewMovieForm = ({ onSuccess, onCancel }: NewMovieFormProps) => {
         rating: '',
         duration: '',
         description: '',
-
         action: 0,
         adventure: 0,
         animeSeriesInternationalTvShows: 0,
@@ -96,35 +90,26 @@ const NewMovieForm = ({ onSuccess, onCancel }: NewMovieFormProps) => {
         thrillers: 0,
     });
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
         const { name, type, value, checked } = e.target;
+
         if (type === 'checkbox') {
             setFormData({ ...formData, [name]: checked ? 1 : 0 });
         } else if (type === 'number') {
             setFormData({
                 ...formData,
-                [name]: value === '' ? 0 : parseInt(value),
+                [name]: Number(value),
             });
         } else {
             setFormData({ ...formData, [name]: value });
         }
-    };
+    }
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        // Extract genres that are set to 1
-        const selectedGenres = genreFields.filter(
-            (genre) => formData[genre as keyof Movie] === 1
-        );
-
-        // Send a new object with MovieGenres included
-        const movieToSend = {
-            ...formData,
-            MovieGenres: selectedGenres,
-        };
-
         try {
+            const movieToSend = formData;
             console.log('Submitting movie...', movieToSend);
             await addMovie(movieToSend);
             onSuccess();
@@ -196,7 +181,10 @@ const NewMovieForm = ({ onSuccess, onCancel }: NewMovieFormProps) => {
                         type={type}
                         name={name}
                         className="form-control"
-                        value={formData[name as keyof Movie]?.toString() ?? ''}
+                        value={
+                            formData[name as keyof MovieFormData]?.toString() ??
+                            ''
+                        }
                         onChange={handleChange}
                     />
                 </div>
@@ -212,7 +200,9 @@ const NewMovieForm = ({ onSuccess, onCancel }: NewMovieFormProps) => {
                                 type="checkbox"
                                 id={genre}
                                 name={genre}
-                                checked={formData[genre as keyof Movie] === 1}
+                                checked={
+                                    formData[genre as keyof MovieFormData] === 1
+                                }
                                 onChange={handleChange}
                             />
                             <label className="form-check-label" htmlFor={genre}>
