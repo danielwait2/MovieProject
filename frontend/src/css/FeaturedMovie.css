@@ -1,7 +1,7 @@
 /* Hero container */
 .hero {
     width: 100vw; /* Full width of the viewport */
-    height: 500px !important; /* Fixed height for the hero section */
+    height: 60vh !important; /* Fixed height for the hero section */
     position: relative; /* Allows positioning of overlay and content */
 }
 
