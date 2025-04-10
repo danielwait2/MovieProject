@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MovieProject.API.Data
 {
-    [Table("movies_users")] // <-- If your physical table is named 'movies_users'
+    [Table("Users")] // <-- If your physical table is named 'movies_users'
     public class User
     {
         [Key]
@@ -29,7 +29,7 @@ namespace MovieProject.API.Data
         [Column("Netflix")]
         public int? Netflix { get; set; }
 
-        [Column("Amazon Prime")]
+        [Column("amazonPrime")]
         public int? AmazonPrime { get; set; }
 
         [Column("Disney+")]
@@ -44,7 +44,7 @@ namespace MovieProject.API.Data
         [Column("Hulu")]
         public int? Hulu { get; set; }
 
-        [Column("Apple TV+")]
+        [Column("appleTV+")]
         public int? AppleTvPlus { get; set; }
 
         [Column("Peacock")]
