@@ -4,8 +4,8 @@ import { deleteMovie, fetchMovies } from '../api/MoviesAPI';
 import EditMovieForm from '../components/EditMovieForm';
 import NewMovieForm from '../components/NewMovieForm';
 import Pagination from '../components/Pagination';
-import AuthorizeView from '../components/AuthorizeView';
 import SearchBar from '../components/SearchBar';
+import AuthorizeView from '../components/AuthorizeView';
 
 const genreFields = [
     'action',
@@ -53,7 +53,7 @@ const formatGenreLabel = (key: string): string =>
 //delete this line below
 formatGenreLabel;
 
-const AdminMoviePage = () => {
+const AuthorizedAdminMoviePage = () => {
     const [movies, setMovies] = useState<Movie[]>([]);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);
@@ -63,17 +63,20 @@ const AdminMoviePage = () => {
     const [showForm, setShowForm] = useState(false);
     const [editingMovie, setEditingMovie] = useState<Movie | null>(null);
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-    const [searchQuery, setSearchQuery] = useState<string>('');
     //delete this line below
     setSelectedCategories;
+
+    // New: State for searchQuery that will be updated when Enter is pressed.
+    const [searchQuery, setSearchQuery] = useState<string>('');
 
     useEffect(() => {
         const loadMovies = async () => {
             try {
+                // Pass searchQuery along with pageSize, pageNum, and selectedCategories
                 const data = await fetchMovies(
                     pageSize,
                     pageNum,
-                    searchQuery, // ← Add this
+                    searchQuery,
                     selectedCategories
                 );
                 if (data && Array.isArray(data.movies)) {
@@ -91,7 +94,7 @@ const AdminMoviePage = () => {
         };
 
         loadMovies();
-    }, [pageSize, pageNum, selectedCategories, searchQuery]);
+    }, [pageSize, pageNum, searchQuery, selectedCategories]);
 
     const handleDelete = async (showId: string) => {
         const confirmDelete = window.confirm(
@@ -229,10 +232,12 @@ const AdminMoviePage = () => {
                         <div className="row">
                             {/* Sidebar: Filter options */}
                             <div className="col-lg-2 mb-4">
+                                {/* Search Bar placed above the filter categories */}
                                 <div className="mb-3">
                                     <SearchBar
                                         onSearch={(query) => {
                                             setSearchQuery(query);
+                                            // Reset the page when performing a new search
                                             setPageNum(1);
                                         }}
                                         placeholder="Search by title..."
@@ -328,20 +333,22 @@ const AdminMoviePage = () => {
                         </div>
                     </div>
 
-                    <Pagination
-                        currentPage={pageNum}
-                        totalPages={totalPages}
-                        pageSize={pageSize}
-                        onPageChange={setPageNum}
-                        onPageSizeChange={(newSize) => {
-                            setPageSize(newSize);
-                            setPageNum(1);
-                        }}
-                    />
+                    <div className="d-flex justify-content-center mt-4">
+                        <Pagination
+                            currentPage={pageNum}
+                            totalPages={totalPages}
+                            pageSize={pageSize}
+                            onPageChange={setPageNum}
+                            onPageSizeChange={(newSize) => {
+                                setPageSize(newSize);
+                                setPageNum(1);
+                            }}
+                        />
+                    </div>
                 </div>
             </AuthorizeView>
         </>
     );
 };
 
-export default AdminMoviePage;
+export default AuthorizedAdminMoviePage;
