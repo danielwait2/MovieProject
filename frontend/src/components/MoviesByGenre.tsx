@@ -37,6 +37,7 @@ function MoviesByGenre() {
                 {genres && genres.length > 0 ? (
                     genres.map((m) => (
                         <MovieCarousel
+                            key={m}
                             title={m}
                             selectedGenres={[m]}
                             rec={false}

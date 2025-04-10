@@ -10,10 +10,9 @@ function FeaturedMovie() {
 
     useEffect(() => {
         const fetchTopMovie = async () => {
-            const userId = 20;
-            const response = await fetch(
-                `${baseURL}/Rec/UserRec?userId=${userId}&numRecs=1`
-            );
+            const response = await fetch(`${baseURL}/Rec/UserRec?numRecs=1`, {
+                credentials: 'include', // Include this if you're using cookies for auth
+            });
             const data = await response.json();
             setTopMovie(data[0]); // Assuming the first movie is the top recommendation
         };
