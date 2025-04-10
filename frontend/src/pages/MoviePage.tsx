@@ -4,7 +4,6 @@ import { useState } from 'react';
 import AuthorizeView, { AuthorizedUser } from '../components/AuthorizeView';
 //delete this line below
 AuthorizedUser;
-import Footer from '../components/Footer';
 import MoviesByGenre from '../components/MoviesByGenre';
 import FeaturedMovie from '../components/FeaturedMovie';
 
@@ -37,7 +36,6 @@ const MoviePage = () => {
                 </div>
                 <br />
                 <br />
-                <Footer />
             </AuthorizeView>
         </>
     );

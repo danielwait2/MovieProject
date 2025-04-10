@@ -76,7 +76,7 @@ function Register() {
 
     return (
         <>
-            <div className="container">
+            <div className="container mt-5">
                 <div className="row">
                     <div className="card border-0 shadow rounded-3 ">
                         <div className="card-body p-4 p-sm-5">

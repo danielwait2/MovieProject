@@ -10,8 +10,11 @@ const Footer: React.FC = () => {
                     © {new Date().getFullYear()} CineNiche All rights reserved.
                 </p>
                 <p className="mb-0">
-                    <a href="/privacyPolicy" className="privacy-link">
+                    <a href="/privacyPolicy" className="privacy-link me-3">
                         Privacy Policy
+                    </a>
+                    <a href="/admin" className="privacy-link">
+                        Manage
                     </a>
                 </p>
             </div>
