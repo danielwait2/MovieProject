@@ -128,6 +128,7 @@ namespace MovieProject.API.Controllers
             return Ok(genres);
         }
 
+[Authorize(Roles = "Admin")]
 [HttpGet("AllMovies")]
 public IActionResult GetProjects(int pageSize = 10, int pageNum = 1, string searchQuery = "", [FromQuery] List<string>? projectTypes = null)
 {
@@ -276,6 +277,7 @@ public IActionResult GetProjects(int pageSize = 10, int pageNum = 1, string sear
         }
 
 [HttpPost("AddMovie")]
+[Authorize(Roles = "Admin")]
 public IActionResult AddMovie([FromBody] Movie newMovie)
 {
     if (newMovie == null)
@@ -314,7 +316,7 @@ public IActionResult AddMovie([FromBody] Movie newMovie)
 }
 
 
-
+        [Authorize(Roles = "Admin")]
         [HttpPut("UpdateMovie/{show_id}")]
         public IActionResult UpdateProject(string show_id, [FromBody] MovieUpdateDTO updatedMovie)
         {
@@ -410,7 +412,7 @@ public IActionResult AddMovie([FromBody] Movie newMovie)
 
             return Ok(existingMovie);
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpDelete("DeleteMovie/{show_id}")]
         public IActionResult DeleteMovie(string show_id)
         {
