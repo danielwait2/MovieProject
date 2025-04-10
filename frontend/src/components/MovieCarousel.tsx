@@ -2,11 +2,32 @@ import { useEffect, useRef, useState } from 'react';
 import { Movie } from '../types/Movie';
 import MovieCard from './MovieCard';
 import '../css/MovieCarousel.css'; // Make sure this file is loading correctly
+import '../css/GenreFilter.css';
+
 import LazyLoad from './LazyLoad';
-import Slider, { Settings } from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import Slider, { CustomArrowProps, Settings } from 'react-slick';
 import { baseURL } from '../api/MoviesAPI';
+
+function NextArrow(props: CustomArrowProps) {
+    const { onClick } = props;
+    return (
+        <div className="custom-arrow custom-next-arrow" onClick={onClick}>
+            <svg viewBox="0 0 24 24">
+                <path d="M4 2 l12 10 -12 10" />
+            </svg>
+        </div>
+    );
+}
+function PrevArrow(props: CustomArrowProps) {
+    const { onClick } = props;
+    return (
+        <div className="custom-arrow custom-prev-arrow" onClick={onClick}>
+            <svg viewBox="0 0 24 24">
+                <path d="M20 2 l-12 10 12 10" />
+            </svg>
+        </div>
+    );
+}
 
 function MovieCarousel({
     selectedGenres,
@@ -46,12 +67,17 @@ function MovieCarousel({
     const settings: Settings = {
         dots: false,
         infinite: true,
-        speed: 450,
-        slidesToShow: 5,
-        slidesToScroll: 2,
+        speed: 800,
+        slidesToShow: 5.8,
+        slidesToScroll: 1,
         swipe: true,
         draggable: false,
         variableWidth: true,
+        nextArrow: <NextArrow />,
+        prevArrow: <PrevArrow />,
+        centerMode: false,
+        initialSlide: 0,
+
         responsive: [
             { breakpoint: 1024, settings: { slidesToShow: 3 } },
             { breakpoint: 600, settings: { slidesToShow: 2 } },
@@ -70,7 +96,7 @@ function MovieCarousel({
                 });
                 url = `${baseURL}/Movie/RecMoviesTemp?${params.toString()}`;
             } else {
-                url = `${baseURL}/Rec/UserRec?numRecs=10`;
+                url = `${baseURL}/Rec/UserRec?numRecs=20`;
             }
             try {
                 setLoading(true);
@@ -94,27 +120,31 @@ function MovieCarousel({
         <div className="row mb-5" style={{ marginTop: '2%' }}>
             <h2 className="carousel-title">{title}:</h2>
             <LazyLoad>
-                <div
-                    className="movie-carousel"
-                    style={{ width: '100%', margin: '0 auto' }}
-                    onWheel={handleWheel}
-                >
-                    <Slider ref={sliderRef} {...settings}>
-                        {movies && movies.length > 0 ? (
-                            movies.map((m) => (
-                                <MovieCard
-                                    key={m.showId}
-                                    showId={m.showId}
-                                    title={m.title}
-                                    year={parseInt(
-                                        String(m.release_year ?? '0')
-                                    )}
-                                />
-                            ))
-                        ) : (
-                            <div>No movies found</div>
-                        )}
-                    </Slider>
+                <div className="carousel-wrapper">
+                    <div
+                        className="movie-carousel"
+                        style={{ width: '100%', margin: '0 auto' }}
+                        onWheel={handleWheel}
+                    >
+                        <Slider ref={sliderRef} {...settings}>
+                            {movies && movies.length > 0 ? (
+                                movies.map((m) => (
+                                    <div>
+                                        <MovieCard
+                                            key={m.showId}
+                                            showId={m.showId}
+                                            title={m.title}
+                                            year={parseInt(
+                                                String(m.release_year ?? '0')
+                                            )}
+                                        />
+                                    </div>
+                                ))
+                            ) : (
+                                <div>No movies found</div>
+                            )}
+                        </Slider>
+                    </div>
                 </div>
             </LazyLoad>
         </div>

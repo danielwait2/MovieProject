@@ -22,7 +22,7 @@ const MoviePage = () => {
                         <FeaturedMovie />
                     </div>
 
-                    <div className="row mb-5" style={{ marginTop: '2%' }}>
+                    <div>
                         <MovieCarousel
                             selectedGenres={selectedGenres}
                             title="Recommended for You"
