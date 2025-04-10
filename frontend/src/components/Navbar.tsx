@@ -7,6 +7,7 @@ import { baseURL } from '../api/MoviesAPI';
 import '../css/Navbar.css';
 import SearchBar from './SearchBar';
 import { useSearch } from '../components/SearchContext';
+import cnLogo from '../../public/cn.png';
 
 const Navbar = () => {
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -36,8 +37,16 @@ const Navbar = () => {
 
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4 fixed-top">
-            <Link className="navbar-brand brand-green" to="/">
-                CINENICHE
+            <Link
+                className="navbar-brand brand-green d-flex align-items-center"
+                to="/"
+            >
+                <img
+                    src={cnLogo}
+                    alt="CineNiche logo"
+                    style={{ height: 40, marginRight: 8 }}
+                />
+                <span style={{ fontSize: '1.2rem' }}>CINENICHE</span>
             </Link>
 
             <button
