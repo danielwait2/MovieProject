@@ -1,9 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap');
+
+
 .privacy-container {
     margin: 0 auto;
     max-width: 800px;
     padding: 2rem;
     line-height: 1.6;
     font-family: sans-serif;
+}
+
+.privacy-title {
+    font-family: "Exo 2", sans-serif;
 }
 
 .privacy-container h1 {
@@ -23,4 +30,8 @@
     color: #dedede; /* Light grey text; adjust the color value if necessary */
     font-family: Arial, sans-serif;
     line-height: 1.6;
+}
+
+h2 {
+    font-family: "Exo 2", sans-serif;
 }

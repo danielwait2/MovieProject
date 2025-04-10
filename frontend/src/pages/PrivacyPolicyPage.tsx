@@ -7,7 +7,7 @@ const PrivacyPolicyPage = () => {
             <div className="container my-5 privacy-policy-page bg-dark text-white">
                 {/* Header Section */}
                 <br />
-                <header className="mb-5 text-center">
+                <header className="privacy-title text-center">
                     <h1 className="display-4">CineNiche Privacy Policy</h1>
                     <p className="text-muted">Last updated: April 9, 2025</p>
                 </header>
