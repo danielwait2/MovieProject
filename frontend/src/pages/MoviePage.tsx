@@ -20,23 +20,23 @@ const MoviePage = () => {
                     {/* If you want the featured movie spaced like Netflix, wrap it in a custom class */}
                     <div className="featured-movie">
                         <FeaturedMovie />
+                    </div>
 
-                        <div className="row mb-5" style={{ marginTop: '2%' }}>
-                            <MovieCarousel
-                                selectedGenres={selectedGenres}
-                                title="Recommended for You"
-                                rec={true}
-                            />
-                        </div>
-                        <div className="row mb-5">
-                            <MoviesByGenre />
-                        </div>
-                    </main>
-                </div>
-                <br />
-                <br />
-            </AuthorizeView>
-        </>
+                    <div className="row mb-5" style={{ marginTop: '2%' }}>
+                        <MovieCarousel
+                            selectedGenres={selectedGenres}
+                            title="Recommended for You"
+                            rec={true}
+                        />
+                    </div>
+                    <div className="row mb-5">
+                        <MoviesByGenre />
+                    </div>
+                </main>
+            </div>
+            <br />
+            <br />
+        </AuthorizeView>
     );
 };
 

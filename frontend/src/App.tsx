@@ -15,6 +15,8 @@ import HomePage from './pages/HomePage';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import CookieConsent from 'react-cookie-consent';
+import AdminRoute from './AdminWrapper';
+import AuthorizedAdminMoviesPage from './pages/AuthorizedAdminMoviesPage';
 
 function AppContent() {
     const location = useLocation();
@@ -40,7 +42,16 @@ function AppContent() {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/movies" element={<MoviePage />} />
                 <Route path="/privacyPolicy" element={<PrivacyPolicyPage />} />
-                <Route path="/admin" element={<AdminMoviePage />} />
+                <Route
+                    path="/admin"
+                    element={
+                        <AdminRoute>
+                            <AuthorizedAdminMoviesPage />
+                        </AdminRoute>
+                    }
+                />
+
+                <Route path="/unauthorized" element={<LoginPage />} />
             </Routes>
 
             {/* Render the login and register modals over the background */}
