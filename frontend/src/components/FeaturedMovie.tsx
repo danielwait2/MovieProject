@@ -7,6 +7,7 @@ import { Movie } from '../types/Movie';
 function FeaturedMovie() {
     const [topMovie, setTopMovie] = useState<Movie | null>(null);
     const [imageUrl, setImageUrl] = useState<string>('');
+    const [isHovered, setIsHovered] = useState(false);
 
     useEffect(() => {
         const fetchTopMovie = async () => {
@@ -55,11 +56,18 @@ function FeaturedMovie() {
 
                 <button
                     className="btn btn-secondary btn-play"
-                    style={{ display: 'flex', alignItems: 'center' }}
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        backgroundColor: isHovered ? '#6fc276' : undefined,
+                        color: isHovered ? '#6fc276' : undefined,
+                    }}
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
                 >
                     <FaPlay
                         size={16}
-                        color="#FFFFFF"
+                        color={isHovered ? '#6fc276' : '#FFFFFF'}
                         style={{ marginRight: '10px' }}
                     />
                     Play

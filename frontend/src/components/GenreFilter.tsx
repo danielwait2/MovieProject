@@ -117,7 +117,8 @@ const GenreFilter: React.FC<GenreFilterProps> = ({
 
     return (
         <div className="genre-filter">
-            <div className="carousel-title">Filter By Genre:</div>
+
+            {/* <div className="carousel-title">Filter By Genre:</div> */}
             <div
                 className="genre-carousel"
                 style={{ width: '100%', margin: '0 auto' }}
@@ -134,7 +135,18 @@ const GenreFilter: React.FC<GenreFilterProps> = ({
                                 onChange={handleCheckboxChange}
                                 checked={selectedGenres.includes(c)}
                             />
-                            <label className="btn btn-filter" htmlFor={c}>
+                            <label
+                                className="btn btn-filter"
+                                htmlFor={c}
+                                style={{
+                                    transition: 'color 0.3s',
+                                    color: selectedGenres.includes(c) ? '#6fc276' : undefined,
+                                }}
+                                onMouseEnter={(e) => (e.currentTarget.style.color = '#6fc276')}
+                                onMouseLeave={(e) => {
+                                    if (!selectedGenres.includes(c)) e.currentTarget.style.color = '';
+                                }}
+                            >
                                 {c.substring(
                                     0,
                                     c.indexOf(' ', 15) > 0
