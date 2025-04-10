@@ -43,7 +43,7 @@ public partial class RecsContext : DbContext
         {
             entity
                 .HasNoKey()
-                .ToTable("user_recs");
+                .ToTable("UserRecs");
 
             entity.Property(e => e.UserId).HasColumnName("user_id");
         });
