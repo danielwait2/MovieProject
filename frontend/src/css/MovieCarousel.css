@@ -1,10 +1,14 @@
 .movie-carousel {
-    display: flex;
-    overflow-x: auto;
-    overflow-y: hidden;
-    white-space: nowrap;
-    /* padding: 10px 0; */
-    width: 100%;
+    position: relative;
+    box-sizing: border-box;
+    overflow: hidden;
+    padding-top: 1%;
+}
+.carousel-wrapper {
+    display: flex !important;
+    width: 100% !important;
+    position: relative !important;
+    justify-content: center !important;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -41,4 +45,11 @@
     position: relative;
     box-sizing: border-box;
     overflow: hidden;
+}
+
+.slick-list {
+    padding-left: 20px !important; /* Adjust value as needed */
+}
+.slick-track {
+    margin-left: 0 !important;
 }

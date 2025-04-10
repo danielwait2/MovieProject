@@ -101,7 +101,7 @@ const GenreFilter: React.FC<GenreFilterProps> = ({
         infinite: true,
         speed: 450,
         slidesToShow: 6,
-        slidesToScroll: 2,
+        slidesToScroll: 1,
         swipe: true,
         draggable: false,
         variableWidth: true,
@@ -117,7 +117,6 @@ const GenreFilter: React.FC<GenreFilterProps> = ({
 
     return (
         <div className="genre-filter">
-
             {/* <div className="carousel-title">Filter By Genre:</div> */}
             <div
                 className="genre-carousel"
@@ -140,11 +139,16 @@ const GenreFilter: React.FC<GenreFilterProps> = ({
                                 htmlFor={c}
                                 style={{
                                     transition: 'color 0.3s',
-                                    color: selectedGenres.includes(c) ? '#6fc276' : undefined,
+                                    color: selectedGenres.includes(c)
+                                        ? '#6fc276'
+                                        : undefined,
                                 }}
-                                onMouseEnter={(e) => (e.currentTarget.style.color = '#6fc276')}
+                                onMouseEnter={(e) =>
+                                    (e.currentTarget.style.color = '#6fc276')
+                                }
                                 onMouseLeave={(e) => {
-                                    if (!selectedGenres.includes(c)) e.currentTarget.style.color = '';
+                                    if (!selectedGenres.includes(c))
+                                        e.currentTarget.style.color = '';
                                 }}
                             >
                                 {c.substring(
