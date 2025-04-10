@@ -45,16 +45,11 @@ const Navbar = () => {
 
             <div className="collapse navbar-collapse" id="navbarNav">
                 <ul className="navbar-nav ms-auto gap-3">
-                    <li className="nav-item">
-                        <Link className="nav-link custom-nav-link" to="/movies">
-                            Movies
-                        </Link>
-                    </li>
                     {isLoggedIn ? (
                         <>
                             <li className="nav-item">
-                                <Link className="nav-link custom-nav-link" to="/admin">
-                                    Admin
+                                <Link className="nav-link custom-nav-link" to="/movies">
+                                    Movies
                                 </Link>
                             </li>
                             <li className="nav-item">

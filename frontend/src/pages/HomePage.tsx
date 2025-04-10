@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 /**
@@ -7,7 +7,28 @@ import { Link } from 'react-router-dom';
  * You can change images or adjust the animation details below.
  */
 const DynamicBackground = () => {
-    const images = [
+const [activeImages, setActiveImages] = useState<{
+  src: string;
+  id: number;
+  direction: 'left' | 'right';
+  top: string;
+  duration: string;
+  opacity: number;
+  scale: number;
+}[]>([]);
+    const imagePool = [
+        'https://intex2025.blob.core.windows.net/movie-posters/Cop%20Car.jpg',
+        'https://intex2025.blob.core.windows.net/movie-posters/A%20Ghost%20Story.jpg',
+        'https://intex2025.blob.core.windows.net/movie-posters/The%20Last%20Resort.jpg',
+        'https://intex2025.blob.core.windows.net/movie-posters/God%20Knows%20Where%20I%20Am.jpg',
+        'https://intex2025.blob.core.windows.net/movie-posters/Yellowbird.jpg',
+        'https://intex2025.blob.core.windows.net/movie-posters/Yes%20or%20No%202.jpg',
+        'https://intex2025.blob.core.windows.net/movie-posters/The%20Princess%20and%20the%20Frog.jpg',
+        'https://intex2025.blob.core.windows.net/movie-posters/Look%20Out%20Officer.jpg',
+        'https://intex2025.blob.core.windows.net/movie-posters/Bad%20Boys.jpg',
+        'https://intex2025.blob.core.windows.net/movie-posters/Under%20the%20Bombs.jpg',
+        'https://intex2025.blob.core.windows.net/movie-posters/Ordinary%20People.jpg',
+        'https://intex2025.blob.core.windows.net/movie-posters/Planet%20Earth%20II.jpg',
         'https://intex2025.blob.core.windows.net/movie-posters/Life%20as%20We%20Know%20It.jpg',
         'https://intex2025.blob.core.windows.net/movie-posters/Bangkok%20Breaking.jpg',
         'https://intex2025.blob.core.windows.net/movie-posters/Inception.jpg',
@@ -17,27 +38,68 @@ const DynamicBackground = () => {
         'https://intex2025.blob.core.windows.net/movie-posters/Jaws.jpg',
         'https://intex2025.blob.core.windows.net/movie-posters/Dick%20Johnson%20Is%20Dead.jpg',
         'https://intex2025.blob.core.windows.net/movie-posters/Zoo.jpg',
-        'https://intex2025.blob.core.windows.net/movie-posters/Barbie%20Dolphin%20Magic.jpg',
-        'https://intex2025.blob.core.windows.net/movie-posters/A%20Wrinkle%20in%20Time.jpg',
-        'https://intex2025.blob.core.windows.net/movie-posters/The%20Bachelorette.jpg',
-        'https://intex2025.blob.core.windows.net/movie-posters/The%20Bachelor.jpg',
-        'https://intex2025.blob.core.windows.net/movie-posters/The%20Good%20Place.jpg',
-        'https://intex2025.blob.core.windows.net/movie-posters/The%20Great%20British%20Baking%20Show.jpg'
+        'https://intex2025.blob.core.windows.net/movie-posters/50%20First%20Dates.jpg',
+        'https://intex2025.blob.core.windows.net/movie-posters/Addicted%20to%20Life.jpg',
+        'https://intex2025.blob.core.windows.net/movie-posters/Iyore.jpg',
+        'https://intex2025.blob.core.windows.net/movie-posters/Hunt%20for%20the%20Wilderpeople.jpg',
+        'https://intex2025.blob.core.windows.net/movie-posters/The%20Battle%20of%20Midway.jpg',
+        'https://intex2025.blob.core.windows.net/movie-posters/Gelo.jpg',
+        'https://intex2025.blob.core.windows.net/movie-posters/The%20Little%20Switzerland.jpg',
+        'https://intex2025.blob.core.windows.net/movie-posters/LEGO%20Ninjago%20Masters%20of%20Spinjitzu%20Day%20of%20the%20Departed.jpg',
+        'https://intex2025.blob.core.windows.net/movie-posters/The%20Birth%20Reborn%203.jpg',
+        'https://intex2025.blob.core.windows.net/movie-posters/Iliza%20Shlesinger%20Confirmed%20Kills.jpg',
+        'https://intex2025.blob.core.windows.net/movie-posters/Sugar%20Rush.jpg',
+        'https://intex2025.blob.core.windows.net/movie-posters/What%20the%20Fish.jpg',
+        'https://intex2025.blob.core.windows.net/movie-posters/NOVA%20First%20Face%20of%20America.jpg',
+        'https://intex2025.blob.core.windows.net/movie-posters/Hart%20of%20Dixie.jpg',
+        'https://intex2025.blob.core.windows.net/movie-posters/Kings%20War.jpg',
+        'https://intex2025.blob.core.windows.net/movie-posters/Ink%20Master.jpg',
+        'https://intex2025.blob.core.windows.net/movie-posters/Sleepover.jpg',
+        'https://intex2025.blob.core.windows.net/movie-posters/Rocky.jpg',
+        'https://intex2025.blob.core.windows.net/movie-posters/Secret%20City.jpg',
+        'https://intex2025.blob.core.windows.net/movie-posters/Lion%20Pride.jpg',
+        'https://intex2025.blob.core.windows.net/movie-posters/Hail%20Caesar.jpg',
+        'https://intex2025.blob.core.windows.net/movie-posters/Jane%20The%20Virgin.jpg',
+        'https://intex2025.blob.core.windows.net/movie-posters/The%20Death%20of%20Stalin.jpg'
+
     ];
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+        const direction: 'left' | 'right' = Math.random() > 0.5 ? 'left' : 'right';
+        const newImage = {
+            src: imagePool[Math.floor(Math.random() * imagePool.length)],
+            id: Date.now(),
+            direction,
+            top: `${Math.random() * 80 + 10}%`,
+            duration: `${25 + Math.random() * 10}s`,
+            opacity: 0.35 + Math.random() * 0.2,
+            scale: 0.5 + Math.random() * 0.5
+        };
+            setActiveImages(prev => [...prev, newImage]);
+            // Clean up old images after 30s
+            setTimeout(() => {
+                setActiveImages(prev => prev.filter(img => img.id !== newImage.id));
+            }, 30000);
+        }, 2000);
+        return () => clearInterval(interval);
+    }, []);
 
     return (
         <div className="dynamic-background">
-            {images.map((src, index) => {
-                const top = Math.random() * 80;  // random vertical position (consistent for this image)
-                const duration = 20 + Math.random() * 20; // random duration between 20s and 40s
-                const randomProgress = Math.random() * duration; // negative delay for starting mid-animation
-                const style = {
-                    top: `${top}%`,
-                    animationDuration: `${duration}s`,
-                    animationDelay: `-${randomProgress}s`,
-                };
-                return <img key={index} src={src} style={style} alt="" />;
-            })}
+            {activeImages.map(({ src, id, direction, top, duration, opacity, scale }) => (
+                <img
+                    key={id}
+                    src={src}
+                    className={`bg-image ${direction}`}
+                    style={{
+                        top,
+                        animationDuration: duration,
+                        opacity,
+                        transform: `scale(${scale})`
+                    }}
+                />
+            ))}
         </div>
     );
 };
@@ -50,7 +112,7 @@ const DynamicBackground = () => {
 const ImageCarousel = () => {
     const containerRef = useRef<HTMLDivElement>(null);
     const images = [
-        'https://intex2025.blob.core.windows.net/movie-posters/Life%20as%20We%20Know%20It.jpg',
+        'https://intex2025.blob.core.windows.net/movie-posters/Rocky.jpg',
         'https://intex2025.blob.core.windows.net/movie-posters/Bangkok%20Breaking.jpg',
         'https://intex2025.blob.core.windows.net/movie-posters/Inception.jpg',
         'https://intex2025.blob.core.windows.net/movie-posters/The%20Matrix.jpg',
@@ -133,11 +195,8 @@ const HomePage = () => {
                 <h2>Trending Now</h2>
                 <ImageCarousel />
             </section>
-
-            {/* Footer (Optional) */}
-            <footer className="main-footer">
-                <p>© 2025 CineNiche. All rights reserved.</p>
-            </footer>
+            <br />
+            <br />
 
             {/* NEW STYLES - No Bootstrap, entirely custom */}
             <style>
@@ -161,7 +220,10 @@ const HomePage = () => {
 
           /* HomePage container */
           .homepage {
-            padding-top: 200px; /* Space for the fixed navbar */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding-top: 100px; /* Space for the fixed navbar */
             position: relative;
             min-height: 100vh;
             overflow-x: hidden;
@@ -182,17 +244,39 @@ const HomePage = () => {
           }
           .dynamic-background img {
             position: absolute;
-            max-width: 250px;
-            opacity: 0.4;
-            filter: none;
-            animation: slideLeft linear infinite;
+            max-width: 200px;
+            pointer-events: none;
           }
-          @keyframes slideLeft {
-            0% {
-              left: 110%;
+          
+          .dynamic-background img.left {
+            left: 100%;
+            animation-name: floatLeft;
+            animation-timing-function: linear;
+            animation-iteration-count: 1;
+          }
+          
+          .dynamic-background img.right {
+            left: -220px;
+            animation-name: floatRight;
+            animation-timing-function: linear;
+            animation-iteration-count: 1;
+          }
+          
+          @keyframes floatLeft {
+            from {
+              left: 100%;
             }
-            100% {
-              left: -250px;
+            to {
+              left: -220px;
+            }
+          }
+          
+          @keyframes floatRight {
+            from {
+              left: -220px;
+            }
+            to {
+              left: 100%;
             }
           }
 
@@ -275,8 +359,8 @@ const HomePage = () => {
           .carousel-section {
             position: relative;
             z-index: 999;
-            margin-top: 4rem;
             padding: 0 2rem;
+          margin-top: auto;
           }
           .carousel-section h2 {
             font-size: 1.75rem;
@@ -299,13 +383,14 @@ const HomePage = () => {
 
           /* Footer */
           .main-footer {
+            position: relative;
+            width: 100%;
             text-align: center;
-            padding: 1.5rem 0;
-            margin-top: 3rem;
-            opacity: 0.7;
-          }
-          .main-footer p {
+            padding: 1rem 0;
+            background-color: rgba(0, 0, 0, 0.6);
             font-size: 0.9rem;
+            opacity: 0.8;
+            z-index: 10;
           }
         `}
             </style>

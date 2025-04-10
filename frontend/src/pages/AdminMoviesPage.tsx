@@ -90,7 +90,7 @@ const AdminMoviePage = () => {
 
     const handleDelete = async (showId: string) => {
         const confirmDelete = window.confirm(
-            'Are you sure you want to delete this movie?'
+            'Are you sure you want to delete this movie? It will be compleatly removed from the database. This action cannot be undone.'
         );
         if (!confirmDelete) return;
 
@@ -119,14 +119,6 @@ const AdminMoviePage = () => {
                 <h1>Admin - Movies</h1>
                 <div className="text-center mb-3">
                 <h1 className="mb-0 page-title">Admin - Movies</h1>
-                </div>
-                <div className="d-flex justify-content-end px-3 mb-4">
-                    <button
-                        className="btn btn-success btn-delete"
-                        onClick={() => setShowForm(true)}
-                    >
-                        Add Movie
-                    </button>
                 </div>
 
                 {/* Add Movie Modal */}
@@ -180,7 +172,7 @@ const AdminMoviePage = () => {
                                         onClick={() => setEditingMovie(null)}
                                     ></button>
                                 </div>
-                                <div className="modal-body">
+                                <div className="modal-body bg-dark text-white">
                                     <EditMovieForm
                                         movie={editingMovie}
                                         onSuccess={() => {
@@ -205,6 +197,14 @@ const AdminMoviePage = () => {
                     <div className="row">
                         {/* Sidebar: Filter options */}
                         <div className="col-lg-2 mb-4">
+                            <div className="d-flex justify-content-end px-3 mb-4">
+                                <button
+                                    className="btn btn-success btn-delete"
+                                    onClick={() => setShowForm(true)}
+                                >
+                                    Add Movie
+                                </button>
+                            </div>
                             <h5 className="mb-3 genre-filter-label">Filter by Genre</h5>
                             {selectedCategories.length > 0 && (
                                 <button

@@ -10,10 +10,12 @@ import ProductDetailsPage from './pages/ProductDetailsPage';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
 import AdminMoviePage from './pages/AdminMoviesPage';
-import BoldToggle from './components/BoldToggle';
+// import BoldToggle from './components/BoldToggle';
 import SessionTimeout from './components/SessionTimeout';
 import HomePage from './pages/HomePage';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import CookieConsent from 'react-cookie-consent';
 
 function AppContent() {
     // Get the current location so we can check if there’s a background route
@@ -46,8 +48,15 @@ function AppContent() {
                         element={<ProductDetailsPage />}
                     />
                 </Routes>
+
+
             )}
-            <BoldToggle />
+            <footer className="text-center mt-auto">
+                    <CookieConsent>
+                        This website uses cookies to enhance the user experience.
+                    </CookieConsent>
+                </footer>
+            <Footer />
         </>
     );
 }
