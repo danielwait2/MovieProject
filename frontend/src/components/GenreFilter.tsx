@@ -118,7 +118,7 @@ const GenreFilter: React.FC<GenreFilterProps> = ({
     return (
         <div className="genre-filter">
 
-            <div className="carousel-title">Filter By Genre:</div>
+            {/* <div className="carousel-title">Filter By Genre:</div> */}
             <div
                 className="genre-carousel"
                 style={{ width: '100%', margin: '0 auto' }}
