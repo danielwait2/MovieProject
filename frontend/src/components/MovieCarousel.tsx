@@ -67,7 +67,7 @@ function MovieCarousel({
     // Slider settings.
     const settings: Settings = {
         dots: false,
-        infinite: true,
+        infinite: false,
         speed: 800,
         slidesToShow: 5.8,
         slidesToScroll: 1,
