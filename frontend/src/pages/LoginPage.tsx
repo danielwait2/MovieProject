@@ -123,6 +123,9 @@ function LoginPage() {
                             Remember password
                         </label>
                     </div>
+                    <div className="text-end mb-3">
+                        <a href="#" className="forgot-password-link">Forgot username or password?</a>
+                    </div>
                     <div className="d-grid mb-2">
                         <button
                             className="btn btn-signin text-uppercase fw-bold"

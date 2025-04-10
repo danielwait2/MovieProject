@@ -18,19 +18,18 @@
     padding: 2rem;
     border-radius: 10px;
     width: 100%;
-    max-width: 450px;
+    max-width: 600px;  /* Wider modal */
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
     animation: fadeInModal 0.2s ease-in-out;
     border: 1px solid #6fc276;
+
+    max-height: 90vh;    /* Prevent it from getting too tall */
+    overflow-y: auto;    /* Scroll if content is taller than 90% of viewport */
 }
 
 @keyframes fadeInModal {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 .close-modal {
@@ -52,6 +51,16 @@
     text-align: center;
 }
 
+.form-row {
+    display: flex;
+    gap: 1rem;       /* Space between columns */
+    margin-bottom: 1rem;
+}
+
+.form-row .form-group {
+    flex: 1;         /* Each form-group expands to fill half the row */
+}
+
 .form-group {
     margin-bottom: 1rem;
 }
@@ -59,24 +68,16 @@
 .form-label {
     color: #fff;
     font-weight: 500;
+    display: block;
+    margin-bottom: 0.25rem;
 }
 
-.form-check-group {
-    margin-bottom: 1rem;
-    color: #ccc;
-}
-
-.register-button-wrapper,
-.login-button-wrapper,
-.auth-button-wrapper {
+.register-button-wrapper {
     text-align: center;
     margin-bottom: 1rem;
 }
 
-.register-button,
-.login-button,
-.google-button,
-.facebook-button {
+.register-button {
     background-color: #6c757d;
     color: #fff;
     border: none;
@@ -90,10 +91,7 @@
     margin: 0 auto;
 }
 
-.register-button:hover,
-.login-button:hover,
-.google-button:hover,
-.facebook-button:hover {
+.register-button:hover {
     opacity: 0.9;
 }
 
@@ -110,4 +108,21 @@
     align-items: center;
     height: 100vh;
     background-color: #000;
+}
+
+.remember-password-container,
+.text-end,
+.form-check {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.forgot-password-link:hover {
+    text-decoration: underline;
+}
+
+.form-check-input {
+    margin-right: 0.5rem; /* Adjust this value as needed */
 }
