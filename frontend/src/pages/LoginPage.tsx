@@ -1,18 +1,17 @@
+// src/pages/LoginPage.tsx
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { baseURL } from '../api/MoviesAPI';
+import '../css/LoginPage.css';
 import '../css/identity.css';
-import {baseURL} from '../api/MoviesAPI';
-
-
-//hi
 
 function LoginPage() {
-    // state variables for email and passwords
+    // state variables for email and password
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [rememberme, setRememberme] = useState<boolean>(false);
 
-    // state variable for error messages
+    // state for error messages
     const [error, setError] = useState<string>('');
     const navigate = useNavigate();
 
@@ -32,6 +31,11 @@ function LoginPage() {
         navigate('/register');
     };
 
+    // handle close: navigate back to homepage
+    const handleClose = () => {
+        navigate('/');
+    };
+
     // handle submit event for the form
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -49,7 +53,7 @@ function LoginPage() {
         try {
             const response = await fetch(loginUrl, {
                 method: 'POST',
-                credentials: 'include', // ✅ Ensures cookies are sent & received
+                credentials: 'include', // Ensures cookies are sent & received
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password }),
             });
@@ -73,99 +77,92 @@ function LoginPage() {
     };
 
     return (
-        <>
-            <div className="d-flex flex-column min-vh-100">
-                <div className="container my-auto">
-                    <div className="row">
-                        <div className="card border-0 shadow rounded-3 ">
-                            <div className="card-body p-4 p-sm-5">
-                                <h5 className="card-title text-center mb-5 fw-light fs-5">
-                                    Sign In
-                                </h5>
-                                <form onSubmit={handleSubmit}>
-                                    <div className="form-floating mb-3">
-                                        <input
-                                            className="form-control"
-                                            type="email"
-                                            id="email"
-                                            name="email"
-                                            value={email}
-                                            onChange={handleChange}
-                                        />
-                                        <label htmlFor="email">Email address</label>
-                                    </div>
-                                    <div className="form-floating mb-3">
-                                        <input
-                                            className="form-control"
-                                            type="password"
-                                            id="password"
-                                            name="password"
-                                            value={password}
-                                            onChange={handleChange}
-                                        />
-                                        <label htmlFor="password">Password</label>
-                                    </div>
-
-                                    <div className="form-check mb-3 d-flex align-items-center justify-content-center">
-                                        <input
-                                            className="form-check-input me-2"
-                                            type="checkbox"
-                                            value=""
-                                            id="rememberme"
-                                            name="rememberme"
-                                            checked={rememberme}
-                                            onChange={handleChange}
-                                        />
-                                        <label
-                                            className="form-check-label"
-                                            htmlFor="rememberme"
-                                        >
-                                            Remember password
-                                        </label>
-                                    </div>
-                                    <div className="d-grid mb-2">
-                                        <button
-                                            className="btn btn-primary btn-login text-uppercase fw-bold"
-                                            type="submit"
-                                        >
-                                            Sign in
-                                        </button>
-                                    </div>
-                                    <div className="d-grid mb-2">
-                                        <button
-                                            className="btn btn-primary btn-login text-uppercase fw-bold"
-                                            onClick={handleRegisterClick}
-                                        >
-                                            Register
-                                        </button>
-                                    </div>
-                                    <hr className="my-4" />
-                                    <div className="d-grid mb-2">
-                                        <button
-                                            className="btn btn-google btn-login text-uppercase fw-bold"
-                                            type="button"
-                                        >
-                                            <i className="fa-brands fa-google me-2"></i>{' '}
-                                            Sign in with Google
-                                        </button>
-                                    </div>
-                                    <div className="d-grid mb-2">
-                                        <button
-                                            className="btn btn-facebook btn-login text-uppercase fw-bold"
-                                            type="button"
-                                        >
-                                            <i className="fa-brands fa-facebook-f me-2"></i>{' '}
-                                            Sign in with Facebook
-                                        </button>
-                                    </div>
-                                </form>
-                                {error && <p className="error">{error}</p>}
-                            </div>
-                        </div>
+        <div className="login-modal-overlay">
+            <div className="login-modal-content">
+                {/* Close Button */}
+                <button className="close-modal" onClick={handleClose}>
+                    X
+                </button>
+                <h5 className="modal-title text-center">Sign In</h5>
+                <form onSubmit={handleSubmit}>
+                    <div className="form-floating mb-3">
+                        <input
+                            className="form-control"
+                            type="email"
+                            id="email"
+                            name="email"
+                            value={email}
+                            onChange={handleChange}
+                        />
+                        <label htmlFor="email">Email address</label>
                     </div>
-                </div> {/* End of .container */}
+                    <div className="form-floating mb-3">
+                        <input
+                            className="form-control"
+                            type="password"
+                            id="password"
+                            name="password"
+                            value={password}
+                            onChange={handleChange}
+                        />
+                        <label htmlFor="password">Password</label>
+                    </div>
+                    <div className="form-check mb-3">
+                        <input
+                            className="form-check-input"
+                            type="checkbox"
+                            id="rememberme"
+                            name="rememberme"
+                            checked={rememberme}
+                            onChange={handleChange}
+                        />
+                        <label
+                            className="form-check-label"
+                            htmlFor="rememberme"
+                        >
+                            Remember password
+                        </label>
+                    </div>
+                    <div className="d-grid mb-2">
+                        <button
+                            className="btn btn-signin text-uppercase fw-bold"
+                            type="submit"
+                        >
+                            Sign in
+                        </button>
+                    </div>
+                    <div className="d-grid mb-2">
+                        <button
+                            className="btn btn-secondary btn-auth text-uppercase fw-bold"
+                            type="button"
+                            onClick={handleRegisterClick}
+                        >
+                            Register
+                        </button>
+                    </div>
+                    <hr className="my-4" />
+                    <div className="d-grid mb-2">
+                        <button
+                            className="btn btn-google btn-auth text-uppercase fw-bold"
+                            type="button"
+                        >
+                            <i className="fa-brands fa-google me-2"></i> Sign in
+                            with Google
+                        </button>
+                    </div>
+                    <div className="d-grid mb-2">
+                        <button
+                            className="btn btn-facebook btn-auth text-uppercase fw-bold"
+                            type="button"
+                        >
+                            <i className="fa-brands fa-facebook-f me-2"></i>{' '}
+                            Sign in with Facebook
+                        </button>
+                    </div>
+                </form>
+                {error && <p className="error text-danger mt-2">{error}</p>}
             </div>
-        </>
+        </div>
     );
 }
 

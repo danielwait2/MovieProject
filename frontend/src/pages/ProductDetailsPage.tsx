@@ -103,6 +103,11 @@ const ProductDetailsPage: React.FC = () => {
                                     {movie.rating}
                                 </span>
                             )}
+                            {movie.duration && (
+                                <span className="meta-label">
+                                    {movie.duration}
+                                </span>
+                            )}
                             {Array.isArray(genres) && genres.length > 0 && (
                                 <span className="meta-label">
                                     {genres.join(', ')}
