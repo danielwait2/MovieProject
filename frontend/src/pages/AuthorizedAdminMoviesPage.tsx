@@ -262,9 +262,9 @@ const AuthorizedAdminMoviePage = () => {
                                     </button>
                                 )}
                                 {genreFields.map((genre) => (
-                                    <div className="form-check" key={genre}>
+                                    <div className="form-check">
                                         <input
-                                            className="form-check-input"
+                                            className="form-check-input me-2"
                                             type="checkbox"
                                             id={`filter-${genre}`}
                                             name={genre}
