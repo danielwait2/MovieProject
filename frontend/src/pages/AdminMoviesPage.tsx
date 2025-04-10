@@ -5,7 +5,6 @@ import EditMovieForm from '../components/EditMovieForm';
 import NewMovieForm from '../components/NewMovieForm';
 import Pagination from '../components/Pagination';
 import AuthorizeView from '../components/AuthorizeView';
-import Footer from '../components/Footer';
 import '../css/AdminMoviesPage.css';
 
 const genreFields = [
@@ -301,7 +300,6 @@ const AdminMoviePage = () => {
                     <div className="text-white mt-2">Results per page: {pageSize}</div>
                 </div>
             </AuthorizeView>
-            <Footer />
         </>
     );
 };
