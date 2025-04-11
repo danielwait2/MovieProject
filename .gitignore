@@ -3,3 +3,4 @@ backend/MovieProject.API/bin/
 .vs/
 .idea/
 backend/MovieProject.API/publish/
+backend/MovieProject.API/appsettings.json

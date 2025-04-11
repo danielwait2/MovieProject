@@ -73,7 +73,8 @@ namespace MovieProject.API.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "An error occurred while retrieving recommendations.");
+                // Log the exception ex (using a logging framework or similar)
+                return StatusCode(500, $"An error occurred while retrieving recommendations. Details: {ex.Message}");
             }
         }
 
