@@ -17,6 +17,7 @@ function RegisterPage() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
     const [info, setInfo] = useState('');
+    info
 
     const navigate = useNavigate();
 
