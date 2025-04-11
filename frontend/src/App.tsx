@@ -17,7 +17,8 @@ import CookieConsent from 'react-cookie-consent';
 import AdminMoviesPage from './pages/AdminMoviesPage';
 import BoldToggle from './components/BoldToggle';
 import { SearchProvider } from './components/SearchContext';
-import ProtectedRoute from './components/ProtectedRoute';  
+import ProtectedRoute from './components/ProtectedRoute';
+import RecPage from './pages/RecPage';
 
 function AppContent() {
     const location = useLocation();
@@ -74,28 +75,48 @@ function AppContent() {
             {/* Render primary background routes */}
             <Routes location={backgroundLocation}>
                 <Route path="/" element={<HomePage />} />
-                
-                <Route path="/movies" element={
-                    <ProtectedRoute>
-                        <MoviePage />
-                    </ProtectedRoute>
-                } />
-                <Route path="/privacyPolicy" element={
-                    <ProtectedRoute>
-                        <PrivacyPolicyPage />
-                    </ProtectedRoute>
-                } />
-                <Route path="/admin" element={
-                    <ProtectedRoute>
-                        <AdminMoviesPage />
-                    </ProtectedRoute>
-                } />
 
-                <Route path="/unauthorized" element={
-                    <ProtectedRoute>
-                        <LoginPage />
-                    </ProtectedRoute>
-                } />
+                <Route
+                    path="/movies"
+                    element={
+                        <ProtectedRoute>
+                            <MoviePage />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/recs"
+                    element={
+                        <ProtectedRoute>
+                            <RecPage />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/privacyPolicy"
+                    element={
+                        <ProtectedRoute>
+                            <PrivacyPolicyPage />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/admin"
+                    element={
+                        <ProtectedRoute>
+                            <AdminMoviesPage />
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="/unauthorized"
+                    element={
+                        <ProtectedRoute>
+                            <LoginPage />
+                        </ProtectedRoute>
+                    }
+                />
             </Routes>
 
             {/* Render the login and register modals over the background */}
@@ -131,7 +152,7 @@ function App() {
     return (
         <Router>
             <SearchProvider>
-            <AppContent />
+                <AppContent />
             </SearchProvider>
         </Router>
     );

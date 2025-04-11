@@ -4,12 +4,10 @@ interface FetchMoviesResponse {
     movies: Movie[];
     totalNumMovies: number;
 }
-export const baseURL = 'https://movieintex2backend-bkhsfxfsdnejfbe6.eastus-01.azurewebsites.net';
-// export const baseURL = 'https://localhost:5000';
-
+// export const baseURL = 'https://movieintex2backend-bkhsfxfsdnejfbe6.eastus-01.azurewebsites.net';
+export const baseURL = 'https://localhost:5000';
 
 const API_URL = `${baseURL}/Movie`;
-
 
 export const fetchMovies = async (
     pageSize: number,
@@ -45,10 +43,45 @@ export const fetchMovies = async (
         throw error;
     }
 };
-export const fetchContentRecs = async (title: string) => {
+
+export const fetchLikedMovies = async () => {
+    try {
+        const response = await fetch(`${baseURL}/Rec/LikedMovies`, {
+            credentials: 'include',
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch liked movies');
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error('Error fetching liked movies: ', error);
+        throw error;
+    }
+};
+export const fetchContentRecs = async (movieId: string) => {
     try {
         const response = await fetch(
-            `${baseURL}/Rec/MovieRec?title=${title}&numRecs=20`,
+            `${baseURL}/Rec/ContentRec?movieId=${movieId}`,
+            {
+                credentials: 'include',
+            }
+        );
+        if (!response.ok) {
+            throw new Error('Failed to fetch movie recommendations');
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('Error fetching content recommendations:', error);
+        throw error;
+    }
+};
+
+export const fetchRecsContent = async (movie: string) => {
+    try {
+        const response = await fetch(
+            `${baseURL}/Rec/ContentRec?watchedMovie=${movie}`,
             {
                 credentials: 'include',
             }

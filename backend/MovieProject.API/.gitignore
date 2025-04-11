@@ -15,3 +15,5 @@ obj/
 
 *.sqlite-shm
 *.sqlite-wal
+
+appsettings.json

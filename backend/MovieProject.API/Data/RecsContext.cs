@@ -15,21 +15,32 @@ public partial class RecsContext : DbContext
     {
     }
 
+    public virtual DbSet<ContentRec> ContentRecs { get; set; }
+
     public virtual DbSet<MovieRec> MovieRecs { get; set; }
+
+    public virtual DbSet<UserFav> UserFavs { get; set; }
 
     public virtual DbSet<UserRec> UserRecs { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlite("Data Source=recs.db");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<ContentRec>(entity =>
+        {
+            entity.HasNoKey();
+
+            entity.Property(e => e.Movie).HasColumnName("movie");
+            entity.Property(e => e.Rec).HasColumnName("rec");
+            entity.Property(e => e.Type).HasColumnName("type");
+        });
+
         modelBuilder.Entity<MovieRec>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("MovieRecs");
+            entity.HasNoKey();
 
             entity.Property(e => e.IfYouWatched).HasColumnName("If you watched");
             entity.Property(e => e.Recommendation1).HasColumnName("Recommendation 1");
@@ -39,11 +50,20 @@ public partial class RecsContext : DbContext
             entity.Property(e => e.Recommendation5).HasColumnName("Recommendation 5");
         });
 
-        modelBuilder.Entity<UserRec>(entity =>
+        modelBuilder.Entity<UserFav>(entity =>
         {
             entity
                 .HasNoKey()
-                .ToTable("UserRecs");
+                .ToTable("UserFav");
+
+            entity.Property(e => e.Rating).HasColumnName("rating");
+            entity.Property(e => e.ShowId).HasColumnName("show_id");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
+        });
+
+        modelBuilder.Entity<UserRec>(entity =>
+        {
+            entity.HasNoKey();
 
             entity.Property(e => e.UserId).HasColumnName("user_id");
         });

@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap');
 
-
 /***********************************************
   0) Keyframes for fade in animation.
 ***********************************************/
@@ -157,7 +156,7 @@
 ***********************************************/
 .centered-content h1 {
     font-size: 3rem;
-    font-family: "Exo 2", sans-serif;
+    font-family: 'Exo 2', sans-serif;
     font-weight: bold;
     margin-bottom: 1rem;
 }
@@ -263,4 +262,5 @@
 .rec-text {
     font-family: 'Exo 2', sans-serif;
     font-weight: 600;
+    margin: 1rem;
 }
