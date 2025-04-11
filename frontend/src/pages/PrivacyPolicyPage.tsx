@@ -1,7 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/PrivacyPolicyPage.css';
+import { useEffect } from 'react';
 
 const PrivacyPolicyPage = () => {
+    useEffect(() => {
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+    }, []);
+
     return (
         <>
             <div className="container my-5 privacy-policy-page bg-dark text-white">

@@ -91,6 +91,7 @@ function LoginPage() {
                             type="email"
                             id="email"
                             name="email"
+                            autoComplete="email"
                             value={email}
                             onChange={handleChange}
                         />
@@ -102,12 +103,13 @@ function LoginPage() {
                             type="password"
                             id="password"
                             name="password"
+                            autoComplete="current-password"
                             value={password}
                             onChange={handleChange}
                         />
                         <label htmlFor="password">Password</label>
                     </div>
-                    <div className="form-check mb-3">
+                    <div className="form-check mb-3 text-center">
                         <input
                             className="form-check-input"
                             type="checkbox"
@@ -124,7 +126,9 @@ function LoginPage() {
                         </label>
                     </div>
                     <div className="text-end mb-3">
-                        <a href="#" className="forgot-password-link">Forgot username or password?</a>
+                        <button type="button" className="forgot-password-link btn btn-link p-0">
+                            Forgot username or password?
+                        </button>
                     </div>
                     <div className="d-grid mb-2">
                         <button

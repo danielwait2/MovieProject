@@ -51,7 +51,6 @@
 
 /* Spacing for form components */
 .login-modal-content form .form-floating,
-.login-modal-content form .form-check,
 .login-modal-content form .d-grid {
     margin-bottom: 1rem;
 }
@@ -86,4 +85,16 @@
 .login-modal-content .btn-signin:hover {
     background-color: #5ba761;
     opacity: 1;
+}
+
+.login-modal-content form .form-check {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.login-modal-content form .form-check-label {
+    margin: 0px; /* Explicit zero margin */
+    font-size: 0.95rem;
 }
