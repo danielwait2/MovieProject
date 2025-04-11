@@ -100,6 +100,7 @@ function RegisterPage() {
                 // Send userData directly without wrapping it in another object
                 body: JSON.stringify(userData),
             });
+            registerResponse
             setInfo('Registration successful, please log in');
         } catch (err) {
             console.error(err);
