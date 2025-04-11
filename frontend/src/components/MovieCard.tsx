@@ -34,6 +34,8 @@ const MovieCard: React.FC<MovieCardProps> = ({ showId, title, year }) => {
                         src={imageUrl || unknownImage}
                         alt={title}
                         onError={(e) => {
+                            e.currentTarget.onerror = null; // Prevent endless loops
+
                             e.currentTarget.src = unknownImage;
                         }}
                     />

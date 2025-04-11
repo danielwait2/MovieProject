@@ -1,13 +1,36 @@
 import { Movie } from '../types/Movie';
+import { User } from '../types/User';
 
 interface FetchMoviesResponse {
     movies: Movie[];
     totalNumMovies: number;
 }
-export const baseURL = 'https://movieintex2backend-bkhsfxfsdnejfbe6.eastus-01.azurewebsites.net';
-// export const baseURL = 'https://localhost:5000';
+// export const baseURL = 'https://movieintex2backend-bkhsfxfsdnejfbe6.eastus-01.azurewebsites.net';
+export const baseURL = 'https://localhost:5000';
 
 const API_URL = `${baseURL}/Movie`;
+
+export const addUser = async (newUser: User): Promise<User> => {
+    try {
+        console.log('Sending book data:', newUser); // Debugging log
+        const response = await fetch(`${API_URL}/AddUser`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newUser),
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to add book');
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error('Error adding book', error);
+        throw error;
+    }
+};
 
 export const fetchMovies = async (
     pageSize: number,

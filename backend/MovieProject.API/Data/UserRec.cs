@@ -7,7 +7,7 @@ public partial class UserRec
 {
     public int? UserId { get; set; }
 
-    public int? RecNum { get; set; }
-
     public string? ShowId { get; set; }
+
+    public string? RecNum { get; set; }
 }
