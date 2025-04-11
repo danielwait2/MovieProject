@@ -33,7 +33,8 @@ const MovieCard: React.FC<MovieCardProps> = ({ showId, title }) => {
                         src={imageUrl || unknownImage}
                         alt={title}
                         onError={(e) => {
-                            e.currentTarget.src = unknownImage;
+                            e.currentTarget.onerror = null; // Disable further error handling
+                            e.currentTarget.src = unknownImage; // Set fallback image
                         }}
                     />
                 </div>

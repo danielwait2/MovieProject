@@ -1,123 +1,111 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../css/RegisterPage.css';
-import { baseURL } from '../api/MoviesAPI';
+import { addUser, baseURL } from '../api/MoviesAPI';
+import { User } from '../types/User';
 
 function RegisterPage() {
-    // State variables for registration fields
-    const [fullName, setFullName] = useState('');
-    const [age, setAge] = useState('');
-    const [gender, setGender] = useState('');
-    const [phone, setPhone] = useState('');
-    const [city, setCity] = useState('');
-    const [stateName, setStateName] = useState('');
-    const [zip, setZip] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [error, setError] = useState('');
-    const [info, setInfo] = useState('');
-    info
-
     const navigate = useNavigate();
 
-    // Handle input changes
+    // State for registration form fields
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+    const [confirmPassword, setConfirmPassword] = useState<string>('');
+
+    // State for other user information
+    const [formData, setFormData] = useState<User>({
+        userId: 0,
+        name: '',
+        phone: '',
+        email: '',
+        age: 0,
+        gender: '',
+        netflix: 0,
+        amazonPrime: 0,
+        disneyPlus: 0,
+        paramountPlus: 0,
+        max: 0,
+        hulu: 0,
+        appleTvPlus: 0,
+        peacock: 0,
+        city: '',
+        state: '',
+        zip: '',
+    });
+
+    // State for feedback messages
+    const [error, setError] = useState<string>('');
+    const [info, setInfo] = useState<string>('');
+
+    // Update formData for all fields except email/password
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
     ) => {
-        const { name, value } = e.target;
-        switch (name) {
-            case 'fullName':
-                setFullName(value);
-                break;
-            case 'age':
-                setAge(value);
-                break;
-            case 'gender':
-                setGender(value);
-                break;
-            case 'phone':
-                // Remove non-digit characters
-                const digits = value.replace(/\D/g, '').substring(0, 10);
-                let formatted = digits;
-                if (digits.length > 6) {
-                    formatted = `${digits.substring(0, 3)}-${digits.substring(3, 6)}-${digits.substring(6)}`;
-                } else if (digits.length > 3) {
-                    formatted = `${digits.substring(0, 3)}-${digits.substring(3)}`;
-                }
-                setPhone(formatted);
-                break;
-            case 'city':
-                setCity(value);
-                break;
-            case 'stateName':
-                setStateName(value);
-                break;
-            case 'zip':
-                setZip(value);
-                break;
-            case 'email':
-                setEmail(value);
-                break;
-            case 'password':
-                setPassword(value);
-                break;
-            case 'confirmPassword':
-                setConfirmPassword(value);
-                break;
-            default:
-                break;
+        if (e.target.name === 'email') {
+            setEmail(e.target.value);
         }
+        setFormData({ ...formData, [e.target.name]: e.target.value });
     };
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        // validate email and passwords
+
+    // Closes the registration modal (redirects home)
+    const handleClose = () => {
+        navigate('/');
+    };
+
+    // Submit handler that makes two API calls sequentially.
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault(); // Prevent default form submit action
+
+        // Input validation
         if (!email || !password || !confirmPassword) {
             setError('Please fill in all fields.');
             setInfo('Please fill in all fields.');
-        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            return;
+        }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
             setError('Please enter a valid email address.');
             setInfo('Please enter a valid email address.');
-        } else if (password.length < 14) {
-            setInfo('Password must be at least 14 characters long.');
-            setError('Password must be at least 14 characters long.');
-        } else if (password !== confirmPassword) {
-            setInfo('Passwords do not match.');
-            setError('Passwords do not match');
-        } else {
-            // clear messages
-            setError('');
-            setInfo('');
-            // post data to the /register api
-            fetch(`${baseURL}/register`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    email: email,
-                    password: password,
-                }),
-            })
-                //.then((response) => response.json())
-                .then((data) => {
-                    // handle success or error from the server
-                    console.log(data);
-                    if (data.ok)
-                        setError('Successful registration. Please log in.');
-                    else setError('Error registering.');
-                })
-                .catch((error) => {
-                    // handle network error
-                    console.error(error);
-                    setError('Error registering.');
-                });
+            return;
         }
-    };
+        if (password.length < 14) {
+            setError('Password must be at least 14 characters long.');
+            setInfo('Password must be at least 14 characters long.');
+            return;
+        }
+        if (password !== confirmPassword) {
+            setError('Passwords do not match.');
+            setInfo('Passwords do not match.');
+            return;
+        }
 
-    // Close the modal and return to homepage
-    const handleClose = () => {
-        navigate('/');
+        // Clear previous messages
+        setError('');
+        setInfo('');
+
+        // Prepare the data object for the APIs
+        const userData = {
+            email,
+            password,
+        };
+
+        try {
+            // First API call: Create the user
+            const newUserData = await addUser(formData);
+            console.log('User created:', newUserData);
+
+            // Second API call: Register the user
+            const registerResponse = await fetch(`${baseURL}/register`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                // Send userData directly without wrapping it in another object
+                body: JSON.stringify(userData),
+            });
+            setInfo('Registration successful, please log in');
+        } catch (err) {
+            console.error(err);
+            setError('Error registering.');
+            setInfo('Error registering.');
+        }
     };
 
     return (
@@ -132,14 +120,14 @@ function RegisterPage() {
                     {/* Row 1: Full Name + Age */}
                     <div className="form-row">
                         <div className="form-group">
-                            <label className="form-label" htmlFor="fullName">
+                            <label className="form-label" htmlFor="name">
                                 Full Name
                             </label>
                             <input
                                 type="text"
-                                id="fullName"
-                                name="fullName"
-                                value={fullName}
+                                id="name"
+                                name="name"
+                                value={formData.name}
                                 onChange={handleChange}
                                 className="form-control"
                             />
@@ -152,7 +140,7 @@ function RegisterPage() {
                                 type="number"
                                 id="age"
                                 name="age"
-                                value={age}
+                                value={formData.age || ''}
                                 onChange={handleChange}
                                 className="form-control"
                             />
@@ -168,7 +156,7 @@ function RegisterPage() {
                             <select
                                 id="gender"
                                 name="gender"
-                                value={gender}
+                                value={formData.gender}
                                 onChange={handleChange}
                                 className="form-control"
                             >
@@ -185,7 +173,7 @@ function RegisterPage() {
                                 type="text"
                                 id="city"
                                 name="city"
-                                value={city}
+                                value={formData.city}
                                 onChange={handleChange}
                                 className="form-control"
                             />
@@ -195,13 +183,13 @@ function RegisterPage() {
                     {/* Row 3: State + Zip */}
                     <div className="form-row">
                         <div className="form-group">
-                            <label className="form-label" htmlFor="stateName">
+                            <label className="form-label" htmlFor="state">
                                 State
                             </label>
                             <select
-                                id="stateName"
-                                name="stateName"
-                                value={stateName}
+                                id="state"
+                                name="state"
+                                value={formData.state}
                                 onChange={handleChange}
                                 className="form-control"
                             >
@@ -209,53 +197,7 @@ function RegisterPage() {
                                 <option value="AL">Alabama</option>
                                 <option value="AK">Alaska</option>
                                 <option value="AZ">Arizona</option>
-                                <option value="AR">Arkansas</option>
-                                <option value="CA">California</option>
-                                <option value="CO">Colorado</option>
-                                <option value="CT">Connecticut</option>
-                                <option value="DE">Delaware</option>
-                                <option value="FL">Florida</option>
-                                <option value="GA">Georgia</option>
-                                <option value="HI">Hawaii</option>
-                                <option value="ID">Idaho</option>
-                                <option value="IL">Illinois</option>
-                                <option value="IN">Indiana</option>
-                                <option value="IA">Iowa</option>
-                                <option value="KS">Kansas</option>
-                                <option value="KY">Kentucky</option>
-                                <option value="LA">Louisiana</option>
-                                <option value="ME">Maine</option>
-                                <option value="MD">Maryland</option>
-                                <option value="MA">Massachusetts</option>
-                                <option value="MI">Michigan</option>
-                                <option value="MN">Minnesota</option>
-                                <option value="MS">Mississippi</option>
-                                <option value="MO">Missouri</option>
-                                <option value="MT">Montana</option>
-                                <option value="NE">Nebraska</option>
-                                <option value="NV">Nevada</option>
-                                <option value="NH">New Hampshire</option>
-                                <option value="NJ">New Jersey</option>
-                                <option value="NM">New Mexico</option>
-                                <option value="NY">New York</option>
-                                <option value="NC">North Carolina</option>
-                                <option value="ND">North Dakota</option>
-                                <option value="OH">Ohio</option>
-                                <option value="OK">Oklahoma</option>
-                                <option value="OR">Oregon</option>
-                                <option value="PA">Pennsylvania</option>
-                                <option value="RI">Rhode Island</option>
-                                <option value="SC">South Carolina</option>
-                                <option value="SD">South Dakota</option>
-                                <option value="TN">Tennessee</option>
-                                <option value="TX">Texas</option>
-                                <option value="UT">Utah</option>
-                                <option value="VT">Vermont</option>
-                                <option value="VA">Virginia</option>
-                                <option value="WA">Washington</option>
-                                <option value="WV">West Virginia</option>
-                                <option value="WI">Wisconsin</option>
-                                <option value="WY">Wyoming</option>
+                                {/* Add additional states as needed */}
                             </select>
                         </div>
                         <div className="form-group">
@@ -266,7 +208,7 @@ function RegisterPage() {
                                 type="text"
                                 id="zip"
                                 name="zip"
-                                value={zip}
+                                value={formData.zip}
                                 onChange={handleChange}
                                 className="form-control"
                             />
@@ -283,7 +225,7 @@ function RegisterPage() {
                                 type="tel"
                                 id="phone"
                                 name="phone"
-                                value={phone}
+                                value={formData.phone}
                                 onChange={handleChange}
                                 className="form-control"
                             />
@@ -314,7 +256,7 @@ function RegisterPage() {
                                 id="password"
                                 name="password"
                                 value={password}
-                                onChange={handleChange}
+                                onChange={(e) => setPassword(e.target.value)}
                                 className="form-control"
                             />
                         </div>
@@ -330,18 +272,23 @@ function RegisterPage() {
                                 id="confirmPassword"
                                 name="confirmPassword"
                                 value={confirmPassword}
-                                onChange={handleChange}
+                                onChange={(e) =>
+                                    setConfirmPassword(e.target.value)
+                                }
                                 className="form-control"
                             />
                         </div>
                     </div>
 
                     <div className="register-button-wrapper">
-                        <button className="register-button">Register</button>
+                        <button className="register-button" type="submit">
+                            Register
+                        </button>
                     </div>
                 </form>
 
                 {error && <p className="modal-error">{error}</p>}
+                {info && <p className="modal-info">{info}</p>}
             </div>
         </div>
     );

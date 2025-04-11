@@ -17,6 +17,8 @@ public partial class RecsContext : DbContext
 
     public virtual DbSet<ContentRec> ContentRecs { get; set; }
 
+    public virtual DbSet<DefaultRec> DefaultRecs { get; set; }
+
     public virtual DbSet<MovieRec> MovieRecs { get; set; }
 
     public virtual DbSet<UserFav> UserFavs { get; set; }
@@ -36,6 +38,15 @@ public partial class RecsContext : DbContext
             entity.Property(e => e.Movie).HasColumnName("movie");
             entity.Property(e => e.Rec).HasColumnName("rec");
             entity.Property(e => e.Type).HasColumnName("type");
+        });
+
+        modelBuilder.Entity<DefaultRec>(entity =>
+        {
+            entity.HasNoKey();
+
+            entity.Property(e => e.Rating).HasColumnName("rating");
+            entity.Property(e => e.ShowId).HasColumnName("show_id");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
         });
 
         modelBuilder.Entity<MovieRec>(entity =>
@@ -65,6 +76,7 @@ public partial class RecsContext : DbContext
         {
             entity.HasNoKey();
 
+            entity.Property(e => e.ShowId).HasColumnName("show_id");
             entity.Property(e => e.UserId).HasColumnName("user_id");
         });
 

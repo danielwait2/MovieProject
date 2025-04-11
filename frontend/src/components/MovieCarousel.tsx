@@ -135,7 +135,7 @@ function MovieCarousel({
                 });
                 url = `${baseURL}/Movie/RecMoviesTemp?${params.toString()}`;
             } else {
-                url = `${baseURL}/Rec/UserRec?numRecs=20`;
+                url = `${baseURL}/Rec/UserRecMain?numRecs=20`;
             }
             try {
                 setLoading(true);

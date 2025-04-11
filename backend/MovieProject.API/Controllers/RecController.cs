@@ -27,43 +27,24 @@ namespace MovieProject.API.Controllers
         public async Task<IActionResult> GetLikedRecs()
         {
 
-            // Try to get the custom claim.
-            var customUserIdClaim = User.FindFirst("CustomUserId")?.Value;
-
-            int customUserId;
-            if (!int.TryParse(customUserIdClaim, out customUserId))
-            {
-                // Fallback: use the IdentityUserId from the NameIdentifier claim
-                var identityUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-                if (string.IsNullOrWhiteSpace(identityUserId))
-                {
-                    return BadRequest("Invalid user.");
-                }
-
-                // Query the Movies database for the custom user record.
-                var customUser = await _moviesContext.Users.FirstOrDefaultAsync(u => u.IdentityUserId == identityUserId);
-                if (customUser == null)
-                {
-                    return BadRequest("Invalid user.");
-                }
-                customUserId = customUser.UserId;
-            }
-            else
-            {
-            }
+            // Fallback: use the IdentityUserId from the NameIdentifier claim
+            var email = User.FindFirstValue(ClaimTypes.Email);
+            var userId = await _moviesContext.Users
+                .Where(u => u.Email == email)
+                .Select(u => u.UserId)
+                .FirstOrDefaultAsync();
 
             try
             {
-
                 // Query for recommendations asynchronously.
                 var reviewedMovies = await _recContext.UserFavs
-                    .Where(r => r.UserId == customUserId)
+                    .Where(r => r.UserId == userId)
                     .Select(r => r.ShowId)
                     .ToListAsync();
 
                 var movies = _moviesContext.Movies
                     .Where(m => reviewedMovies.Contains(m.ShowId))
-                     .ToList();
+                    .ToList();
 
                 return Ok(movies);
             }
@@ -73,41 +54,66 @@ namespace MovieProject.API.Controllers
             }
         }
 
-        [HttpGet("UserRec")]
+        [HttpGet("UserRecMain")]
+        public async Task<IActionResult> GetMainRecs(int numRecs)
+        {
+
+            // Fallback: use the IdentityUserId from the NameIdentifier claim
+            var email = User.FindFirstValue(ClaimTypes.Email);
+
+                var userId = await _moviesContext.Users
+                    .Where(u => u.Email == email)
+                    .Select(u => u.UserId)
+                    .FirstOrDefaultAsync();
+
+
+                var recs = await _recContext.UserRecs
+                    .Where(r => r.UserId == userId)
+                    .OrderBy(r => r.RecNum)
+                    .Take(numRecs)
+                    .Select(r => r.ShowId)
+                    .ToListAsync();
+
+
+            if (recs == null || !recs.Any())
+            {
+                 recs = await _recContext.DefaultRecs
+                    .OrderBy(r => r.Rating)
+                    .Take(numRecs)
+                    .Select(r => r.ShowId)
+                    .ToListAsync();
+
+            }
+
+            var movies = _moviesContext.Movies
+                .Where(m => recs.Contains(m.ShowId))
+                .ToList();
+            return Ok(movies);
+           
+        }
+
+            [HttpGet("UserRec")]
         public async Task<IActionResult> GetRecommendations(int numRecs)
         {
 
             // Try to get the custom claim.
             var customUserIdClaim = User.FindFirst("CustomUserId")?.Value;
 
-            int customUserId;
-            if (!int.TryParse(customUserIdClaim, out customUserId))
-            {
                 // Fallback: use the IdentityUserId from the NameIdentifier claim
-                var identityUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-                if (string.IsNullOrWhiteSpace(identityUserId))
-                {
-                    return BadRequest("Invalid user.");
-                }
+                var email = User.FindFirstValue(ClaimTypes.Email);
+                var userId = await _moviesContext.Users
+                    .Where(u => u.Email == email)
+                    .Select(u => u.UserId)
+                    .FirstOrDefaultAsync();
 
-                // Query the Movies database for the custom user record.
-                var customUser = await _moviesContext.Users.FirstOrDefaultAsync(u => u.IdentityUserId == identityUserId);
-                if (customUser == null)
-                {
-                    return BadRequest("Invalid user.");
-                }
-                customUserId = customUser.UserId;
-            }
-            else
-            {
-            }
+
 
             try
             {
  
                 // Query for recommendations asynchronously.
                 var reviewedMovies = await _recContext.UserFavs
-                    .Where(r => r.UserId == customUserId)
+                    .Where(r => r.UserId == userId)
                     .Select(r => r.ShowId)
                     .ToListAsync();
 

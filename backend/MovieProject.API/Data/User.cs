@@ -59,8 +59,5 @@ namespace MovieProject.API.Data
 
         [Column("zip")]
         public string? Zip { get; set; }
-        [Column("identityUserId")]
-        [Required]
-        public string IdentityUserId { get; set; }
     }
 }
