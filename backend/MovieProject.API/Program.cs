@@ -30,9 +30,13 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("IdentityConnection")));
 
 builder.Services.AddDbContext<RecsContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("RecsConnection")));
-
-
+    options.UseSqlite(builder.Configuration.GetConnectionString("Data Source=recs.db"))
+           .EnableSensitiveDataLogging()
+           .LogTo(s => {
+               Console.ForegroundColor = ConsoleColor.Yellow;
+               Console.WriteLine("**** " + s + " ****");
+               Console.ResetColor();
+           }, LogLevel.Information));
 
 builder.Services.AddAuthorization();
 
