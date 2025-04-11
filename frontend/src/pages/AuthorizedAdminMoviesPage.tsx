@@ -127,6 +127,9 @@ const AuthorizedAdminMoviePage = () => {
             <AuthorizeView>
                 <br />
                 <br />
+                <br />
+                <br />
+                <br />
                 <div>
                     <div className="text-center mb-3">
                         <h1 className="admin-title">Admin - Movies</h1>
