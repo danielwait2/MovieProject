@@ -6,7 +6,7 @@ import '../css/GenreFilter.css';
 
 import LazyLoad from './LazyLoad';
 import Slider, { CustomArrowProps, Settings } from 'react-slick';
-import { baseURL, fetchContentRecs } from '../api/MoviesAPI';
+import { fetchContentRecs } from '../api/MoviesAPI';
 
 function NextArrow(props: CustomArrowProps) {
     const { onClick } = props;
@@ -34,8 +34,6 @@ interface RecMovieCarouselProps {
 }
 
 const RecMovieCarousel: React.FC<RecMovieCarouselProps> = ({ movie }) => {
-    const [loading, setLoading] = useState(true);
-    loading;
     const sliderRef = useRef<Slider>(null);
     const accumulatedDeltaRef = useRef(0); // Accumulates wheel deltaX
 
@@ -81,6 +79,7 @@ const RecMovieCarousel: React.FC<RecMovieCarouselProps> = ({ movie }) => {
 
     const [recs, setRecs] = useState<Movie[]>([]);
     const [error, setError] = useState<Movie[]>([]);
+    error
     useEffect(() => {
         const fetchMovies = async () => {
             const loadRecs = async () => {
