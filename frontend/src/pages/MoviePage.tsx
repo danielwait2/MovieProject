@@ -8,6 +8,7 @@ import { useSearch } from '../components/SearchContext';
 
 /* 1) Import the new MoviePage.css file here */
 import '../css/MoviePage.css';
+import ToRecBtn from '../components/ToRecBtn';
 
 const MoviePage = () => {
     const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
@@ -23,6 +24,7 @@ const MoviePage = () => {
                     <div className="featured-movie">
                         <FeaturedMovie />
                     </div>
+                    <ToRecBtn />
 
                     {searchTerm && (
                         <div>

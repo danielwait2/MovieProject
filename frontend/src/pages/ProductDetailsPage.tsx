@@ -172,7 +172,7 @@ const ProductDetailsPage: React.FC = () => {
                 </div>
                 <div className="recommended-section">
                     <h2 className="rec-text">You may also like:</h2>
-                    <RecSection title={movie.title} />
+                    <RecSection movieId={movie.showId} />
                 </div>
             </div>
         </div>

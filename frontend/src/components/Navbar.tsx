@@ -76,6 +76,14 @@ const Navbar = () => {
                                 </Link>
                             </li>
                             <li className="nav-item">
+                                <Link
+                                    className="nav-link custom-nav-link"
+                                    to="/recs"
+                                >
+                                    For You
+                                </Link>
+                            </li>
+                            <li className="nav-item">
                                 <Logout className="nav-link custom-nav-link">
                                     Logout <AuthorizedUser value="email" />
                                 </Logout>
